@@ -67,3 +67,47 @@ $ brew install --cask racket
 ## License
 
 This work is licensed under the GPLv3 or any later version.
+
+---
+
+[errata](https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/errata.html)
+[booklist](https://billthelizard.blogspot.com/2008/12/books-programmers-dont-really-read.html)
+better read it [with the adequate maths background](https://tekkie.wordpress.com/2018/04/03/a-word-of-advice-before-you-get-into-sicp/)
+
+I will use [official wiki](https://web.archive.org/web/20160307045827/http://community.schemewiki.org/?sicp-solutions) as the main part. Notice [Racket](https://gitlab.com/utkarsh181/sicp)/[PLTScheme](https://tekkie.wordpress.com/2011/07/26/just-a-quick-note-about-sicp-mutable-pairs-and-pltscheme/) doesn't have *mutable pairs*.
+> The dev. team made this decision, because in their view it made Scheme more of a pure functional language
+
+# other solutions
+- almost full
+  - detailed
+    - [1](https://www.inchmeal.io/sicp/ch-1/notes.html)
+    - [2](https://zv.github.io/sicp-chapter-4)
+  - [3](https://mk12.github.io/sicp/exercise/5/4.html)
+- maybe full
+  - [1](https://lockywolf.wordpress.com/2021/02/08/solving-sicp/#org64d8b79)
+- maybe full with many language implementations
+  - [1](https://www.reddit.com/r/lisp/comments/qqwfh2/sicps_solution_in_racket_and_guile/)
+- only chapter 1
+  - [1](https://sicp-solution.readthedocs.io/en/latest/chp1/1.2.html#exercise-1-24)
+  - [2](https://git.sr.ht/~acsqdotme/sicp/tree)
+  - [only 1.1](https://lucidmanager.org/productivity/page/4/)
+  - [with maths](https://discuss.criticalfallibilism.com/t/justin-does-sicp/96/33)
+  - [3](https://sicp-solutions.readthedocs.io/en/latest/)
+- chapter 1,2
+  - [1](https://notabug.org/ZelphirKaltstahl/old-racket-sicp-solutions)
+  - [2](https://kendyck.com/page/2/)
+  - [3](https://voom4000.wordpress.com/2015/08/10/sicp-solutions/)
+  - [with many links](https://billthelizard.blogspot.com/2009/10/sicp-challenge.html)
+  - [4](https://notes.abrocadabro.com/learning/courses/sicp/)
+  - [5](https://github.com/alex4814/sicp-solution)
+- chapter 1,2,3
+  - [1](https://quirksand.nfshost.com/topics/sicp.html)
+- chapter 1,2,3,4
+  - [1](https://github.com/qiao/sicp-solutions/tree/master/chapter4)
+  - [2](https://wizardbook.wordpress.com/solutions-index/)
+  - [3](https://adrianstoll.com/post/sicp-structure-and-interpretation-of-computer-programs-solutions/)
+- only partially
+  - [1](https://tekkie.wordpress.com/?s=sicp&submit=Search)
+# TODO
+- [programming assignments](https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/psets/index.html) from [the official page](https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/index.html)
+- [community-wiki](http://community.schemewiki.org/?sicp-ex-1.18)
