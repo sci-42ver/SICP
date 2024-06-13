@@ -41,7 +41,8 @@
 ; (e)
 (define empty-order
   ; here can't let 0 be ' '. https://stackoverflow.com/a/17308922/21294350
-  (lambda () 0))
+  ; better use nil https://stackoverflow.com/a/9115801/21294350
+  (lambda () '()))
 (empty-order)
 ; (f)
 (define add-to-order
@@ -52,7 +53,7 @@
 ; (g) https://stackoverflow.com/a/46964914/21294350
 (define (order-size n)
   (+ 1 (floor (/ (log n) (log 10))))
-)
+  )
 (order-size 237)
 
 ; (define (fact n)
@@ -99,7 +100,7 @@
       cost
       (helper (+ cost (digit_combo order digit)) order (+ digit 1) max))) ; O(1) space
   (helper 0 order 1 max) ; if this is put in the above define of helper -> Unspecified return value error https://stackoverflow.com/a/47999614/21294350
-)
+  )
 
 ; (define (order-cost order)
 ;   (if (< order 10)

@@ -45,7 +45,7 @@ along with SDF.  If not, see <https://www.gnu.org/licenses/>.
 
 ;; coderef: match-example-5
 ((match:element '(? x)) '((a b) c)
-                (match:new-dict) result-receiver)
+                        (match:new-dict) result-receiver)
 ;Value: (success ((x (a b) ?)) 1)
 
 
@@ -89,23 +89,23 @@ along with SDF.  If not, see <https://www.gnu.org/licenses/>.
 
 ;; coderef: match-example-10
 (run-matcher
- (match:compile-pattern '(a ((? b) 2 3) (? b) c))
- '(a (1 2 3) 2 c)
- match:bindings)
+  (match:compile-pattern '(a ((? b) 2 3) (? b) c))
+  '(a (1 2 3) 2 c)
+  match:bindings)
 ;Value: #f
 
 ;; coderef: match-example-11
 (run-matcher
- (match:compile-pattern '(a ((? b) 2 3) (? b) c))
- '(a (1 2 3) 1 c)
- match:bindings)
+  (match:compile-pattern '(a ((? b) 2 3) (? b) c))
+  '(a (1 2 3) 1 c)
+  match:bindings)
 ;Value: ((b 1 ?))
 
 ;; coderef: match-example-12
 (run-matcher
- (match:compile-pattern '(a (?? x) (?? y) (?? x) c))
- '(a b b b b b b c)
- print-all-matches)
+  (match:compile-pattern '(a (?? x) (?? y) (?? x) c))
+  '(a b b b b b b c)
+  print-all-matches)
 #|
 ((y (b b b b b b) ??) (x () ??))
 ((y (b b b b) ??) (x (b) ??))
@@ -116,33 +116,33 @@ along with SDF.  If not, see <https://www.gnu.org/licenses/>.
 
 ;; coderef: match-example-13
 (run-matcher
- (match:compile-pattern '(a ((? b) 2 3) (? b) c))
- '(a (1 2 3) 1 c)
- match:bindings)
+  (match:compile-pattern '(a ((? b) 2 3) (? b) c))
+  '(a (1 2 3) 1 c)
+  match:bindings)
 ;Value: ((b 1 ?))
 
 #;
 ;;; These are to be built by students.
 ;; coderef: match-example-14
 (run-matcher
- (match:compile-pattern '(?:choice a b (? x) c))
- 'z
- match:bindings)
+  (match:compile-pattern '(?:choice a b (? x) c))
+  'z
+  match:bindings)
 ;Value ((x z ?))
 
 #;
 ;; coderef: match-example-15
 (run-matcher
- (match:compile-pattern
- `((? y) (?:choice a b (? x ,string?) (? y ,symbol?) c)))
- '(z z)
- match:bindings)
+  (match:compile-pattern
+    `((? y) (?:choice a b (? x ,string?) (? y ,symbol?) c)))
+  '(z z)
+  match:bindings)
 ;Value ((y z ?))
 
 #;
 ;; coderef: match-example-16
 (run-matcher
- (match:compile-pattern `(?:choice b (? x ,symbol?)))
+  (match:compile-pattern `(?:choice b (? x ,symbol?)))
   'b
   print-all-matches)
 #|

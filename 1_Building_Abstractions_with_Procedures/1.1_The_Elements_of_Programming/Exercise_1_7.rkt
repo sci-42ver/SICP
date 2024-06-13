@@ -26,6 +26,14 @@
 (define (sqrt x)
   (sqrt-iter 1.0 x))
 
+; (define (sqrt-iter guess x)
+;   (displayln guess)
+;   (if (old-good-enough? guess x)
+;       guess
+;       (sqrt-iter (improve guess x) x))
+;   (displayln "end")
+; )
+
 ;; old good-enough?
 (sqrt 0.0001)
 ;; 0.03230844833048122
@@ -82,12 +90,18 @@
 ;; the gaps between them are greater or equal then 2^-9. When it's lower
 ;; then 2^43, the gaps are lower or equal then 2^-10 = 0.0009765625
 ;; 2^42*(1 + 2^-1 + ... + 2^-52), 2^43 * 1, 2^43 * (1 + 2^-52)
+;; 2^-10 -> 2^-9 [2^43 * (1 + 2^-52)-2^43 * 1]
+(- (expt 2 43) (* (expt 2 43) (- 1 (expt 2 -53))))
 (exact->inexact (- (expt 2 43) (* (expt 2 43) (- 1 (expt 2 -53)))))
 ;; 0.0009765625 = 2^-10
-(exact->inexact (* (expt 2 43) (- 1 (expt 2 -53))))
+(exact->inexact (* (expt 2 43) (- 1 (expt 2 -53)))) ; 2^42*(1 + 2^-1 + ... + 2^-52)
 ;; 8796093022207.999
 (sqrt 8796093022207.999)
+; TODO is this coincidence with (expt 2 43)? 
 ;; 2965820.8007578608 *bleep* yeah!
+
+(exact->inexact (expt 2 43))
+(sqrt 8796093022208.0)
 
 ;; new good-enough?
 (sqrt 0.0001)
@@ -96,8 +110,14 @@
 ;; 2965820.801641373
 
 ;; RTFM
-;; https://github.com/xxyzz/c/blob/master/2/2-1.c
-;; https://en.wikipedia.org/wiki/Unit_in_the_last_place
+;; https://github.com/xxyzz/c/blob/master/2/2-1.c DBL_EPSILON -> 2^{-(p-1)} which is one constant factor in ulp calculation.
+;; See p, emin (it corresponds x-1 -> -1022).
+;; book https://seriouscomputerist.atariverse.com/media/pdf/book/C%20Programming%20Language%20-%202nd%20Edition%20(OCR).pdf 
+
+;; https://en.wikipedia.org/wiki/Unit_in_the_last_place Here we first decide exponent e, 
+;; then we use b^{-(p-1)}=b_0 https://en.wikipedia.org/wiki/Double-precision_floating-point_format
+;; and then multiply the exponent b^{max ...} Here e_{min} is due to the Exponent limitation.
+;; See book https://sci-hub.se/10.1007/978-3-319-76526-6 p26,39.
 
 ;; smallest positive integer that can't be represented by flonum
 ;; which has 53(52)-bit significand

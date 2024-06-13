@@ -1,3 +1,17 @@
+Thanks for your more detailed explanation using the more powerful Racket. I use MIT-Scheme same as the course. Someone also recommends using Clojure but I thought the most simple Scheme may teach more with the above introduction book. Here I add some notes about the above syntax for someone only using Scheme as me: 1. `precision` is one optional argument https://docs.racket-lang.org/guide/lambda.html#%28part._.Declaring_.Optional_.Arguments%29. 2. parameterize https://docs.racket-lang.org/guide/parameterize.html and bf https://docs.racket-lang.org/math/bigfloat.html.
+
+Could you help clarifying some questions about your answer? Thanks in advance. 1. Where is "since we want it to affect free variables only, and $x$ is bound" from? Your first 3 formulas are both renaming the bound variables $x$ and "$y$ does not occur free in $e$" cares about $t$ in $t/y$.
+
+2. What is exactly meaning of $\sum_z (e\{z/x\}\{t/y\})$ about a. $\{z/x\}$ first or $\{t/y\}$ first to be calculated. b. whether $\{z/x\}$ will make $t$ change like $t=2x\mapsto 2z$? IMHO if $\{z/x\}$ is first then the renaming did nothing by just thinking $x$ as $z$. If $\{t/y\}$ is first then "if $x$ occurs free" problem is still there.
+
+3. Does "Now, imagine having to deal with this intricate definition every time ... It's boring, tedious, error-prone" mean that it is tedious to iterate for all $e$ which may be complex because it may be long?
+
+Thanks for the detailed explanation. I can understand 2 now. For 1, for example assume $\sum_x e=x=y$. Then $\sum_x e\{t/y\}=t$ instead of $x=y$. I can't understand why "We want $e\{t/x\}$ to be unaffected by renaming bound variables in $e$". Could you tell me why the demand is reasonable here? For 3, I am also reading SICP as the intro book so I know little about lambda calculus. From "makes the proof cluttered" I think I understand why people avoid doing that renaming explicitly.
+
+4. Ensure Objective in each course is achieved after learning the 2 books (SICP, SDF)
+5. We [need to read the footnotes](https://www.reddit.com/r/GradSchool/comments/1gf2td/comment/cajrgmj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button) which is posted by one Mod of r/academia.
+
+Is it easy to implement in Scheme? Googling "streams of decimal digits" recommends one post about c++ https://stackoverflow.com/a/13186757/21294350 saying we need to multiply 10^k and then floor -> divide by 10^k for precision k. But "multiply 10^k" may cause overflow. I think it is wrong. https://stackoverflow.com/a/34095030/21294350 uses `std::setprecision`. For scheme, https://stackoverflow.com/a/5208049/21294350 may work (I didn't dig into it which has many syntaxes absent from SICP up to chapter 1 because learning SICP is not to learn Scheme).
 # projects recommended by [course_note] to be done.
 > Examples include an event-driven object-oriented simulation game, a conversational program that uses rules and pattern matching, symbolic algebra of polynomials and rational functions, interpreters for various languages, and a compiler with register optimization.
 I skipped [Problem Sets](https://github.com/abrantesasf/sicp-abrantes-study-guide?tab=readme-ov-file), Exam, homework and Quizzes because IMHO those numerous exercises in the book is enough and most of courses pay more attention for projects when grading. Also 
@@ -50,6 +64,11 @@ inappropriate
 #### Workload
 > In addition, please be aware that prolonged computer usage combined with *poor posture or improper typing habits* can result in conditions such as *repetitive strain injury*.
 #### bible (See the bold text)
+#### grades
+- homework
+  > This applies to the weekly problem sets and to the programming projects.
+  tutorials (skipped due to the following)
+  > You may be asked to explain or to *expand upon your written homework solutions* in order to demonstrate your mastery of the material.
 #### tutor
 They are for tutorial's.
 > If you are unable to attend a tutorial, you should contact your tutor in advance to make alternate arrangements for that week.
@@ -107,6 +126,16 @@ TODO who is the instructor Mike Phillips, is [him](https://en.wikipedia.org/wiki
 - [AI_preq_sicp]
   > if you want to do Sussman's more recent books like SDF you're going to have to use the latest mit-scheme anyway
 - pset / PS09 -> assignment.
+### [overview](https://groups.csail.mit.edu/mac/users/gjs/6.945/overview.pdf)
+- >  Substantial *weekly programming assignments and a final project* are an *integral* part of the subject.
+### [red-tape](https://groups.csail.mit.edu/mac/users/gjs/6.945/red-tape.pdf)
+- Assignments
+- project
+  > If you don’t come up with a great IDEA yourself, we have *some ideas that you might pursue*. You will be expected to write elegant code that can be *easily read and understood* by us. You must supply a clear *English explanation* of how your software works, and a set of *test cases* *illustrating and testing* its operation. You will present a brief summary and demo in class near the end of the term.
+- homework may mean assignment
+  > by a combination of classroom participation, homework, and project work
+- Collaborative work
+  > *involve themselves in all aspects* of the work. ... you should indicate the names of any collaborators for *each part* of the assignment
 ### sdf solutions
 - partial
   [this having the most solutions](https://github.com/compclub/exercises/blob/main/chapter-2-dsl/rmoehn/README.md) uses Clojure
@@ -164,12 +193,15 @@ interestingly inst.eecs.berkeley.edu [doesn't need one account before](https://w
 - [OBSOLETE Homework, projects, lab](http://wla.berkeley.edu/~cs61a/reader/vol1.html)
 - Course information (I only read bold text and the first sentence in each paragraph to get the main idea.)
   - recommends "You should try to complete the *reading assignment* for each week *before the lecture*.".
-    Although for mit OCW, it may [be not that case](https://qr.ae/psxpwo) written by one MIT student.
-    > I will rarely read the textbook unless some combination of the following is true: (1) I am very confused or lack the requisite background, (2) I am specifically told to do so by the professor, (3) the textbook is *highly recommended* by people I know who *took the class* before, (4) I have *time* on my hands.
-    > When I’m not taking the corresponding class in person, I take a similar approach to reading the book, but *only after I’ve watched the lectures and read through the notes*. ... I’d resort to notes from *other professors* (sometimes not from MIT) before I’ll read the book.
-    for exam
-    > , reading the textbook first would *help immensely*, but it’s *not as efficient* because I’ll learn a lot more about *what the professor thinks is important* by reading/watching material directly produced by him or her.
-    help
+    - Although for mit OCW, it may [be not that case](https://qr.ae/psxpwo) written by one MIT student.
+      > I will rarely read the textbook unless some combination of the following is true: (1) I am very confused or lack the requisite background, (2) I am specifically told to do so by the professor, (3) the textbook is *highly recommended* by people I know who *took the class* before, (4) I have *time* on my hands.
+      > When I’m not taking the corresponding class in person, I take a similar approach to reading the book, but *only after I’ve watched the lectures and read through the notes*. ... I’d resort to notes from *other professors* (sometimes not from MIT) before I’ll read the book.
+      for exam
+      > , reading the textbook first would *help immensely*, but it’s *not as efficient* because I’ll learn a lot more about *what the professor thinks is important* by reading/watching material directly produced by him or her.
+    - It [depends on the student habits](https://www.reddit.com/r/mit/comments/11d9ap0/comment/ja7d7a5/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button).
+      > If a class requires readings before the lecture, it's usually *redundant* to the lecture and annoying (khm 6.031 khm)
+      > I have a friend who enjoys reading textbooks at the end of the day to better understand and *digest the material from lectures*. Most of my friends and I do readings (mostly class notes *because usually there is no textbook*) while doing *psets/labs* if there are concepts we forgot/didn't understand/need a deeper understanding of for the assignment.
+  - help
     > Your *first and most important* resource for help in learning the material in this course is your *fellow students* ... You are responsible for helping each other learn.
     self-study in campus
     > Instead, come see a faculty member to discuss *sponsorship of a non-class account* for independent study
@@ -257,8 +289,14 @@ I only check labs without checking Homework, Quizzes and Retakes
       > share information regarding an event the professor *might want to know* about or pass on an article from your news feed that is *relevant to the course*
   - 2
     - correct grammar and spelling
+- [more general](https://sparkmailapp.com/formal-email-template)
 # MIT-scheme miscs
 - [exit message meaning](https://github.com/search?q=repo%3Abarak%2Fmit-scheme%20term_halt_messages&type=code) https://github.com/barak/mit-scheme/blob/56e1a12439628e4424b8c3ce2a3118449db509ab/src/microcode/term.c#L111C5-L111C30
+# html book searching tips
+- select by the specific emphasized text
+  [XPath](https://scrapfly.io/blog/how-to-select-elements-by-text-in-xpath/) ([no corresponding CSS selector](https://stackoverflow.com/a/4561376/21294350))
+- following-sibling
+  [XPath -> selector](https://devhints.io/xpath#using-axes)
 
 ---
 
@@ -355,6 +393,7 @@ I only check labs without checking Homework, Quizzes and Retakes
   - use video when unable to understand
 
 # chapter 1
+Since I was to learn programming, so for paragraphs not intensively with programming knowledge I only read their first sentence.
 ## 6.037 (dropped for future reading except this one already read)
 - [web.mit.edu/alexmv/6.037/](https://web.archive.org/web/20200113183359/http://web.mit.edu/alexmv/6.037/)
 - [Graduate P/D/F](https://registrar.mit.edu/classes-grades-evaluations/grades/grading-policies/graduate-pdf-option) is *not one standard* option
@@ -373,6 +412,7 @@ I only check labs without checking Homework, Quizzes and Retakes
   > the exprs in the body of the lambda expression are evaluated sequentially in it
   - `expr expr` in the above link may be no use. But `define` [may use that](https://stackoverflow.com/a/47166401/21294350).
   - I don't find "regular lambda" in [the video transcript](https://ocw.mit.edu/courses/6-001-structure-and-interpretation-of-computer-programs-spring-2005/resources/1b-procedures-and-processes-substitution-model/)
+  - Also see exercise 1.6 where even `cond` can't implement it *with the `define` syntactic sugar for `lambda`*.
 - > How do we know it works?
   It only shows one big iteration step where 2 in `(lambda (a b) (/ (+ a b) 2)) 1.0 2` should be ` (/ x guess)`.
 - > But, it only solves a smaller version of the problem
@@ -425,10 +465,174 @@ IMHO 6.037 is the condensed (as its main page says) of 6.001 lectures by removin
 2. [x] is solved by the lec
 3. [ ] use $\lim_{n\to \infty^+}(1+\frac{1}{n})^n$?
   Then $n=1e^{input}$ where `input=-100`, etc.
-4. [x] see code
-5. [ ] I originally planned to use base case for `n=1,2`.
+  - See [this QA](https://stackoverflow.com/q/78597962/21294350)
+    We should better read the book first before the recitation since
+    1. floating precision problem is said in exercise 1.7.
+    2. Shawn's comment is implied in [one footnote](https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book-Z-H-10.html#footnote_Temp_35).
+1. [x] see code
+2. [ ] I originally planned to use base case for `n=1,2`.
   The solution is more elegant to use implicitly the 0th number being 0 although in the actual series that doesn't exist.
 1. [ ] See https://www.mathsisfun.com/numbers/golden-ratio.html. See the approximation formula said in mcs p1005.
+## book reading
+### 1.1
+- > an integration of the motion of the Solar System
+  [See](https://en.wikipedia.org/wiki/Stability_of_the_Solar_System)
+- > A second advantage of prefix notation is that it extends in a straight-forward way to allow combinations to be nested
+  i.e. enforced parentheses which has much less ambiguity.
+- > paraphrasing Oscar Wilde
+  [See](https://www.edge.org/response-detail/10765#:~:text=What%20is%20value%3F,and%20the%20value%20of%20nothing%22.)
+- > operators are themselves compound expressions
+  [See](https://stackoverflow.com/q/57091377/21294350)
+- > Syntactic sugar causes cancer of the semicolon
+  [See](https://stackoverflow.com/questions/547710/why-is-syntactic-sugar-sometimes-considered-a-bad-thing#comment138572595_547760)
+  https://eli.thegreenplace.net/2009/02/16/abstract-vs-concrete-syntax-trees
+  > The pointer is now clearly below the array
+  i.e. [array of pointers](https://stackoverflow.com/q/6130712/21294350) as expected.
+- > e problem arises from the possibility of confusion between the names used for the formal parameters of a procedure and the (possibly identical) names used in the expressions to which the procedure may be applied
+  i.e. local compared with global
+```scheme
+(define (f x) (* x x))
+(define x 10)
+(f (+ x x))
+```
+- TODO
+  - > Indeed, there is a *long history* of erroneous definitions of substitution in the literature of logic and programming semantics.
+  - > prove for procedure applications that can be modeled using substitution (includ-ing all the procedures in the first two chapters of this book) and that yield legitimate values, normal-order and applicative-order evaluation *produce the same value*.
+  - https://softwareengineering.stackexchange.com/a/186255
+    > because normal-order evaluation becomes much more complicated to deal with when we leave the realm of procedures that can be modeled by substitution.
+    notice "special form" may be [neither of applicative or normal][how_special_form_is_special].
+- [clause](https://www.merriam-webster.com/dictionary/clause) different from that in logic.
+- [so-called very high-level languages](https://en.wikipedia.org/wiki/Declarative_programming) which seems to be learned in COD.
+- [antilogarithm](https://mathworld.wolfram.com/Antilogarithm.html) is just exp
+- > Such a name is called a bound variable, and we say that the procedure definition binds its formal parameters.
+  i.e. its value [has range](https://en.wikipedia.org/wiki/Free_variables_and_bound_variables)
+  > if the value of that variable symbol has been bound to a specific value or range of values in the domain of discourse or universe.
+- [consistent_renaming]
+  - [capture-avoiding substitution](https://stackoverflow.com/a/11332661/21294350)
+    i.e. as the book says
+    > It would have changed from free to bound
+  - An5Drama's question
+    2: here $z$ won't exist in $t,e,y$, so it is safe to replace (i.e. "a *fresh* name"). More detailed about "free" see the book.
+- [lexical scoping](https://www.shecodes.io/athena/9740-what-is-lexical-scoping-and-how-does-it-work-in-javascript#:~:text=Lexical%20scoping%20is%20a%20way,interact%20with%20examples%20in%20JavaScript.) just means child scope can use all variables defined in the parent scope but not vice versa.
+- > the simplest name-packaging problem
+  i.e. to [package the function](https://stackoverflow.com/a/20520767/21294350).
+  > better structuring a procedure, not for efficiency
+  - Also see [this with one ASCII figure](https://veliugurguney.com/blog/post/sicp_7_-_sections_1.1.6_1.1.7_1.1.8)
+### TODO
+- > should note the remarks on “tail recursion” in Section 1.2.1.
+### exercises
+- [Ben Bitdiddle](https://academickids.com/encyclopedia/index.php/Ben_Bitdiddle)
+- [x] 1.1, 1.2, 1.4 trivial
+- [x] 1.3
+```scheme
+(cond ((and (<= x y) (<= x z)) (squareSum y z)))
+```
+  - schemewiki has solutions using `min`, etc.
+- [x] 1.5
+  - "applicative-order" endless loop due to expanding `(p)`.
+    "normal-order" -> `(if (= 0 0) 0 (p)))` -> `0`.
+    detailed see schemewiki
+  - Also see https://stackoverflow.com/a/61307130/21294350.
+- [ ] 1.6 I don't know why "Aborting!: maximum recursion depth exceeded"
+  - wiki
+    - the key
+      > an interpreter follows *applicative substitution*
+      so
+      > it only evaluates one of its parameters- not both.
+      > it never stops calling itself *due to the third parameter* passed to it in sqrt-iter.
+      ~~i.e. it will always expanding the 3rd without ending.~~
+      > such that any expressions within the consequent or alternate portions are evaluated regardless of the predicate
+      > the iteration procedure is *called without return*
+      Also see emmp
+      > That includes sqrt-iter which is extended to new-if which *again* leads to the evaluation of all the sub-expressions including *sqrt-iter* etc.
+      which is same as jhenderson.
+    - See R5RS [Conditionals](https://groups.csail.mit.edu/mac/ftpdir/scheme-reports/r5rs-html/r5rs_6.html#SEC30)
+      and [lambda](https://groups.csail.mit.edu/mac/ftpdir/scheme-reports/r5rs-html/r5rs_6.html#SEC29)
+      > by binding the variables in the formal argument list to fresh locations
+    - jsdalton is same as the main part.
+    - book link https://web.archive.org/web/20160603160145/https://mitpress.mit.edu/sicp/full-text/sicp/book/node85.html from 2018 https://web.archive.org/web/20180101000000*/http://mitpress.mit.edu/sicp/full-text/sicp/book/node85.html (I don't read it when learning chapter 1 since they are from chapter 4)
+      Also see 1.1.5 for one brief intro.
+    - dft
+      - without reading his 2nd comment, here `if` is nested in `lambda` so `(/ 1 0)` is evaluated.
+        This corresponds to
+        > The reason the above example generates an error is because (1 / 0), the second parameter to try, is evaluated before the try is even called.
+        And `try` has the same problem as `new-if` indeed.
+      - > The applicative vs. normal explanation made sense until I saw the try example above.
+        Does him read the 1st version book? See emmp who read the book more carefully.
+    - andersc
+      - > And I guess for a certain interpreter, maybe it should use a consistent way for all processes?
+        As [how_special_form_is_special] says, "special form" is just exception as expected.
+    - See uninja's commment which is what I thought after reading dpchrist's comment for how dpchrist's comment is different from the exercise.
+    - srachamim's comment is trivial
+      See student's comment for where trevoriannguyen is wrong about understanding others' comments although his thoughts are right:
+      > Indeed, the new-if procedure *body (which contains the cond special form) is never even applied* to the resulting 3 arguments as the 3rd argument never stops evaluating itself!
+    - cypherpunkswritecode says right about if but a bit wrong about `cond`
+      See R5RS
+      > A 'cond' expression is evaluated by evaluating the <test> expressions of successive <clause>s in order *until one of them evaluates to a true* value (see section see section Booleans). When a <test> evaluates to a true value, *then the remaining <expression>s in its <clause> are evaluated in order*, and the result(s) of the last <expression> in the <clause> is(are) returned as the result(s) of the entire 'cond' expression.
+      means same as ["Conditional expressions are evaluated as follows. ..."](https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book-Z-H-10.html#call_footnote_Temp_24)
+- [x] 1.7
+  - wiki
+    - TODO
+      - > a relative tolerance of 0.001 times the difference between one guess and the next
+        Here should be "a relative tolerance of 0.001" by [definition](https://www.mathworks.com/matlabcentral/answers/26743-absolute-and-relative-tolerance-definitions#answer_34847)
+      - > This is not the case at all — the original programme checks that the *guess squared* is within 0.001 of the *radicand*, whereas the algorithm described by "random person" checks that the *new guess* is within 0.001 of the *former guess*.
+        ~~Weird in the archive link, it "checks that the *new guess* is within 0.001 of the *former guess*" same as this [oldest archive](https://web.archive.org/web/20111211154013/http://community.schemewiki.org/?sicp-ex-1.7)~~
+        Maybe he wants to mean
+        > because, 0.001 being by definition *smaller than the thousandth of any number larger than 1*, the *lower tolerance* forces the algorithm to continue refining the guess. It is indeed, however, *inferior for very small numbers* because 0.001 is by definition a larger tolerance than the thousandth of any number smaller than 1.
+      - Maggyero
+        - TODO 
+          - after numerical analysis [1](https://math.stackexchange.com/a/3526215/1059606)
+            the proof of the 1st formula, "can be written as", Sterbenz lemma, why $\delta$ disappears after Sterbenz lemma, something which we can easily verify.
+          - I skipped the proof of the 1st formula
+            then the key is
+            > 4×10−3 which is larger than the (absolute) tolerance which we are currently using.
+            Then "relative error" becomes $\frac{1}{2}\tau$ which is `epsilon` in the code.
+            We choose the number maybe due to $|\epsilon|\le u$.
+            - [$\lesssim$](https://math.stackexchange.com/q/1793395/1059606)
+          why 3/2 and 9/4
+        - `(< (abs (- (square guess) x)) (if (= x 0) min-float (* tolerance x)))`
+          `min-float` instead of `0` because `<`.
+        - notice `(* tolerance guess)` corresponds to the difference with `guess`
+          while `(* tolerance x)` is with `x`.
+        - [`min-float`](https://en.wikipedia.org/wiki/Double-precision_floating-point_format#Exponent_encoding)
+    - Here root should be `sqrt` by [R5RS](https://groups.csail.mit.edu/mac/ftpdir/scheme-reports/r5rs-html/r5rs_8)
+    - notice those solutions using `abs (- (square guess) x)` in comparison is wrong when that condition can't be met by the precision.
+    - Owen
+      > because of the *limitation of bits*, the "improved guess" will simply be *equal* to "old guess" at some point, results in (- y^2 x) *never changes* and hence never reach inside the tolerance range. ... This situation applied to the small number case as well --- if *the threshold is to be set extremely small*.
+      i.e. 0.001 is no use at all.
+      > should never care about a specific precision value (or percentage) at all
+      > simply reference to GWB's solution, which I believe is the *best solution*, *guaranteeing to stop* and at the same time, with the *best accuracy*.
+    - Thomas
+      > I should've read the whole discussion before posting — my mistake!
+    - berkentekin is same as solution 1, 2.
+    - Maggyero
+      QUESTION is same as the problem
+      kw: scale, relative error, scaled to the radicand/guess
+- [ ] 1.8
+  if we solve $y=x^3\Rightarrow f(y)=y-x^3$
+  then $y-\frac{y-x^3}{1}=x^3$ ~~says nothing useful.~~ implies directly calculating $x^3$.
+  - Newton's method [may not work](https://scholarworks.utep.edu/cgi/viewcontent.cgi?article=2421&context=cs_techrep#:~:text=Interestingly%2C%20the%20simplest%20example%20on,the%20Newton's%20method%20works%20perfectly.&text=desired%20extension.,%E2%88%92F(%E2%88%92x).) at least when $x_2=x_0$ and ad infinitum.
+    This also relates with the init guess. See the code 1_8.scm from wiki.
+  - wiki
+    - See the 2nd solution
+      >  ;; Fix: take absolute cuberoot and return with sign 
+      which ensures positive -> no weird zero.
+      And it directly takes improve instead of `1.0 0.0`
+    - the 3rd solution is similar to the original solution in the book for `sqrt`.
+    - the 4th is similar to the 2nd.
+    - > This solution makes use of the fact that (in LISP) procedures are also data.
+      the 5th
+      i.e. use func as the param, e.g. `sqrt-improve`.
+    - Chan's `if (< x 0)` is said in the 2nd solution
+      and `good-enough?` is just same as the 5th.
+      - > But I just made this procedure with low precision. I think you can fix this
+        one solution is to change from `0.001` to one smaller number.
+## cs61a (read the *related reading* before reading the lecture as the above advises)
+- [recursion equation](https://www.geeksforgeeks.org/recursion-in-lisp/)
+# TODO about the earlier chapters after reading later chapters
+- > by incorporating a limited form of normal-order evaluation
+# TODO after lambda calculus
+- [consistent_renaming] An5Drama's question 3.
 
 TODO read Lecture 5,6 & 6.001 in perspective & The Magic Lecture in 6.037 which don't have corresponding chapters in the book. Also read [~~Lectures without corresponding sections~~](https://ocw.mit.edu/courses/6-001-structure-and-interpretation-of-computer-programs-spring-2005/pages/readings/) ([6.001 2007](https://web.archive.org/web/20161201165314/http://sicp.csail.mit.edu/Spring-2007/calendar.html) is almost same as 2005 and they are both taught by [Prof. Eric Grimson](https://orgchart.mit.edu/leadership/vice-president-open-learning-interim-and-chancellor-academic-advancement/biography)).
 
@@ -441,3 +645,7 @@ TODO read Lecture 5,6 & 6.001 in perspective & The Magic Lecture in 6.037 which 
 [AI_preq_sicp]:https://functionalcs.github.io/curriculum/sicp.html
 
 [mit_End_of_an_Era_comment]:https://mitadmissions.org/blogs/entry/the_end_of_an_era_1/#comment-31965
+
+[how_special_form_is_special]:https://softwareengineering.stackexchange.com/a/137437
+
+[consistent_renaming]:https://cs.stackexchange.com/a/97700/161388

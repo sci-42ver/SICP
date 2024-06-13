@@ -77,9 +77,12 @@ why I still learn sicp in 2024. See [this](https://github.com/sci-42ver/Discrete
 I will use [official wiki](https://web.archive.org/web/20240228152042/http://community.schemewiki.org/?sicp-solutions) as the main part. Notice [Racket](https://gitlab.com/utkarsh181/sicp)/[PLTScheme](https://tekkie.wordpress.com/2011/07/26/just-a-quick-note-about-sicp-mutable-pairs-and-pltscheme/) doesn't have *mutable pairs*.
 > The dev. team made this decision, because in their view it made Scheme more of a pure functional language
 
+I choose R5RS as Racket is based on it and 6.5151 (6.905) Red Tape Memo recommends it.
+
 # book
 - sicp from [this 2019 course material although "The End of an Era" says 6.001 is obsolete since 2008](https://web.mit.edu/6.001/6.037/sicp.pdf) ([newer 2.andresraba6.6](https://sarabander.github.io/sicp/)). Also see [this](https://www.cliki.net/SICP) and [this](https://news.ycombinator.com/item?id=13918465) for other forms.
-  [official](https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book-Z-H-5.html) ([archive](https://web.archive.org/web/20170710220837/https://mitpress.mit.edu/sicp/full-text/book/book-Z-H-1.html))
+  [*official*](https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book-Z-H-5.html) ([archive](https://web.archive.org/web/20170710220837/https://mitpress.mit.edu/sicp/full-text/book/book-Z-H-1.html))
+  - [interactive](https://xuanji.appspot.com/isicp/1-1-elements.html)
 # prerequisite
 - [no prerequisite](https://github.com/ossu/computer-science/issues/1081) is needed although [tekkie](https://tekkie.wordpress.com/2018/04/03/a-word-of-advice-before-you-get-into-sicp/) says more advanced maths is needed.
   Also see [history Course Catalogue](https://dome.mit.edu/handle/1721.3/187889), i.e. history_mit_Course_Catalogue.pdf.
@@ -124,7 +127,12 @@ I will use [official wiki](https://web.archive.org/web/20240228152042/http://com
   - [3](https://adrianstoll.com/post/sicp-structure-and-interpretation-of-computer-programs-solutions/)
 - only partially
   - [1](https://tekkie.wordpress.com/?s=sicp&submit=Search)
+# How to learn
+- [see](https://github.com/abrantesasf/sicp-abrantes-study-guide?tab=readme-ov-file)
+  - I skipped
+    https://web.archive.org/web/20221024062249/https://code-and-cocktails.herokuapp.com/blog/2014/07/06/what-i-have-re-learned-from-sicp/
+  - The most of links are covered in this doc and the related doc in DMIA_CRLS repo.
 # TODO
 - [programming assignments](https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/psets/index.html) from [the official page](https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/index.html)
-- [community-wiki](http://community.schemewiki.org/?sicp-ex-1.18)
+- ~~[community-wiki](http://community.schemewiki.org/?sicp-ex-1.18)~~
 - how to make vim maybe [directly running the code](https://www.neilvandyke.org/sicp-texi/) in the texinfo/info ("the Info hypertext format that can be viewed in Emacs").
