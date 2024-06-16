@@ -6,10 +6,10 @@
 
 (define (last-ele seq)
   (if (last-exp? seq)
-      (car seq)
-      (last-ele (cdr seq))))
+    (car seq)
+    (last-ele (cdr seq))))
 
 (define (tagged-list? exp tag)
   (if (pair? exp)
-      (eq? (last-ele exp) tag)
-      #f))
+    (eq? (last-ele exp) tag)
+    #f))

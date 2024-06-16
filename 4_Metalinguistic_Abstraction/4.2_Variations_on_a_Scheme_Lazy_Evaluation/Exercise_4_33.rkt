@@ -3,12 +3,12 @@
 (define (text-of-quotation exp env)
   (define (iter vars)
     (if (null? vars)
-        null
-        (list 'cons (list 'quote (car vars)) (iter (cdr vars)))))
+      null
+      (list 'cons (list 'quote (car vars)) (iter (cdr vars)))))
   (let ([value (cadr exp)])
     (if (pair? value)
-        (eval (iter value) env)
-        value)))
+      (eval (iter value) env)
+      value)))
 
 ;; edit eval quoted? branch
 

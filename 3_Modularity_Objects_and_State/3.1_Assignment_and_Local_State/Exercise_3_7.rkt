@@ -3,18 +3,18 @@
 (define (make-account balance password)
   (define (withdraw amount)
     (if (>= balance amount)
-        (begin (set! balance (- balance amount))
-               balance)
-        "Insufficient funds"))
+      (begin (set! balance (- balance amount))
+        balance)
+      "Insufficient funds"))
   (define (deposit amount)
     (set! balance (+ balance amount))
     balance)
   (define (dispatch input-password m)
     (cond [(not (eq? password input-password)) (lambda (x) "Incorrect password")]
-          [(eq? m 'withdraw) withdraw]
-          [(eq? m 'deposit) deposit]
-          [else (error "Unknown request: MAKE-ACCOUNT"
-                       m)]))
+      [(eq? m 'withdraw) withdraw]
+      [(eq? m 'deposit) deposit]
+      [else (error "Unknown request: MAKE-ACCOUNT"
+                   m)]))
   dispatch)
 
 (define (make-joint account old-pw new-pw)
@@ -24,10 +24,10 @@
     ((account old-pw 'deposit) amount))
   (define (dispatch input-password m)
     (cond [(not (eq? new-pw input-password)) (lambda (x) "Incorrect password")]
-          [(eq? m 'withdraw) withdraw]
-          [(eq? m 'deposit) deposit]
-          [else (error "Unknown request: MAKE-ACCOUNT"
-                       m)]))
+      [(eq? m 'withdraw) withdraw]
+      [(eq? m 'deposit) deposit]
+      [else (error "Unknown request: MAKE-ACCOUNT"
+                   m)]))
   dispatch)
 
 (define peter-acc (make-account 100 'open-sesame))

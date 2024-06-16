@@ -4,22 +4,22 @@
 (define (eval-sequence exps env)
   (cond [(last-exp? exps)
          (eval (first-exp exps) env)]
-        [else
-         (eval (first-exp exps) env)
-         (eval-sequence (rest-exps exps) env)]))
+    [else
+     (eval (first-exp exps) env)
+     (eval-sequence (rest-exps exps) env)]))
 
 ;; Cy's version:
 (define (eval-sequence exps env)
   (cond [(last-exp? exps) (eval (first-exp exps) env)]
-        [else (actual-value (first-exp exps) env)
-              (eval-sequence (rest-exps exps) env)]))
+    [else (actual-value (first-exp exps) env)
+          (eval-sequence (rest-exps exps) env)]))
 
 ;; a:
 (define (for-each proc items)
   (if (null? items)
-      'done
-      (begin (proc (car items))
-             (for-each proc (cdr items)))))
+    'done
+    (begin (proc (car items))
+      (for-each proc (cdr items)))))
 (for-each (lambda (x) (newline) (display x))
           (list 57 321 88))
 ;; proc is evaluated before calling apply

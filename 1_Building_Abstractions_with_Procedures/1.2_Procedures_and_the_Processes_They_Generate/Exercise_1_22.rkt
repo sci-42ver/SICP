@@ -4,8 +4,8 @@
 
 (define (find-divisor n test-divisor)
   (cond [(> (square test-divisor) n) n]
-        [(divides? test-divisor n) test-divisor]
-        [else (find-divisor n (add1 test-divisor))]))
+    [(divides? test-divisor n) test-divisor]
+    [else (find-divisor n (add1 test-divisor))]))
 
 (define (divides? a b) (zero? (remainder b a)))
 (define (square x) (* x x))
@@ -18,8 +18,8 @@
 
 (define (start-prime-test n start-time count)
   (if (prime? n)
-      (report-prime (- (* (current-inexact-milliseconds) 1000) start-time) n count)
-      (timed-prime-test (+ n 2) count)))
+    (report-prime (- (* (current-inexact-milliseconds) 1000) start-time) n count)
+    (timed-prime-test (+ n 2) count)))
 
 (define (report-prime elapsed-time n count)
   (newline)
@@ -32,8 +32,8 @@
 ; find the three smallest primes larger than n
 (define (search-for-primes n)
   (if (even? n)
-      (timed-prime-test (add1 n) 0)
-      (timed-prime-test (+ n 2) 0)))
+    (timed-prime-test (add1 n) 0)
+    (timed-prime-test (+ n 2) 0)))
 
 (search-for-primes 1000)
 ; 1009 *** 3.0 microseconds

@@ -19,20 +19,20 @@
 
 (define (type-tag datum)
   (if (pair? datum)
-      (car datum)
-      (error "Bad tagged datum: TYPE-TAG" datum)))
+    (car datum)
+    (error "Bad tagged datum: TYPE-TAG" datum)))
 
 (define (contents datum)
   (if (pair? datum)
-      (cdr datum)
-      (error "Bad tagged datum: CONTENTS" datum)))
+    (cdr datum)
+    (error "Bad tagged datum: CONTENTS" datum)))
 
 (define (get-record-division1 name file)
   (let ([record (filter (lambda (employee) (eq? name (first employee)))
                         (contents file))])
     (if (null? record)
-        null
-        (first record))))
+      null
+      (first record))))
 
 (put 'get-record 'division1 get-record-division1)
 
@@ -40,8 +40,8 @@
   (let ([record (filter (lambda (employee) (eq? name (cadar employee)))
                         (contents file))])
     (if (null? record)
-        null
-        (first record))))
+      null
+      (first record))))
 
 (put 'get-record 'division2 get-record-division2)
 
@@ -57,16 +57,16 @@
 (define (get-salary-division1 name file)
   (let ([record (get-record name file)])
     (if (null? record)
-        null
-        (cadr (third record)))))
+      null
+      (cadr (third record)))))
 
 (put 'get-salary 'division1 get-salary-division1)
 
 (define (get-salary-division2 name file)
   (let ([record (get-record name file)])
     (if (null? record)
-        null
-        (cadr (second record)))))
+      null
+      (cadr (second record)))))
 
 (put 'get-salary 'division2 get-salary-division2)
 
@@ -85,8 +85,8 @@
                                (get-record name file))
                              files))])
     (if (null? record)
-        null
-        (first record))))
+      null
+      (first record))))
 
 ; test find-employee-record
 (find-employee-record "Dotard" (list division1-file division2-file))

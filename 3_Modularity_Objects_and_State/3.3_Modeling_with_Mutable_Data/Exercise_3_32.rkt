@@ -11,18 +11,18 @@
 (define (make-queue) (mcons '() '()))
 (define (front-queue queue)
   (if (empty-queue? queue)
-      (error "FRONT called with an empty queue" queue)
-      (mcar (front-ptr queue))))
+    (error "FRONT called with an empty queue" queue)
+    (mcar (front-ptr queue))))
 (define (insert-queue! queue item)
   (let ([new-pair (mcons item '())])
     (cond [(empty-queue? queue)
            (set-front-ptr! queue new-pair)
            (set-rear-ptr! queue new-pair)
            queue]
-          [else
-           (set-mcdr! (rear-ptr queue) new-pair)
-           (set-rear-ptr! queue new-pair)
-           queue])))
+      [else
+       (set-mcdr! (rear-ptr queue) new-pair)
+       (set-rear-ptr! queue new-pair)
+       queue])))
 
 ; exercise 3.32 ordinary list like queue, last in, first out
 (define (insert-queue! queue item)
@@ -31,15 +31,15 @@
            (set-front-ptr! queue new-pair)
            (set-rear-ptr! queue new-pair)
            queue]
-          [else
-           (set-front-ptr! queue new-pair)
-           queue])))
+      [else
+       (set-front-ptr! queue new-pair)
+       queue])))
 
 (define (delete-queue! queue)
   (cond [(empty-queue? queue)
          (error "DELETE! called with an empty queue" queue)]
-        [else (set-front-ptr! queue (mcdr (front-ptr queue)))
-              queue]))
+    [else (set-front-ptr! queue (mcdr (front-ptr queue)))
+          queue]))
 
 (define (make-time-segment time queue)
   (mcons time queue))
@@ -67,22 +67,22 @@
       (make-time-segment time q)))
   (define (add-to-segments! segments)
     (if (= (segment-time (mcar segments)) time)
-        (insert-queue! (segment-queue (mcar segments))
-                       action)
-        (let ([rest (cdr segments)])
-          (if (belongs-before? rest)
-              (set-mcdr!
-               segments
-               (mcons (make-new-time-segment time action)
-                      (mcdr segments)))
-              (add-to-segments! rest)))))
+      (insert-queue! (segment-queue (mcar segments))
+                     action)
+      (let ([rest (cdr segments)])
+        (if (belongs-before? rest)
+          (set-mcdr!
+           segments
+           (mcons (make-new-time-segment time action)
+                  (mcdr segments)))
+          (add-to-segments! rest)))))
   (let ([segments (segments agenda)])
     (if (belongs-before? segments)
-        (set-segments!
-         agenda
-         (mcons (make-new-time-segment time action)
-                segments))
-        (add-to-segments! segments))))
+      (set-segments!
+       agenda
+       (mcons (make-new-time-segment time action)
+              segments))
+      (add-to-segments! segments))))
 
 (define (remove-first-agenda-item! agenda)
   (let ([q (segment-queue (first-segment agenda))])
@@ -92,11 +92,11 @@
 
 (define (first-agenda-item agenda)
   (if (empty-agenda? agenda)
-      (error "Agenda is empty: FIRST-AGENDA-ITEM")
-      (let ([first-seg (first-segment agenda)])
-        (set-current-time! agenda
-                           (segment-time first-seg))
-        (front-queue (segment-queue first-seg)))))
+    (error "Agenda is empty: FIRST-AGENDA-ITEM")
+    (let ([first-seg (first-segment agenda)])
+      (set-current-time! agenda
+                         (segment-time first-seg))
+      (front-queue (segment-queue first-seg)))))
 
 (define the-agenda (make-agenda))
 (define inverter-delay 2)
@@ -110,36 +110,36 @@
 
 (define (propagate)
   (if (empty-agenda? the-agenda)
-      'done
-      (let ([first-item (first-agenda-item the-agenda)])
-        (first-item)
-        (remove-first-agenda-item! the-agenda)
-        (propagate))))
+    'done
+    (let ([first-item (first-agenda-item the-agenda)])
+      (first-item)
+      (remove-first-agenda-item! the-agenda)
+      (propagate))))
 
 (define (make-wire)
   (let ([signal-value 0] [action-procedures '()])
     (define (set-my-signal! new-value)
       (if (not (= signal-value new-value))
-          (begin (set! signal-value new-value)
-                 (call-each action-procedures))
-          'done))
+        (begin (set! signal-value new-value)
+          (call-each action-procedures))
+        'done))
     (define (accept-action-procedure! proc)
       (set! action-procedures
-            (cons proc action-procedures))
-			; )  ; exercise 3.31 uncomment this line and comment next line to not call proc
+        (cons proc action-procedures))
+      ; )  ; exercise 3.31 uncomment this line and comment next line to not call proc
       (proc))
     (define (dispatch m)
       (cond [(eq? m 'get-signal) signal-value]
-            [(eq? m 'set-signal!) set-my-signal!]
-            [(eq? m 'add-action!) accept-action-procedure!]
-            [else (error "Unknown operation: WIRE" m)]))
+        [(eq? m 'set-signal!) set-my-signal!]
+        [(eq? m 'add-action!) accept-action-procedure!]
+        [else (error "Unknown operation: WIRE" m)]))
     dispatch))
 
 (define (call-each procedures)
   (if (null? procedures)
-      'done
-      (begin ((car procedures))
-             (call-each (cdr procedures)))))
+    'done
+    (begin ((car procedures))
+      (call-each (cdr procedures)))))
 
 (define (get-signal wire) (wire 'get-signal))
 (define (set-signal! wire new-value)
@@ -160,10 +160,10 @@
 (define (logical-and a b)
   (if (or (and (not (= a 1)) (not (= a 0)))
           (and (not (= b 1)) (not (= b 0))))
-      (error "Invalid signal" a b)
-      (if (and (= a 1) (= b 1))
-          1
-          0)))
+    (error "Invalid signal" a b)
+    (if (and (= a 1) (= b 1))
+      1
+      0)))
 
 (define (inverter input output)
   (define (invert-input)
@@ -173,8 +173,8 @@
   (add-action! input invert-input) 'ok)
 (define (logical-not s)
   (cond [(= s 0) 1]
-        [(= s 1) 0]
-        [else (error "Invalid signal" s)]))
+    [(= s 1) 0]
+    [else (error "Invalid signal" s)]))
 
 ; exercise 3.21:
 (define a (make-wire))

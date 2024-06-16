@@ -13,8 +13,8 @@
      (let ([result-frames (qeval (unique-query-content query)
                                  (singleton-stream frame))])
        (if (stream-singleton? result-frames)
-           result-frames
-           empty-stream)))
+         result-frames
+         empty-stream)))
    frame-stream))
 (put 'unique 'qeval uniquely-asserted)
 

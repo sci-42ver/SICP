@@ -11,18 +11,18 @@
       (let ([current-pair (if (mpair? pairs) (mcar pairs) null)])
         (cond [(null? current-pair)
                (end-proc)]
-              [(zero? nth-pair)
-               (find-proc current-pair)]
-              [else
-               (scan (mcdr pairs) (sub1 nth-pair))])))
+          [(zero? nth-pair)
+           (find-proc current-pair)]
+          [else
+           (scan (mcdr pairs) (sub1 nth-pair))])))
     (cond [(eq? env the-empty-environment)
            (end-proc)]
-          [(zero? nth-frame)
-           (scan (first-frame env) nth-var)]
-          [else
-           (env-loop (enclosing-environment env)
-                     (sub1 nth-frame)
-                     nth-var)]))
+      [(zero? nth-frame)
+       (scan (first-frame env) nth-var)]
+      [else
+       (env-loop (enclosing-environment env)
+                 (sub1 nth-frame)
+                 nth-var)]))
   (env-loop env
             (lexical-frame address)
             (lexical-var address)))
@@ -33,14 +33,14 @@
    (lambda (current-pair)
      (let ([value (frame-unit-value current-pair)])
        (if (eq? value '*unassigned*)
-           (error "Variable is unassigned at" address)
-           value)))
+         (error "Variable is unassigned at" address)
+         value)))
    env
    address))
 
 (define (lexical-address-set! address val env)
   (travsersing-compile-env
    (lambda () (error "Unbound variable at: SET!" address))
-    (lambda (current-pair) (set-mcdr! current-pair val))
+   (lambda (current-pair) (set-mcdr! current-pair val))
    env
    address))

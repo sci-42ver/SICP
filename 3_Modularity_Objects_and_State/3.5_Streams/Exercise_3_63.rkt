@@ -2,7 +2,7 @@
 (require racket/stream)
 
 (define (average x y)
-    (/ (+ x y) 2))
+  (/ (+ x y) 2))
 
 (define (sqrt-improve guess x)
   (average guess (/ x guess)))

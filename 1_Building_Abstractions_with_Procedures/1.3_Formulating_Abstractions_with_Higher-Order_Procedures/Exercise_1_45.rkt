@@ -10,8 +10,8 @@
   (define (try guess)
     (let ([next (f guess)])
       (if (close-enough? guess next)
-          next
-          (try next))))
+        next
+        (try next))))
   (try first-guess))
 
 (define (average x y)
@@ -26,8 +26,8 @@
 (define (repeated f n)
   (define (iter g i)
     (if (< i 1)
-        g
-        (iter (compose f g) (sub1 i))))
+      g
+      (iter (compose f g) (sub1 i))))
   (iter identity n))
 
 (define (test n x damp-times)

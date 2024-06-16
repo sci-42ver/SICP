@@ -14,7 +14,7 @@
 (define (logical-or a b)
   (if (or (and (not (= a 1)) (not (= a 0)))
           (and (not (= b 1)) (not (= b 0))))
-      (error "Invalid signal" a b)
-      (if (or (= a 1) (= b 1))
-          1
-          0)))
+    (error "Invalid signal" a b)
+    (if (or (= a 1) (= b 1))
+      1
+      0)))

@@ -12,11 +12,11 @@
       (set! max-depth (max current-depth max-depth)))
     (define (pop)
       (if (null? s)
-          (error "Empty stack: POP")
-          (let ([top (car s)])
-            (set! s (cdr s))
-            (set! current-depth (- current-depth 1))
-            top)))
+        (error "Empty stack: POP")
+        (let ([top (car s)])
+          (set! s (cdr s))
+          (set! current-depth (- current-depth 1))
+          top)))
     (define (initialize)
       (set! s '())
       (set! number-pushes 0)
@@ -29,11 +29,11 @@
                        'maximum-depth '= max-depth)))
     (define (dispatch message)
       (cond [(eq? message 'push) push]
-            [(eq? message 'pop) (pop)]
-            [(eq? message 'initialize) (initialize)]
-            [(eq? message 'print-statistics)
-             (print-statistics)]
-            [else (error "Unknown request: STACK" message)]))
+        [(eq? message 'pop) (pop)]
+        [(eq? message 'initialize) (initialize)]
+        [(eq? message 'print-statistics)
+         (print-statistics)]
+        [else (error "Unknown request: STACK" message)]))
     dispatch))
 
 (define (make-new-machine)
@@ -53,45 +53,45 @@
            (list (list 'pc pc) (list 'flag flag))])
       (define (allocate-register name)
         (if (assoc name register-table)
-            (error "Multiply defined register: " name)
-            (begin
-              (set! stacks
-                    (cons (cons name (make-stack))
-                          stacks))
-              (set! register-table
-                    (cons (list name (make-register name))
-                          register-table))))
+          (error "Multiply defined register: " name)
+          (begin
+            (set! stacks
+              (cons (cons name (make-stack))
+                    stacks))
+            (set! register-table
+              (cons (list name (make-register name))
+                    register-table))))
         'register-allocated)
       (define (lookup-register name)
         (let ([val (assoc name register-table)])
           (if val
-              (cadr val)
-              (begin ;; create new register if not exist
-                (allocate-register name)
-                (lookup-register name)))))
+            (cadr val)
+            (begin ;; create new register if not exist
+              (allocate-register name)
+              (lookup-register name)))))
       (define (execute)
         (let ([insts (get-contents pc)])
           (if (null? insts)
-              'done
-              (begin
-                ((instruction-execution-proc (car insts)))
-                (execute)))))
+            'done
+            (begin
+              ((instruction-execution-proc (car insts)))
+              (execute)))))
       (define (dispatch message)
         (cond [(eq? message 'start)
                (set-contents! pc the-instruction-sequence)
                (execute)]
-              [(eq? message 'install-instruction-sequence)
-               (lambda (seq)
-                 (set! the-instruction-sequence seq))]
-              [(eq? message 'get-register)
-               lookup-register]
-              [(eq? message 'install-operations)
-               (lambda (ops)
-                 (set! the-ops (append the-ops ops)))]
-              [(eq? message 'stacks) stacks]
-              [(eq? message 'operations) the-ops]
-              [else (error "Unknown request: MACHINE"
-                           message)]))
+          [(eq? message 'install-instruction-sequence)
+           (lambda (seq)
+             (set! the-instruction-sequence seq))]
+          [(eq? message 'get-register)
+           lookup-register]
+          [(eq? message 'install-operations)
+           (lambda (ops)
+             (set! the-ops (append the-ops ops)))]
+          [(eq? message 'stacks) stacks]
+          [(eq? message 'operations) the-ops]
+          [else (error "Unknown request: MACHINE"
+                       message)]))
       dispatch)))
 
 ;; test

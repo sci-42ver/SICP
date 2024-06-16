@@ -6,16 +6,16 @@
     (define (scan vars vals)
       (cond [(null? vars)
              (env-loop (enclosing-environment env))]
-            [(eq? var (car vars))
-             (if (eq? (car vals) '*unassigned*)
-                 (error "variable unassigned")
-                 (car vals))]
-            [else (scan (cdr vars) (cdr vals))]))
+        [(eq? var (car vars))
+         (if (eq? (car vals) '*unassigned*)
+           (error "variable unassigned")
+           (car vals))]
+        [else (scan (cdr vars) (cdr vals))]))
     (if (eq? env the-empty-environment)
-        (error "Unbound variable" var)
-        (let ([frame (first-frame env)])
-          (scan (frame-variables frame)
-                (frame-values frame)))))
+      (error "Unbound variable" var)
+      (let ([frame (first-frame env)])
+        (scan (frame-variables frame)
+              (frame-values frame)))))
   (env-loop env))
 
 ;; b
@@ -26,29 +26,29 @@
   (define (body-loop exps vars vals rest-exps)
     (cond [(null? exps)
            (if (null? vars)
-               rest-exps
-               (list (make-let
-                      (map (lambda (x) (list x ''*unassigned*)) vars)
-                      (append (map (lambda (x y) (list 'set! x y)) vars vals)
-                              rest-exps))))]
-          [(definition? (car exps))
-           (let* ([current-exp (car exps)]
-                  [var (definition-variable current-exp)]
-                  [val-list (definition-value current-exp)])
-             (body-loop (cdr exps)
-                        (if (null? vars)
-                            (list var)
-                            (append vars (list var)))
-                        (if (null? vals)
-                            (list val-list)
-                            (append vals (list val-list)))
-                        rest-exps))]
-          [else (body-loop (cdr exps)
-                           vars
-                           vals
-                           (if (null? rest-exps)
-                               (list (car exps))
-                               (append rest-exps (list (car exps)))))]))
+             rest-exps
+             (list (make-let
+                    (map (lambda (x) (list x ''*unassigned*)) vars)
+                    (append (map (lambda (x y) (list 'set! x y)) vars vals)
+                            rest-exps))))]
+      [(definition? (car exps))
+       (let* ([current-exp (car exps)]
+              [var (definition-variable current-exp)]
+              [val-list (definition-value current-exp)])
+         (body-loop (cdr exps)
+                    (if (null? vars)
+                      (list var)
+                      (append vars (list var)))
+                    (if (null? vals)
+                      (list val-list)
+                      (append vals (list val-list)))
+                    rest-exps))]
+      [else (body-loop (cdr exps)
+                       vars
+                       vals
+                       (if (null? rest-exps)
+                         (list (car exps))
+                         (append rest-exps (list (car exps)))))]))
   (body-loop body null null null))
 
 ;; test

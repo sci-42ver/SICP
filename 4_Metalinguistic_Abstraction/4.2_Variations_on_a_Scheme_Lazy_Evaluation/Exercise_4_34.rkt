@@ -12,18 +12,18 @@
 
 (define (eval exp env)
   (cond [(lazy-pair? exp) ;; before application?
-         (make-lazy-pair (lambda-parameters exp)
-                         (lambda-body exp)
-                         env)]))
+                          (make-lazy-pair (lambda-parameters exp)
+                                          (lambda-body exp)
+                                          env)]))
 
 (define (user-print object)
   (cond [(lazy-pair? object) (display-lazy-pair object 0)]
-        [(compound-procedure? object)
-         (display (list 'compound-procedure
-                        (procedure-parameters object)
-                        (procedure-body object)
-                        '<procedure-env>))]
-        [else (display object)]))
+    [(compound-procedure? object)
+     (display (list 'compound-procedure
+                    (procedure-parameters object)
+                    (procedure-body object)
+                    '<procedure-env>))]
+    [else (display object)]))
 
 (define (display-lazy-pair object len)
   (display "(")
@@ -31,17 +31,17 @@
          [first (actual-value 'x env)]
          [second (actual-value 'y env)])
     (if (lazy-pair? first)
-        (display-lazy-pair first len) ;; tree
-        (display first))
+      (display-lazy-pair first len) ;; tree
+      (display first))
     (cond [(lazy-pair? second) ;; list
-           (if (< len 5)
-               (begin
-                 (display " ")
-                 (display-lazy-pair second (add1 len)))
-               (display " ..."))]
-          [(not (null? second)) ;; pair
-           (display " . ")
-           (display second)]))
+                               (if (< len 5)
+                                 (begin
+                                   (display " ")
+                                   (display-lazy-pair second (add1 len)))
+                                 (display " ..."))]
+      [(not (null? second)) ;; pair
+                            (display " . ")
+                            (display second)]))
   (display ")"))
 
 (define (setup-environment)

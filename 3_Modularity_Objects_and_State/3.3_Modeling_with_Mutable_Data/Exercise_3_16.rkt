@@ -2,10 +2,10 @@
 
 (define (count-pairs x)
   (if (not (mpair? x))
-      0
-      (+ (count-pairs (mcar x))
-         (count-pairs (mcdr x))
-         1)))
+    0
+    (+ (count-pairs (mcar x))
+       (count-pairs (mcdr x))
+       1)))
 
 (define (last-pair x)
   (if (null? (mcdr x)) x (last-pair (mcdr x))))

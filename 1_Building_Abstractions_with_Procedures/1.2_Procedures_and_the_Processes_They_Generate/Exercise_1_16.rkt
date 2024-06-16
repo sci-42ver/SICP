@@ -23,9 +23,9 @@
         [y (* Z Y)]
         [square-z (* Z Z)])
     (cond [(zero? N) 1]  ;; 0 is not a positive integer
-          [(zero? t) (rtl n Y square-z)]
-          [(zero? n) y]
-          [else (rtl n y square-z)])))
+      [(zero? t) (rtl n Y square-z)]
+      [(zero? n) y]
+      [else (rtl n y square-z)])))
 
 (exp 3 2)
 ;; 9

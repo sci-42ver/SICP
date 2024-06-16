@@ -2,7 +2,7 @@
 
 (define (make-leaf symbol weight)
   (list 'leaf symbol weight))
-    
+
 (define (leaf? object)
   (eq? (car object) 'leaf))
 
@@ -22,29 +22,29 @@
 
 (define (symbols tree)
   (if (leaf? tree)
-      (list (symbol-leaf tree))
-      (caddr tree)))
+    (list (symbol-leaf tree))
+    (caddr tree)))
 
 (define (weight tree)
   (if (leaf? tree)
-      (weight-leaf tree)
-      (cadddr tree)))
+    (weight-leaf tree)
+    (cadddr tree)))
 
 (define (decode bits tree)
   (define (decode-1 bits current-branch)
     (if (null? bits)
-        '()
-        (let ([next-branch (choose-branch (car bits) current-branch)])
-          (if (leaf? next-branch)
-              (cons (symbol-leaf next-branch)
-                    (decode-1 (cdr bits) tree))
-              (decode-1 (cdr bits) next-branch)))))
+      '()
+      (let ([next-branch (choose-branch (car bits) current-branch)])
+        (if (leaf? next-branch)
+          (cons (symbol-leaf next-branch)
+                (decode-1 (cdr bits) tree))
+          (decode-1 (cdr bits) next-branch)))))
   (decode-1 bits tree))
 
 (define (choose-branch bit branch)
   (cond [(= bit 0) (left-branch branch)]
-        [(= bit 1) (right-branch branch)]
-        [else (error "bad bit: CHOOSE-BRANCH" bit)]))
+    [(= bit 1) (right-branch branch)]
+    [else (error "bad bit: CHOOSE-BRANCH" bit)]))
 
 (define sample-tree
   (make-code-tree (make-leaf 'A 4)
@@ -61,22 +61,22 @@
 
 (define (encode message tree)
   (if (null? message)
-      '()
-      (append (encode-symbol (car message) tree)
-              (encode (cdr message) tree))))
+    '()
+    (append (encode-symbol (car message) tree)
+            (encode (cdr message) tree))))
 
 (define (element-of-set? x set)
   (cond [(null? set) #f]
-        [(equal? x (car set)) #t]
-        [else (element-of-set? x (cdr set))]))
+    [(equal? x (car set)) #t]
+    [else (element-of-set? x (cdr set))]))
 
 (define (encode-symbol x tree)
   (define (encode-symbol-1 result current-branch)
     (cond [(not (element-of-set? x (symbols current-branch))) (error "no such letter" x)]
-          [(leaf? current-branch) result]
-          [(element-of-set? x (symbols (left-branch current-branch)))
-           (encode-symbol-1 (append result (list 0)) (left-branch current-branch))]
-          [else (encode-symbol-1 (append result (list 1)) (right-branch current-branch))]))
+      [(leaf? current-branch) result]
+      [(element-of-set? x (symbols (left-branch current-branch)))
+       (encode-symbol-1 (append result (list 0)) (left-branch current-branch))]
+      [else (encode-symbol-1 (append result (list 1)) (right-branch current-branch))]))
   (encode-symbol-1 null tree))
 
 (define message (decode sample-message sample-tree))

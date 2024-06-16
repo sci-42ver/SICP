@@ -1,7 +1,7 @@
 #lang racket/base
 
 (define (compose f g)
-    (lambda (x) (f (g x))))
+  (lambda (x) (f (g x))))
 
 (define (square x) (* x x))
 

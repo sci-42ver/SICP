@@ -7,19 +7,19 @@
    initial-value
    (let ([integrand (force delayed-integrand)])
      (if (stream-empty? integrand)
-         empty-stream
-         (integral (delay (stream-rest integrand))
-                   (+ (* dt (stream-first integrand))
-                      initial-value)
-                   dt)))))
+       empty-stream
+       (integral (delay (stream-rest integrand))
+                 (+ (* dt (stream-first integrand))
+                    initial-value)
+                 dt)))))
 
 (define (stream-map proc . argstreams)
   (if (stream-empty? (car argstreams))
-      empty-stream
-      (stream-cons
-       (apply proc (map stream-first argstreams))
-       (apply stream-map
-              (cons proc (map stream-rest argstreams))))))
+    empty-stream
+    (stream-cons
+     (apply proc (map stream-first argstreams))
+     (apply stream-map
+            (cons proc (map stream-rest argstreams))))))
 
 (define (solve-2nd f dt y0 dy0)
   (define y (integral (delay dy) y0 dt))

@@ -64,67 +64,67 @@
 (define (analyze-and exp)
   (define (analyze-and-exp e env succeed fail value)
     (if (null? e)
-        (succeed value fail)
-        (let ([proc (analyze (car e))])
-          (proc env
-                (lambda (new-value fail2)
-                  (if (true? new-value)
-                      (analyze-and-exp (cdr e) env succeed fail new-value)
-                      (succeed #f fail)))
-                fail))))
+      (succeed value fail)
+      (let ([proc (analyze (car e))])
+        (proc env
+              (lambda (new-value fail2)
+                (if (true? new-value)
+                  (analyze-and-exp (cdr e) env succeed fail new-value)
+                  (succeed #f fail)))
+              fail))))
   (if (null? (cdr exp))
+    (lambda (env succeed fail)
+      (succeed #t fail))
+    (let ([proc (analyze (cadr exp))])
       (lambda (env succeed fail)
-        (succeed #t fail))
-      (let ([proc (analyze (cadr exp))])
-        (lambda (env succeed fail)
-          (proc env
-                (lambda (value fail2)
-                  (if (true? value)
-                      (analyze-and-exp (cddr exp) env succeed fail value)
-                      (succeed #f fail)))
-                fail)))))
+        (proc env
+              (lambda (value fail2)
+                (if (true? value)
+                  (analyze-and-exp (cddr exp) env succeed fail value)
+                  (succeed #f fail)))
+              fail)))))
 (define (or? exp) (tagged-list? exp 'or))
 (define (analyze-or exp)
   (define (analyze-or-exp e env succeed fail value)
     (if (null? e)
-        (succeed value fail)
-        (let ([proc (analyze (car e))])
-          (proc env
-                (lambda (new-value fail2)
-                  (if (true? new-value)
-                      (succeed new-value fail)
-                      (analyze-or-exp (cdr e) env succeed fail new-value)))
-                fail))))
+      (succeed value fail)
+      (let ([proc (analyze (car e))])
+        (proc env
+              (lambda (new-value fail2)
+                (if (true? new-value)
+                  (succeed new-value fail)
+                  (analyze-or-exp (cdr e) env succeed fail new-value)))
+              fail))))
   (if (null? (cdr exp))
+    (lambda (env succeed fail)
+      (succeed #f fail))
+    (let ([proc (analyze (cadr exp))])
       (lambda (env succeed fail)
-        (succeed #f fail))
-      (let ([proc (analyze (cadr exp))])
-        (lambda (env succeed fail)
-          (proc env
-                (lambda (value fail2)
-                  (if (true? value)
-                      (succeed value fail)
-                      (analyze-or-exp (cddr exp) env succeed fail value)))
-                fail)))))
+        (proc env
+              (lambda (value fail2)
+                (if (true? value)
+                  (succeed value fail)
+                  (analyze-or-exp (cddr exp) env succeed fail value)))
+              fail)))))
 
 (define (analyze exp)
   (cond [(self-evaluating? exp) (analyze-self-evaluating exp)]
-        [(quoted? exp) (analyze-quoted exp)]
-        [(variable? exp) (analyze-variable exp)]
-        [(assignment? exp) (analyze-assignment exp)]
-        [(permanent-set? exp) (analyze-permanent-set exp)]
-        [(definition? exp) (analyze-definition exp)]
-        [(if? exp) (analyze-if exp)]
-        [(lambda? exp) (analyze-lambda exp)]
-        [(begin? exp) (analyze-sequence (begin-actions exp))]
-        [(cond? exp) (analyze (cond->if exp))]
-        [(let? exp) (analyze (let->lambda exp))]
-        [(amb? exp) (analyze-amb exp)]
-        [(ensure-fail? exp) (analyze-ensure-fail exp)]
-        [(and? exp) (analyze-and exp)]
-        [(or? exp) (analyze-or exp)]
-        [(application? exp) (analyze-application exp)]
-        [else (error "Unknown expression type: ANALYZE" exp)]))
+    [(quoted? exp) (analyze-quoted exp)]
+    [(variable? exp) (analyze-variable exp)]
+    [(assignment? exp) (analyze-assignment exp)]
+    [(permanent-set? exp) (analyze-permanent-set exp)]
+    [(definition? exp) (analyze-definition exp)]
+    [(if? exp) (analyze-if exp)]
+    [(lambda? exp) (analyze-lambda exp)]
+    [(begin? exp) (analyze-sequence (begin-actions exp))]
+    [(cond? exp) (analyze (cond->if exp))]
+    [(let? exp) (analyze (let->lambda exp))]
+    [(amb? exp) (analyze-amb exp)]
+    [(ensure-fail? exp) (analyze-ensure-fail exp)]
+    [(and? exp) (analyze-and exp)]
+    [(or? exp) (analyze-or exp)]
+    [(application? exp) (analyze-application exp)]
+    [else (error "Unknown expression type: ANALYZE" exp)]))
 
 (driver-loop)
 
@@ -140,8 +140,8 @@
   (hash-set! table (list op type) item))
 (define (get op type)
   (if (hash-has-key? table (list op type))
-      (hash-ref table (list op type))
-      false)) ;; ***
+    (hash-ref table (list op type))
+    false)) ;; ***
 
 (define (prompt-for-input string)
   (newline) (newline) (display string) (newline))
@@ -154,38 +154,38 @@
   (prompt-for-input input-prompt)
   (let ([q (query-syntax-process (read))])
     (cond [(eq? q 'try-again) (amb)] ;; ***
-          [(assertion-to-be-added? q)
-           (add-rule-or-assertion! (add-assertion-body q))
-           (newline)
-           (display "Assertion added to data base.")
-           (query-driver-loop)]
-          [else
-           (announce-output output-prompt)
-           (display
-            (instantiate
-                q
-                (qeval q null) ;; ***
-              (lambda (v f)
-                (contract-question-mark v))))
-           (query-driver-loop)])))
+      [(assertion-to-be-added? q)
+       (add-rule-or-assertion! (add-assertion-body q))
+       (newline)
+       (display "Assertion added to data base.")
+       (query-driver-loop)]
+      [else
+       (announce-output output-prompt)
+       (display
+        (instantiate
+         q
+         (qeval q null) ;; ***
+         (lambda (v f)
+           (contract-question-mark v))))
+       (query-driver-loop)])))
 
 (define (instantiate exp frame unbound-var-handler)
   (define (copy exp)
     (cond [(var? exp)
            (let ([binding (binding-in-frame exp frame)])
              (if binding
-                 (copy (binding-value binding))
-                 (unbound-var-handler exp frame)))]
-          [(pair? exp)
-           (cons (copy (car exp)) (copy (cdr exp)))]
-          [else exp]))
+               (copy (binding-value binding))
+               (unbound-var-handler exp frame)))]
+      [(pair? exp)
+       (cons (copy (car exp)) (copy (cdr exp)))]
+      [else exp]))
   (copy exp))
 
 (define (qeval query frame)
   (let ([qproc (get (type query) 'qeval)])
     (if qproc
-        (qproc (contents query) frame)
-        (simple-query query frame))))
+      (qproc (contents query) frame)
+      (simple-query query frame))))
 
 (define (simple-query query-pattern frame) ;; ***
   (amb
@@ -194,9 +194,9 @@
 
 (define (conjoin conjuncts frame) ;; ***
   (if (empty-conjunction? conjuncts)
-      frame
-      (conjoin (rest-conjuncts conjuncts)
-               (qeval (first-conjunct conjuncts) frame))))
+    frame
+    (conjoin (rest-conjuncts conjuncts)
+             (qeval (first-conjunct conjuncts) frame))))
 (put 'and 'qeval conjoin)
 
 (define (disjoin disjuncts frame) ;; ***
@@ -212,12 +212,12 @@
 (define (lisp-value call frame) ;; ***
   (if (execute
        (instantiate
-           call
-           frame
-         (lambda (v f)
-           (error "Unknown pat var: LISP-VALUE" v))))
-      frame
-      (amb)))
+        call
+        frame
+        (lambda (v f)
+          (error "Unknown pat var: LISP-VALUE" v))))
+    frame
+    (amb)))
 (put 'lisp-value 'qeval lisp-value)
 
 (define (execute exp)
@@ -235,25 +235,25 @@
   (let ([match-result
          (pattern-match query-pat assertion query-frame)])
     (if (eq? match-result 'failed)
-        (amb) ;; ***
-        match-result)))
+      (amb) ;; ***
+      match-result)))
 
 (define (pattern-match pat dat frame)
   (cond [(eq? frame 'failed) 'failed]
-        [(equal? pat dat) frame]
-        [(var? pat) (extend-if-consistent pat dat frame)]
-        [(and (pair? pat) (pair? dat))
-         (pattern-match
-          (cdr pat)
-          (cdr dat)
-          (pattern-match (car pat) (car dat) frame))]
-        [else 'failed]))
+    [(equal? pat dat) frame]
+    [(var? pat) (extend-if-consistent pat dat frame)]
+    [(and (pair? pat) (pair? dat))
+     (pattern-match
+      (cdr pat)
+      (cdr dat)
+      (pattern-match (car pat) (car dat) frame))]
+    [else 'failed]))
 
 (define (extend-if-consistent var dat frame)
   (let ([binding (binding-in-frame var frame)])
     (if binding
-        (pattern-match (binding-value binding) dat frame)
-        (extend var dat frame))))
+      (pattern-match (binding-value binding) dat frame)
+      (extend var dat frame))))
 
 (define (apply-rules pattern frame) ;; ***
   (let ([rule (an-element-of (fetch-rules pattern frame))])
@@ -265,68 +265,68 @@
                                      (conclusion clean-rule)
                                      query-frame)])
       (if (eq? unify-result 'failed)
-          (amb) ;; ***
-          (qeval (rule-body clean-rule)
-                 unify-result))))) ;; ***
+        (amb) ;; ***
+        (qeval (rule-body clean-rule)
+               unify-result))))) ;; ***
 
 (define (rename-variables-in rule)
   (let ([rule-application-id (new-rule-application-id)])
     (define (tree-walk exp)
       (cond [(var? exp)
              (make-new-variable exp rule-application-id)]
-            [(pair? exp)
-             (cons (tree-walk (car exp))
-                   (tree-walk (cdr exp)))]
-            [else exp]))
+        [(pair? exp)
+         (cons (tree-walk (car exp))
+               (tree-walk (cdr exp)))]
+        [else exp]))
     (tree-walk rule)))
 
 (define (unify-match p1 p2 frame)
   (cond [(eq? frame 'failed) 'failed]
-        [(equal? p1 p2) frame]
-        [(var? p1) (extend-if-possible p1 p2 frame)]
-        [(var? p2) (extend-if-possible p2 p1 frame)]
-        [(and (pair? p1) (pair? p2))
-         (unify-match (cdr p1)
-                      (cdr p2)
-                      (unify-match (car p1)
-                                   (car p2)
-                                   frame))]
-        [else 'failed]))
+    [(equal? p1 p2) frame]
+    [(var? p1) (extend-if-possible p1 p2 frame)]
+    [(var? p2) (extend-if-possible p2 p1 frame)]
+    [(and (pair? p1) (pair? p2))
+     (unify-match (cdr p1)
+                  (cdr p2)
+                  (unify-match (car p1)
+                               (car p2)
+                               frame))]
+    [else 'failed]))
 
 (define (extend-if-possible var val frame)
   (let ([binding (binding-in-frame var frame)])
     (cond [binding
            (unify-match (binding-value binding) val frame)]
-          [(var? val)
-           (let ([binding (binding-in-frame val frame)])
-             (if binding
-                 (unify-match
-                  var (binding-value binding) frame)
-                 (extend var val frame)))]
-          [(depends-on? val var frame)
-           'failed]
-          [else (extend var val frame)])))
+      [(var? val)
+       (let ([binding (binding-in-frame val frame)])
+         (if binding
+           (unify-match
+            var (binding-value binding) frame)
+           (extend var val frame)))]
+      [(depends-on? val var frame)
+       'failed]
+      [else (extend var val frame)])))
 
 (define (depends-on? exp var frame)
   (define (tree-walk e)
     (cond [(var? e)
            (if (equal? var e)
-               true ;; ***
-               (let ([b (binding-in-frame e frame)])
-                 (if b
-                     (tree-walk (binding-value b))
-                     false)))] ;; ***
-          [(pair? e)
-           (or (tree-walk (car e))
-               (tree-walk (cdr e)))]
-          [else false])) ;; ***
+             true ;; ***
+             (let ([b (binding-in-frame e frame)])
+               (if b
+                 (tree-walk (binding-value b))
+                 false)))] ;; ***
+      [(pair? e)
+       (or (tree-walk (car e))
+           (tree-walk (cdr e)))]
+      [else false])) ;; ***
   (tree-walk exp))
 
 (define THE-ASSERTIONS null) ;; ***
 (define (fetch-assertions pattern frame)
   (if (use-index? pattern)
-      (get-indexed-assertions pattern)
-      (get-all-assertions)))
+    (get-indexed-assertions pattern)
+    (get-all-assertions)))
 (define (get-all-assertions) THE-ASSERTIONS)
 (define (get-indexed-assertions pattern)
   (get-list (index-key-of pattern) 'assertion-list)) ;; ***
@@ -338,8 +338,8 @@
 (define THE-RULES null)
 (define (fetch-rules pattern frame)
   (if (use-index? pattern)
-      (get-indexed-rules pattern)
-      (get-all-rules)))
+    (get-indexed-rules pattern)
+    (get-all-rules)))
 (define (get-all-rules) THE-RULES)
 (define (get-indexed-rules pattern) ;; ***
   (append
@@ -348,13 +348,13 @@
 
 (define (add-rule-or-assertion! assertion)
   (if (rule? assertion)
-      (add-rule! assertion)
-      (add-assertion! assertion)))
+    (add-rule! assertion)
+    (add-assertion! assertion)))
 (define (add-assertion! assertion)
   (store-assertion-in-index assertion)
   (let ([old-assertions THE-ASSERTIONS])
     (permanent-set! THE-ASSERTIONS
-          (cons assertion old-assertions)) ;; ***
+                    (cons assertion old-assertions)) ;; ***
     'ok))
 (define (add-rule! rule)
   (store-rule-in-index rule)
@@ -366,7 +366,7 @@
   (if (indexable? assertion)                  ;; ***
     (let ([key (index-key-of assertion)])
       (let ([current-assertion-list           ;; ***
-             (get-list key 'assertion-list)]) ;; ***
+                                              (get-list key 'assertion-list)]) ;; ***
         (put key
              'assertion-list
              (cons assertion ;; ***
@@ -376,7 +376,7 @@
     (if (indexable? pattern)               ;; ***
       (let ([key (index-key-of pattern)])
         (let ([current-rule-list           ;; ***
-               (get-list key 'rule-list)]) ;; ***
+                                           (get-list key 'rule-list)]) ;; ***
           (put key
                'rule-list
                (cons rule ;; ***
@@ -386,8 +386,8 @@
 ;; except these two and without steams code
 (define (tagged-list? exp tag)
   (if (pair? exp)
-      (eq? (car exp) tag)
-      false)) ;; ***
+    (eq? (car exp) tag)
+    false)) ;; ***
 (define (new-rule-application-id)
   (permanent-set! rule-counter (+ 1 rule-counter)) ;; ***
   rule-counter)

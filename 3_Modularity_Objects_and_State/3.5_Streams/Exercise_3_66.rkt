@@ -3,9 +3,9 @@
 
 (define (interleave s1 s2)
   (if (stream-empty? s1)
-      s2
-      (stream-cons (stream-first s1)
-                   (interleave s2 (stream-rest s1)))))
+    s2
+    (stream-cons (stream-first s1)
+                 (interleave s2 (stream-rest s1)))))
 
 (define (pairs s t)
   (stream-cons
@@ -17,11 +17,11 @@
 
 (define (stream-map proc . argstreams)
   (if (stream-empty? (car argstreams))
-      empty-stream
-      (stream-cons
-       (apply proc (map stream-first argstreams))
-       (apply stream-map
-              (cons proc (map stream-rest argstreams))))))
+    empty-stream
+    (stream-cons
+     (apply proc (map stream-first argstreams))
+     (apply stream-map
+            (cons proc (map stream-rest argstreams))))))
 
 (define (add-streams s1 s2) (stream-map + s1 s2))
 
@@ -66,14 +66,14 @@
 
 (define (precede m n)
   (cond [(< m 1) (error "m should >= 1")]
-        [(< n 1) (error "n should >= 1")]
-        [(= m n) (- (expt 2 m) 2)]
-        [else
-          (+ (expt 2 m)
-             -2
-             (expt 2 (sub1 m))
-             (* (- n m 1)
-                (expt 2 m)))]))
+    [(< n 1) (error "n should >= 1")]
+    [(= m n) (- (expt 2 m) 2)]
+    [else
+     (+ (expt 2 m)
+        -2
+        (expt 2 (sub1 m))
+        (* (- n m 1)
+           (expt 2 m)))]))
 
 (precede 1 100)
 ; 197

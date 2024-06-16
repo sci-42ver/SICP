@@ -5,19 +5,19 @@
         [trace #f])
     (define (dispatch message)
       (cond [(eq? message 'get) contents]
-            [(eq? message 'set)
-             (lambda (value)
-               (when trace ;; ***
-                 (displayln (list 'Reg-name: name
-                                  'old-content: contents
-                                  'new-content: value)))
-               (set! contents value))]
-            [(eq? message 'trace-on) ;; ***
-             (set! trace #t)]
-            [(eq? message 'tarce-off) ;; ***
-             (set! trace #f)]
-            [else
-             (error "Unknown request: REGISTER" message)]))
+        [(eq? message 'set)
+         (lambda (value)
+           (when trace ;; ***
+             (displayln (list 'Reg-name: name
+                              'old-content: contents
+                              'new-content: value)))
+           (set! contents value))]
+        [(eq? message 'trace-on) ;; ***
+                                 (set! trace #t)]
+        [(eq? message 'tarce-off) ;; ***
+                                  (set! trace #f)]
+        [else
+         (error "Unknown request: REGISTER" message)]))
     dispatch))
 
 (define (reg-trace-on machine reg-name)

@@ -41,16 +41,16 @@
   (eval (do->combination exp) env))
 
 (do->combination '(do ((i 0 (add1 i)))
-                      ((> i 5) 'done)
+                    ((> i 5) 'done)
                     (println i)))
 ;; '((lambda () (define (do-procedure i) (if (> i 5) (begin 'done) (begin (println i) (do-procedure (add1 i))))) (do-procedure 0)))
 
 ((lambda ()
    (define (do-procedure i)
      (if (> i 5)
-         (begin 'done)
-         (begin (println i)
-                (do-procedure (add1 i)))))
+       (begin 'done)
+       (begin (println i)
+         (do-procedure (add1 i)))))
    (do-procedure 0)))
 ;; 0
 ;; 1

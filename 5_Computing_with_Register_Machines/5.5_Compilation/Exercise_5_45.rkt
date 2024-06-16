@@ -9,8 +9,8 @@
 
 (define (self-evaluating? exp)
   (cond [(number? exp) #t]
-        [(string? exp) #t]
-        [else #f]))
+    [(string? exp) #t]
+    [else #f]))
 
 (define (variable? exp) (symbol? exp))
 (define (quoted? exp) (tagged-list? exp 'quote))
@@ -18,8 +18,8 @@
 
 (define (tagged-list? exp tag)
   (cond [(pair? exp) (eq? (car exp) tag)]
-        [(mpair? exp) (eq? (mcar exp) tag)]
-        [else #f]))
+    [(mpair? exp) (eq? (mcar exp) tag)]
+    [else #f]))
 
 (define (assignment? exp) (tagged-list? exp 'set!))
 (define (assignment-variable exp) (cadr exp))
@@ -29,13 +29,13 @@
   (tagged-list? exp 'define))
 (define (definition-variable exp)
   (if (symbol? (cadr exp))
-      (cadr exp)
-      (caadr exp)))
+    (cadr exp)
+    (caadr exp)))
 (define (definition-value exp)
   (if (symbol? (cadr exp))
-      (caddr exp)
-      (make-lambda (cdadr exp)   ;; formal parameters
-                   (cddr exp)))) ;; body
+    (caddr exp)
+    (make-lambda (cdadr exp)   ;; formal parameters
+                 (cddr exp)))) ;; body
 
 (define (lambda? exp) (tagged-list? exp 'lambda))
 (define (lambda-parameters exp) (cadr exp))
@@ -48,8 +48,8 @@
 (define (if-consequent exp) (caddr exp))
 (define (if-alternative exp)
   (if (not (null? (cdddr exp)))
-      (cadddr exp)
-      'false))
+    (cadddr exp)
+    'false))
 (define (make-if predicate consequent alternative)
   (list 'if predicate consequent alternative))
 
@@ -62,8 +62,8 @@
 
 (define (sequence->exp seq)
   (cond [(null? seq) seq]
-        [(last-exp? seq) (first-exp seq)]
-        [else (make-begin seq)]))
+    [(last-exp? seq) (first-exp seq)]
+    [else (make-begin seq)]))
 (define (make-begin seq) (cons 'begin seq))
 
 (define (application? exp) (pair? exp))
@@ -82,17 +82,17 @@
 (define (cond->if exp) (expand-clauses (cond-clauses exp)))
 (define (expand-clauses clauses)
   (if (null? clauses)
-      'false ;; no else clause
-      (let ([first (car clauses)]
-            [rest (cdr clauses)])
-        (if (cond-else-clause? first)
-            (if (null? rest)
-                (sequence->exp (cond-actions first))
-                (error "ELSE clause isn't last: COND->IF"
-                       clauses))
-            (make-if (cond-predicate first)
-                     (sequence->exp (cond-actions first))
-                     (expand-clauses rest))))))
+    'false ;; no else clause
+    (let ([first (car clauses)]
+          [rest (cdr clauses)])
+      (if (cond-else-clause? first)
+        (if (null? rest)
+          (sequence->exp (cond-actions first))
+          (error "ELSE clause isn't last: COND->IF"
+                 clauses))
+        (make-if (cond-predicate first)
+                 (sequence->exp (cond-actions first))
+                 (expand-clauses rest))))))
 
 (define (let? exp) (tagged-list? exp 'let))
 (define (let->combination exp)
@@ -145,11 +145,11 @@
 
 (define (mmap proc . args)
   (if (null? (car args))
-      null
-      (mcons
-       (apply proc (map car args))
-       (apply mmap
-              (cons proc (map cdr args))))))
+    null
+    (mcons
+     (apply proc (map car args))
+     (apply mmap
+            (cons proc (map cdr args))))))
 
 (define (make-frame variables values)
   (mmap mcons variables values))
@@ -163,16 +163,16 @@
     (define (scan pairs)
       (let ([current-pair
              (if (mpair? pairs)
-                 (mcar pairs)
-                 null)])
+               (mcar pairs)
+               null)])
         (cond [(null? current-pair)
                (end-frame-proc env)]
-              [(eq? var (frame-unit-variable current-pair))
-               (find-proc current-pair)]
-              [else (scan (mcdr pairs))])))
+          [(eq? var (frame-unit-variable current-pair))
+           (find-proc current-pair)]
+          [else (scan (mcdr pairs))])))
     (if (eq? env the-empty-environment)
-        (end-env-proc var)
-        (scan (first-frame env))))
+      (end-env-proc var)
+      (scan (first-frame env))))
   (env-loop env))
 
 (define (set-variable-value! var val env)
@@ -201,10 +201,10 @@
 
 (define (extend-environment vars vals base-env)
   (if (= (length vars) (length vals))
-      (cons (make-frame vars vals) base-env)
-      (if (< (length vars) (length vals))
-          (error "Too many arguments supplied" vars vals)
-          (error "Too few arguments supplied" vars vals))))
+    (cons (make-frame vars vals) base-env)
+    (if (< (length vars) (length vals))
+      (error "Too many arguments supplied" vars vals)
+      (error "Too few arguments supplied" vars vals))))
 
 (define (setup-environment)
   (let ([initial-env
@@ -226,9 +226,9 @@
                         (procedure-parameters object)
                         (procedure-body object)
                         '<procedure-env>))]
-        [(compiled-procedure? object)
-         (display '<compiled-procedure>)]
-        [else (display object)]))
+    [(compiled-procedure? object)
+     (display '<compiled-procedure>)]
+    [else (display object)]))
 
 ;; =====================================================
 ;; Register-Machine simulator
@@ -248,10 +248,10 @@
   (let ([contents '*unassigned*])
     (define (dispatch message)
       (cond [(eq? message 'get) contents]
-            [(eq? message 'set)
-             (lambda (value) (set! contents value))]
-            [else
-             (error "Unknown request: REGISTER" message)]))
+        [(eq? message 'set)
+         (lambda (value) (set! contents value))]
+        [else
+         (error "Unknown request: REGISTER" message)]))
     dispatch))
 
 (define (get-contents register) (register 'get))
@@ -270,11 +270,11 @@
       (set! max-depth (max current-depth max-depth)))
     (define (pop)
       (if (null? s)
-          (error "Empty stack: POP")
-          (let ([top (car s)])
-            (set! s (cdr s))
-            (set! current-depth (- current-depth 1))
-            top)))
+        (error "Empty stack: POP")
+        (let ([top (car s)])
+          (set! s (cdr s))
+          (set! current-depth (- current-depth 1))
+          top)))
     (define (initialize)
       (set! s '())
       (set! number-pushes 0)
@@ -287,11 +287,11 @@
                        'maximum-depth '= max-depth)))
     (define (dispatch message)
       (cond [(eq? message 'push) push]
-            [(eq? message 'pop) (pop)]
-            [(eq? message 'initialize) (initialize)]
-            [(eq? message 'print-statistics)
-             (print-statistics)]
-            [else (error "Unknown request: STACK" message)]))
+        [(eq? message 'pop) (pop)]
+        [(eq? message 'initialize) (initialize)]
+        [(eq? message 'print-statistics)
+         (print-statistics)]
+        [else (error "Unknown request: STACK" message)]))
     dispatch))
 
 (define (pop stack) (stack 'pop))
@@ -311,41 +311,41 @@
            (list (list 'pc pc) (list 'flag flag))])
       (define (allocate-register name)
         (if (assoc name register-table)
-            (error "Multiply defined register: " name)
-            (set! register-table
-                  (cons (list name (make-register name))
-                        register-table)))
+          (error "Multiply defined register: " name)
+          (set! register-table
+            (cons (list name (make-register name))
+                  register-table)))
         'register-allocated)
       (define (lookup-register name)
         (let ([val (assoc name register-table)])
           (if val
-              (cadr val)
-              (error "Unknown register:" name))))
+            (cadr val)
+            (error "Unknown register:" name))))
       (define (execute)
         (let ([insts (get-contents pc)])
           (if (null? insts)
-              'done
-              (begin
-                ((instruction-execution-proc (car insts)))
-                (execute)))))
+            'done
+            (begin
+              ((instruction-execution-proc (car insts)))
+              (execute)))))
       (define (dispatch message)
         (cond [(eq? message 'start)
                (set-contents! pc the-instruction-sequence)
                (execute)]
-              [(eq? message 'install-instruction-sequence)
-               (lambda (seq)
-                 (set! the-instruction-sequence seq))]
-              [(eq? message 'allocate-register)
-               allocate-register]
-              [(eq? message 'get-register)
-               lookup-register]
-              [(eq? message 'install-operations)
-               (lambda (ops)
-                 (set! the-ops (append the-ops ops)))]
-              [(eq? message 'stack) stack]
-              [(eq? message 'operations) the-ops]
-              [else (error "Unknown request: MACHINE"
-                           message)]))
+          [(eq? message 'install-instruction-sequence)
+           (lambda (seq)
+             (set! the-instruction-sequence seq))]
+          [(eq? message 'allocate-register)
+           allocate-register]
+          [(eq? message 'get-register)
+           lookup-register]
+          [(eq? message 'install-operations)
+           (lambda (ops)
+             (set! the-ops (append the-ops ops)))]
+          [(eq? message 'stack) stack]
+          [(eq? message 'operations) the-ops]
+          [else (error "Unknown request: MACHINE"
+                       message)]))
       dispatch)))
 
 (define (start machine) (machine 'start))
@@ -366,21 +366,21 @@
 
 (define (extract-labels text receive)
   (if (null? text)
-      (receive '() '())
-      (extract-labels
-       (cdr text)
-       (lambda (insts labels)
-         (let ([next-inst (car text)])
-           (if (symbol? next-inst)
-               (begin
-                 (duplicate-label? next-inst labels)
-                 (receive insts
-                     (cons (make-label-entry next-inst
-                                             insts)
-                           labels)))
-               (receive (cons (make-instruction next-inst)
-                              insts)
-                   labels)))))))
+    (receive '() '())
+    (extract-labels
+     (cdr text)
+     (lambda (insts labels)
+       (let ([next-inst (car text)])
+         (if (symbol? next-inst)
+           (begin
+             (duplicate-label? next-inst labels)
+             (receive insts
+                      (cons (make-label-entry next-inst
+                                              insts)
+                            labels)))
+           (receive (cons (make-instruction next-inst)
+                          insts)
+                    labels)))))))
 
 (define (duplicate-label? label-name labels)
   (when (assoc label-name labels)
@@ -413,28 +413,28 @@
 (define (lookup-label labels label-name)
   (let ([val (assoc label-name labels)])
     (if val
-        (cdr val)
-        (error "Undefined label: ASSEMBLE"
-               label-name))))
+      (cdr val)
+      (error "Undefined label: ASSEMBLE"
+             label-name))))
 
 (define (make-execution-procedure
          inst labels machine pc flag stack ops)
   (cond [(eq? (car inst) 'assign)
          (make-assign inst machine labels ops pc)]
-        [(eq? (car inst) 'test)
-         (make-test inst machine labels ops flag pc)]
-        [(eq? (car inst) 'branch)
-         (make-branch inst machine labels flag pc)]
-        [(eq? (car inst) 'goto)
-         (make-goto inst machine labels pc)]
-        [(eq? (car inst) 'save)
-         (make-save inst machine stack pc)]
-        [(eq? (car inst) 'restore) (make-restore inst machine stack pc)]
-        [(eq? (car inst) 'perform)
-         (make-perform inst machine labels ops pc)]
-        [else
-         (error "Unknown instruction type: ASSEMBLE"
-                inst)]))
+    [(eq? (car inst) 'test)
+     (make-test inst machine labels ops flag pc)]
+    [(eq? (car inst) 'branch)
+     (make-branch inst machine labels flag pc)]
+    [(eq? (car inst) 'goto)
+     (make-goto inst machine labels pc)]
+    [(eq? (car inst) 'save)
+     (make-save inst machine stack pc)]
+    [(eq? (car inst) 'restore) (make-restore inst machine stack pc)]
+    [(eq? (car inst) 'perform)
+     (make-perform inst machine labels ops pc)]
+    [else
+     (error "Unknown instruction type: ASSEMBLE"
+            inst)]))
 
 (define (make-assign inst machine labels operations pc)
   (let ([target
@@ -442,10 +442,10 @@
         [value-exp (assign-value-exp inst)])
     (let ([value-proc
            (if (operation-exp? value-exp)
-               (make-operation-exp
-                value-exp machine labels operations)
-               (make-primitive-exp
-                (car value-exp) machine labels))])
+             (make-operation-exp
+              value-exp machine labels operations)
+             (make-primitive-exp
+              (car value-exp) machine labels))])
       (lambda () ; execution procedure for assign
         (set-contents! target (value-proc))
         (advance-pc pc)))))
@@ -461,28 +461,28 @@
 (define (make-test inst machine labels operations flag pc)
   (let ([condition (test-condition inst)])
     (if (operation-exp? condition)
-        (let ([condition-proc
-               (make-operation-exp
-                condition machine labels operations)])
-          (lambda ()
-            (set-contents! flag (condition-proc))
-            (advance-pc pc)))
-        (error "Bad TEST instruction: ASSEMBLE" inst))))
+      (let ([condition-proc
+             (make-operation-exp
+              condition machine labels operations)])
+        (lambda ()
+          (set-contents! flag (condition-proc))
+          (advance-pc pc)))
+      (error "Bad TEST instruction: ASSEMBLE" inst))))
 (define (test-condition test-instruction)
   (cdr test-instruction))
 
 (define (make-branch inst machine labels flag pc)
   (let ([dest (branch-dest inst)])
     (if (label-exp? dest)
-        (let ([insts
-               (lookup-label
-                labels
-                (label-exp-label dest))])
-          (lambda ()
-            (if (get-contents flag)
-                (set-contents! pc insts)
-                (advance-pc pc))))
-        (error "Bad BRANCH instruction: ASSEMBLE" inst))))
+      (let ([insts
+             (lookup-label
+              labels
+              (label-exp-label dest))])
+        (lambda ()
+          (if (get-contents flag)
+            (set-contents! pc insts)
+            (advance-pc pc))))
+      (error "Bad BRANCH instruction: ASSEMBLE" inst))))
 (define (branch-dest branch-instruction)
   (cadr branch-instruction))
 
@@ -493,13 +493,13 @@
                          labels
                          (label-exp-label dest))])
              (lambda () (set-contents! pc insts)))]
-          [(register-exp? dest)
-           (let ([reg (get-register
-                       machine
-                       (register-exp-reg dest))])
-             (lambda ()
-               (set-contents! pc (get-contents reg))))]
-          [else (error "Bad GOTO instruction: ASSEMBLE" inst)])))
+      [(register-exp? dest)
+       (let ([reg (get-register
+                   machine
+                   (register-exp-reg dest))])
+         (lambda ()
+           (set-contents! pc (get-contents reg))))]
+      [else (error "Bad GOTO instruction: ASSEMBLE" inst)])))
 (define (goto-dest goto-instruction)
   (cadr goto-instruction))
 
@@ -521,26 +521,26 @@
 (define (make-perform inst machine labels operations pc)
   (let ([action (perform-action inst)])
     (if (operation-exp? action)
-        (let ([action-proc
-               (make-operation-exp
-                action machine labels operations)])
-          (lambda () (action-proc) (advance-pc pc)))
-        (error "Bad PERFORM instruction: ASSEMBLE" inst))))
+      (let ([action-proc
+             (make-operation-exp
+              action machine labels operations)])
+        (lambda () (action-proc) (advance-pc pc)))
+      (error "Bad PERFORM instruction: ASSEMBLE" inst))))
 (define (perform-action inst) (cdr inst))
 
 (define (make-primitive-exp exp machine labels)
   (cond [(constant-exp? exp)
          (let ([c (constant-exp-value exp)])
            (lambda () c))]
-        [(label-exp? exp)
-         (let ([insts (lookup-label
-                       labels
-                       (label-exp-label exp))])
-           (lambda () insts))]
-        [(register-exp? exp)
-         (let ([r (get-register machine (register-exp-reg exp))])
-           (lambda () (get-contents r)))]
-        [else (error "Unknown expression type: ASSEMBLE" exp)]))
+    [(label-exp? exp)
+     (let ([insts (lookup-label
+                   labels
+                   (label-exp-label exp))])
+       (lambda () insts))]
+    [(register-exp? exp)
+     (let ([r (get-register machine (register-exp-reg exp))])
+       (lambda () (get-contents r)))]
+    [else (error "Unknown expression type: ASSEMBLE" exp)]))
 
 (define (register-exp? exp) (tagged-list? exp 'reg))
 (define (register-exp-reg exp) (cadr exp))
@@ -569,9 +569,9 @@
 (define (lookup-prim symbol operations)
   (let ([val (assoc symbol operations)])
     (if val
-        (cadr val)
-        (error "Unknown operation: ASSEMBLE"
-               symbol))))
+      (cadr val)
+      (error "Unknown operation: ASSEMBLE"
+             symbol))))
 
 (define (empty-arglist) '())
 (define (adjoin-arg arg arglist) (append arglist (list arg)))
@@ -584,28 +584,28 @@
 (define (compile exp target linkage compile-env)
   (cond [(self-evaluating? exp)
          (compile-self-evaluating exp target linkage)]
-        [(quoted? exp) (compile-quoted exp target linkage)]
-        [(variable? exp)
-         (compile-variable exp target linkage compile-env)]
-        [(assignment? exp)
-         (compile-assignment exp target linkage compile-env)]
-        [(definition? exp)
-         (compile-definition exp target linkage compile-env)]
-        [(if? exp) (compile-if exp target linkage compile-env)]
-        [(lambda? exp) (compile-lambda exp target linkage compile-env)]
-        [(begin? exp)
-         (compile-sequence
-          (begin-actions exp) target linkage compile-env)]
-        [(cond? exp)
-         (compile (cond->if exp) target linkage compile-env)]
-        [(let? exp)
-         (compile (let->combination exp) target linkage compile-env)]
-        [(open-code? exp compile-env)
-         (compile-open-code exp target linkage compile-env)]
-        [(application? exp)
-         (compile-application exp target linkage compile-env)]
-        [else
-         (error "Unknown expression type: COMPILE" exp)]))
+    [(quoted? exp) (compile-quoted exp target linkage)]
+    [(variable? exp)
+     (compile-variable exp target linkage compile-env)]
+    [(assignment? exp)
+     (compile-assignment exp target linkage compile-env)]
+    [(definition? exp)
+     (compile-definition exp target linkage compile-env)]
+    [(if? exp) (compile-if exp target linkage compile-env)]
+    [(lambda? exp) (compile-lambda exp target linkage compile-env)]
+    [(begin? exp)
+     (compile-sequence
+      (begin-actions exp) target linkage compile-env)]
+    [(cond? exp)
+     (compile (cond->if exp) target linkage compile-env)]
+    [(let? exp)
+     (compile (let->combination exp) target linkage compile-env)]
+    [(open-code? exp compile-env)
+     (compile-open-code exp target linkage compile-env)]
+    [(application? exp)
+     (compile-application exp target linkage compile-env)]
+    [else
+     (error "Unknown expression type: COMPILE" exp)]))
 
 (define (make-instruction-sequence needs modifies statements)
   (list needs modifies statements))
@@ -617,11 +617,11 @@
   (cond [(eq? linkage 'return)
          (make-instruction-sequence '(continue) '()
                                     '((goto (reg continue))))]
-        [(eq? linkage 'next)
-         (empty-instruction-sequence)]
-        [else
-         (make-instruction-sequence '() '()
-                                    `((goto (label ,linkage))))]))
+    [(eq? linkage 'next)
+     (empty-instruction-sequence)]
+    [else
+     (make-instruction-sequence '() '()
+                                `((goto (label ,linkage))))]))
 
 (define (end-with-linkage linkage instruction-sequence)
   (preserving '(continue)
@@ -647,17 +647,17 @@
     (end-with-linkage
      linkage
      (if (eq? address 'not-found)
-         (make-instruction-sequence
-          '(env)
-          (list target)
-          `((assign ,target (op lookup-variable-value) (const ,exp) (reg env))))
-         (make-instruction-sequence
-          '(env)
-          (list target)
-          `((assign ,target
-                    (op lexical-address-lookup)
-                    (const ,address)
-                    (reg env))))))))
+       (make-instruction-sequence
+        '(env)
+        (list target)
+        `((assign ,target (op lookup-variable-value) (const ,exp) (reg env))))
+       (make-instruction-sequence
+        '(env)
+        (list target)
+        `((assign ,target
+                  (op lexical-address-lookup)
+                  (const ,address)
+                  (reg env))))))))
 
 (define (compile-assignment exp target linkage compile-env)
   (let* ([var (assignment-variable exp)]
@@ -670,23 +670,23 @@
       '(env)
       get-value-code
       (if (eq? address 'not-found)
-          (make-instruction-sequence
-           '(env val)
-           (list target 'env)
-           `((assign env (op get-global-environment))
-             (perform (op set-variable-value!)
-                      (const ,var)
-                      (reg val)
-                      (reg env))
-             (assign ,target (const ok))))
-          (make-instruction-sequence
-           '(env val)
-           (list target)
-           `((perform (op lexical-address-set!)
-                      (const ,address)
-                      (reg val)
-                      (reg env))
-             (assign ,target (const ok)))))))))
+        (make-instruction-sequence
+         '(env val)
+         (list target 'env)
+         `((assign env (op get-global-environment))
+           (perform (op set-variable-value!)
+                    (const ,var)
+                    (reg val)
+                    (reg env))
+           (assign ,target (const ok))))
+        (make-instruction-sequence
+         '(env val)
+         (list target)
+         `((perform (op lexical-address-set!)
+                    (const ,address)
+                    (reg val)
+                    (reg env))
+           (assign ,target (const ok)))))))))
 (define (compile-definition exp target linkage compile-env)
   (let ([var (definition-variable exp)]
         [get-value-code
@@ -739,14 +739,14 @@
 
 (define (compile-sequence seq target linkage compile-env)
   (if (last-exp? seq)
-      (compile (first-exp seq) target linkage compile-env)
-      (preserving '(env continue)
-                  (compile (first-exp seq) target 'next compile-env)
-                  (compile-sequence
-                   (rest-exps seq)
-                   target
-                   linkage
-                   compile-env))))
+    (compile (first-exp seq) target linkage compile-env)
+    (preserving '(env continue)
+                (compile (first-exp seq) target 'next compile-env)
+                (compile-sequence
+                 (rest-exps seq)
+                 target
+                 linkage
+                 compile-env))))
 
 (define (make-compiled-procedure entry env)
   (list 'compiled-procedure entry env))
@@ -804,19 +804,19 @@
 (define (construct-arglist operand-codes)
   (let ([operand-codes (reverse operand-codes)])
     (if (null? operand-codes)
-        (make-instruction-sequence '() '(argl)
-                                   '((assign argl (const ()))))
-        (let ([code-to-get-last-arg
-               (append-instruction-sequences
-                (car operand-codes)
-                (make-instruction-sequence '(val) '(argl)
-                                           '((assign argl (op list) (reg val)))))])
-          (if (null? (cdr operand-codes))
-              code-to-get-last-arg
-              (preserving '(env)
-                          code-to-get-last-arg
-                          (code-to-get-rest-args
-                           (cdr operand-codes))))))))
+      (make-instruction-sequence '() '(argl)
+                                 '((assign argl (const ()))))
+      (let ([code-to-get-last-arg
+             (append-instruction-sequences
+              (car operand-codes)
+              (make-instruction-sequence '(val) '(argl)
+                                         '((assign argl (op list) (reg val)))))])
+        (if (null? (cdr operand-codes))
+          code-to-get-last-arg
+          (preserving '(env)
+                      code-to-get-last-arg
+                      (code-to-get-rest-args
+                       (cdr operand-codes))))))))
 (define (code-to-get-rest-args operand-codes)
   (let ([code-for-next-arg
          (preserving '(argl)
@@ -827,10 +827,10 @@
                       '((assign argl
                                 (op cons) (reg val) (reg argl)))))])
     (if (null? (cdr operand-codes))
-        code-for-next-arg
-        (preserving '(env)
-                    code-for-next-arg
-                    (code-to-get-rest-args (cdr operand-codes))))))
+      code-for-next-arg
+      (preserving '(env)
+                  code-for-next-arg
+                  (code-to-get-rest-args (cdr operand-codes))))))
 
 (define (compile-procedure-call target linkage)
   (let ([primitive-branch (make-label 'primitive-branch)]
@@ -865,25 +865,25 @@
                                       (assign val (op compiled-procedure-entry)
                                               (reg proc))
                                       (goto (reg val))))]
-        [(and (not (eq? target 'val))
-              (not (eq? linkage 'return)))
-         (let ([proc-return (make-label 'proc-return)])
-           (make-instruction-sequence '(proc) all-regs
-                                      `((assign continue (label ,proc-return))
-                                        (assign val (op compiled-procedure-entry)
-                                                (reg proc))
-                                        (goto (reg val))
-                                        ,proc-return
-                                        (assign ,target (reg val))
-                                        (goto (label ,linkage)))))]
-        [(and (eq? target 'val) (eq? linkage 'return))
-         (make-instruction-sequence '(proc continue) all-regs
-                                    '((assign val (op compiled-procedure-entry)
-                                              (reg proc))
-                                      (goto (reg val))))]
-        [(and (not (eq? target 'val)) (eq? linkage 'return))
-         (error "return linkage, target not val -- COMPILE"
-                target)]))
+    [(and (not (eq? target 'val))
+          (not (eq? linkage 'return)))
+     (let ([proc-return (make-label 'proc-return)])
+       (make-instruction-sequence '(proc) all-regs
+                                  `((assign continue (label ,proc-return))
+                                    (assign val (op compiled-procedure-entry)
+                                            (reg proc))
+                                    (goto (reg val))
+                                    ,proc-return
+                                    (assign ,target (reg val))
+                                    (goto (label ,linkage)))))]
+    [(and (eq? target 'val) (eq? linkage 'return))
+     (make-instruction-sequence '(proc continue) all-regs
+                                '((assign val (op compiled-procedure-entry)
+                                          (reg proc))
+                                  (goto (reg val))))]
+    [(and (not (eq? target 'val)) (eq? linkage 'return))
+     (error "return linkage, target not val -- COMPILE"
+            target)]))
 
 (define all-regs '(env proc val argl continue arg1 arg2))
 
@@ -910,38 +910,38 @@
      (append (statements seq1) (statements seq2))))
   (define (append-seq-list seqs)
     (if (null? seqs)
-        (empty-instruction-sequence)
-        (append-2-sequences (car seqs)
-                            (append-seq-list (cdr seqs)))))
+      (empty-instruction-sequence)
+      (append-2-sequences (car seqs)
+                          (append-seq-list (cdr seqs)))))
   (append-seq-list seqs))
 
 (define (list-union s1 s2)
   (cond [(null? s1) s2]
-        [(memq (car s1) s2) (list-union (cdr s1) s2)]
-        [else (cons (car s1) (list-union (cdr s1) s2))]))
+    [(memq (car s1) s2) (list-union (cdr s1) s2)]
+    [else (cons (car s1) (list-union (cdr s1) s2))]))
 (define (list-difference s1 s2)
   (cond [(null? s1) '()]
-        [(memq (car s1) s2) (list-difference (cdr s1) s2)]
-        [else (cons (car s1)
-                    (list-difference (cdr s1) s2))]))
+    [(memq (car s1) s2) (list-difference (cdr s1) s2)]
+    [else (cons (car s1)
+                (list-difference (cdr s1) s2))]))
 
 (define (preserving regs seq1 seq2)
   (if (null? regs)
-      (append-instruction-sequences seq1 seq2)
-      (let ([first-reg (car regs)])
-        (if (and (needs-register? seq2 first-reg)
-                 (modifies-register? seq1 first-reg))
-            (preserving (cdr regs)
-                        (make-instruction-sequence
-                         (list-union (list first-reg)
-                                     (registers-needed seq1))
-                         (list-difference (registers-modified seq1)
-                                          (list first-reg))
-                         (append `((save ,first-reg))
-                                 (statements seq1)
-                                 `((restore ,first-reg))))
-                        seq2)
-            (preserving (cdr regs) seq1 seq2)))))
+    (append-instruction-sequences seq1 seq2)
+    (let ([first-reg (car regs)])
+      (if (and (needs-register? seq2 first-reg)
+               (modifies-register? seq1 first-reg))
+        (preserving (cdr regs)
+                    (make-instruction-sequence
+                     (list-union (list first-reg)
+                                 (registers-needed seq1))
+                     (list-difference (registers-modified seq1)
+                                      (list first-reg))
+                     (append `((save ,first-reg))
+                             (statements seq1)
+                             `((restore ,first-reg))))
+                    seq2)
+        (preserving (cdr regs) seq1 seq2)))))
 
 (define (tack-on-instruction-sequence seq body-seq)
   (make-instruction-sequence
@@ -969,27 +969,27 @@
 (define (compile-open-code exp target linkage compile-env)
   (define (compile-rest-open-codes operand-codes)
     (if (null? (cdr operand-codes))
-        (preserving '(arg1)
-                    (car operand-codes)
-                    (make-instruction-sequence
-                     '(arg1 arg2)
-                     (list target)
-                     `((assign ,target
-                               (op ,(operator exp))
-                               (reg arg1)
-                               (reg arg2)))))
-        (preserving '(env arg1)
-                    (car operand-codes)
-                    (append-instruction-sequences
-                     (make-instruction-sequence
-                      '(arg1 arg2)
-                      '(arg1)
-                      `((assign arg1
-                                (op ,(operator exp))
-                                (reg arg1)
-                                (reg arg2))))
-                     (compile-rest-open-codes
-                      (cdr operand-codes))))))
+      (preserving '(arg1)
+                  (car operand-codes)
+                  (make-instruction-sequence
+                   '(arg1 arg2)
+                   (list target)
+                   `((assign ,target
+                             (op ,(operator exp))
+                             (reg arg1)
+                             (reg arg2)))))
+      (preserving '(env arg1)
+                  (car operand-codes)
+                  (append-instruction-sequences
+                   (make-instruction-sequence
+                    '(arg1 arg2)
+                    '(arg1)
+                    `((assign arg1
+                              (op ,(operator exp))
+                              (reg arg1)
+                              (reg arg2))))
+                   (compile-rest-open-codes
+                    (cdr operand-codes))))))
   (let ([operand-codes (spread-arguments (operands exp) compile-env)])
     (end-with-linkage
      linkage
@@ -1002,8 +1002,8 @@
   (let* ([var (operator exp)]
          [address (find-variable var compile-env)])
     (if (eq? address 'not-found)
-        (memq var '(= * - +))
-        #f)))
+      (memq var '(= * - +))
+      #f)))
 
 (define (make-lexical-address nth-frame nth-var)
   (list nth-frame nth-var))
@@ -1016,18 +1016,18 @@
       (let ([current-pair (if (mpair? pairs) (mcar pairs) null)])
         (cond [(null? current-pair)
                (end-proc)]
-              [(zero? nth-pair)
-               (find-proc current-pair)]
-              [else
-               (scan (mcdr pairs) (sub1 nth-pair))])))
+          [(zero? nth-pair)
+           (find-proc current-pair)]
+          [else
+           (scan (mcdr pairs) (sub1 nth-pair))])))
     (cond [(eq? env the-empty-environment)
            (end-proc)]
-          [(zero? nth-frame)
-           (scan (first-frame env) nth-var)]
-          [else
-           (env-loop (enclosing-environment env)
-                     (sub1 nth-frame)
-                     nth-var)]))
+      [(zero? nth-frame)
+       (scan (first-frame env) nth-var)]
+      [else
+       (env-loop (enclosing-environment env)
+                 (sub1 nth-frame)
+                 nth-var)]))
   (env-loop env
             (lexical-frame address)
             (lexical-var address)))
@@ -1038,15 +1038,15 @@
    (lambda (current-pair)
      (let ([value (frame-unit-value current-pair)])
        (if (eq? value '*unassigned*)
-           (error "Variable is unassigned at" address)
-           value)))
+         (error "Variable is unassigned at" address)
+         value)))
    env
    address))
 
 (define (lexical-address-set! address val env)
   (travsersing-compile-env
    (lambda () (error "Unbound variable at: SET!" address))
-    (lambda (current-pair) (set-mcdr! current-pair val))
+   (lambda (current-pair) (set-mcdr! current-pair val))
    env
    address))
 
@@ -1056,42 +1056,42 @@
       (let ([current-var (if (pair? vars) (car vars) null)])
         (cond [(null? current-var)
                (env-loop exp (enclosing-environment env) (add1 nth-frame))]
-              [(eq? exp current-var)
-               (make-lexical-address nth-frame nth-var)]
-              [else
-               (scan (cdr vars) (add1 nth-var))])))
+          [(eq? exp current-var)
+           (make-lexical-address nth-frame nth-var)]
+          [else
+           (scan (cdr vars) (add1 nth-var))])))
     (if (eq? env the-empty-environment)
-        'not-found
-        (scan (first-frame env) 0)))
+      'not-found
+      (scan (first-frame env) 0)))
   (env-loop exp compile-env 0))
 
 (define (scan-out-defines body)
   (define (body-loop exps vars vals rest-exps)
     (cond [(null? exps)
            (if (null? vars)
-               rest-exps
-               (list (make-let
-                      (map (lambda (x) (list x ''*unassigned*)) vars)
-                      (append (map (lambda (x y) (list 'set! x y)) vars vals)
-                              rest-exps))))]
-          [(definition? (car exps))
-           (let* ([current-exp (car exps)]
-                  [var (definition-variable current-exp)]
-                  [val-list (definition-value current-exp)])
-             (body-loop (cdr exps)
-                        (if (null? vars)
-                            (list var)
-                            (append vars (list var)))
-                        (if (null? vals)
-                            (list val-list)
-                            (append vals (list val-list)))
-                        rest-exps))]
-          [else (body-loop (cdr exps)
-                           vars
-                           vals
-                           (if (null? rest-exps)
-                               (list (car exps))
-                               (append rest-exps (list (car exps)))))]))
+             rest-exps
+             (list (make-let
+                    (map (lambda (x) (list x ''*unassigned*)) vars)
+                    (append (map (lambda (x y) (list 'set! x y)) vars vals)
+                            rest-exps))))]
+      [(definition? (car exps))
+       (let* ([current-exp (car exps)]
+              [var (definition-variable current-exp)]
+              [val-list (definition-value current-exp)])
+         (body-loop (cdr exps)
+                    (if (null? vars)
+                      (list var)
+                      (append vars (list var)))
+                    (if (null? vals)
+                      (list val-list)
+                      (append vals (list val-list)))
+                    rest-exps))]
+      [else (body-loop (cdr exps)
+                       vars
+                       vals
+                       (if (null? rest-exps)
+                         (list (car exps))
+                         (append rest-exps (list (car exps)))))]))
   (body-loop body null null null))
 
 (define eceval-operations
@@ -1187,106 +1187,106 @@
    '(exp env val proc argl continue unev arg1 arg2)
    eceval-operations
    '((branch (label external-entry)) ; branches if flag is set
-     read-eval-print-loop
-     (perform (op initialize-stack))
-     (perform
-      (op prompt-for-input) (const ";;EC-Eval input:"))
-     (assign exp (op read))
-     (assign env (op get-global-environment))
-     (assign continue (label print-result))
-     (goto (label eval-dispatch))
-     print-result
-     (perform (op print-stack-statistics)) ;; added instruction
-     (perform (op announce-output) (const ";;EC-Eval value:"))
-     (perform (op user-print) (reg val))
-     (goto (label read-eval-print-loop))
+                                     read-eval-print-loop
+                                     (perform (op initialize-stack))
+                                     (perform
+                                      (op prompt-for-input) (const ";;EC-Eval input:"))
+                                     (assign exp (op read))
+                                     (assign env (op get-global-environment))
+                                     (assign continue (label print-result))
+                                     (goto (label eval-dispatch))
+                                     print-result
+                                     (perform (op print-stack-statistics)) ;; added instruction
+                                     (perform (op announce-output) (const ";;EC-Eval value:"))
+                                     (perform (op user-print) (reg val))
+                                     (goto (label read-eval-print-loop))
 
-     unknown-expression-type
-     (assign val (const unknown-expression-type-error))
-     (goto (label signal-error))
-     unknown-procedure-type
-     (restore continue) ;; clean up stack (from apply-dispatch)
-     (assign val (const unknown-procedure-type-error))
-     (goto (label signal-error))
-     signal-error
-     (perform (op user-print) (reg val))
-     (goto (label read-eval-print-loop))
+                                     unknown-expression-type
+                                     (assign val (const unknown-expression-type-error))
+                                     (goto (label signal-error))
+                                     unknown-procedure-type
+                                     (restore continue) ;; clean up stack (from apply-dispatch)
+                                     (assign val (const unknown-procedure-type-error))
+                                     (goto (label signal-error))
+                                     signal-error
+                                     (perform (op user-print) (reg val))
+                                     (goto (label read-eval-print-loop))
 
-     eval-dispatch
-     (test (op self-evaluating?) (reg exp))
-     (branch (label ev-self-eval))
-     (test (op variable?) (reg exp))
-     (branch (label ev-variable))
-     (test (op quoted?) (reg exp))
-     (branch (label ev-quoted))
-     (test (op assignment?) (reg exp))
-     (branch (label ev-assignment))
-     (test (op definition?) (reg exp))
-     (branch (label ev-definition))
-     (test (op if?) (reg exp))
-     (branch (label ev-if))
-     (test (op lambda?) (reg exp))
-     (branch (label ev-lambda))
-     (test (op begin?) (reg exp))
-     (branch (label ev-begin))
-     (test (op application?) (reg exp))
-     (branch (label ev-application))
-     (goto (label unknown-expression-type))
+                                     eval-dispatch
+                                     (test (op self-evaluating?) (reg exp))
+                                     (branch (label ev-self-eval))
+                                     (test (op variable?) (reg exp))
+                                     (branch (label ev-variable))
+                                     (test (op quoted?) (reg exp))
+                                     (branch (label ev-quoted))
+                                     (test (op assignment?) (reg exp))
+                                     (branch (label ev-assignment))
+                                     (test (op definition?) (reg exp))
+                                     (branch (label ev-definition))
+                                     (test (op if?) (reg exp))
+                                     (branch (label ev-if))
+                                     (test (op lambda?) (reg exp))
+                                     (branch (label ev-lambda))
+                                     (test (op begin?) (reg exp))
+                                     (branch (label ev-begin))
+                                     (test (op application?) (reg exp))
+                                     (branch (label ev-application))
+                                     (goto (label unknown-expression-type))
 
-     ev-self-eval
-     (assign val (reg exp))
-     (goto (reg continue))
-     ev-variable
-     (assign val (op lookup-variable-value) (reg exp) (reg env))
-     (goto (reg continue))
-     ev-quoted
-     (assign val (op text-of-quotation) (reg exp))
-     (goto (reg continue))
-     ev-lambda
-     (assign unev (op lambda-parameters) (reg exp))
-     (assign exp (op lambda-body) (reg exp))
-     (assign val (op make-procedure) (reg unev) (reg exp) (reg env))
-     (goto (reg continue))
+                                     ev-self-eval
+                                     (assign val (reg exp))
+                                     (goto (reg continue))
+                                     ev-variable
+                                     (assign val (op lookup-variable-value) (reg exp) (reg env))
+                                     (goto (reg continue))
+                                     ev-quoted
+                                     (assign val (op text-of-quotation) (reg exp))
+                                     (goto (reg continue))
+                                     ev-lambda
+                                     (assign unev (op lambda-parameters) (reg exp))
+                                     (assign exp (op lambda-body) (reg exp))
+                                     (assign val (op make-procedure) (reg unev) (reg exp) (reg env))
+                                     (goto (reg continue))
 
-     ev-application
-     (save continue)
-     (save env)
-     (assign unev (op operands) (reg exp))
-     (save unev)
-     (assign exp (op operator) (reg exp))
-     (assign continue (label ev-appl-did-operator))
-     (goto (label eval-dispatch))
+                                     ev-application
+                                     (save continue)
+                                     (save env)
+                                     (assign unev (op operands) (reg exp))
+                                     (save unev)
+                                     (assign exp (op operator) (reg exp))
+                                     (assign continue (label ev-appl-did-operator))
+                                     (goto (label eval-dispatch))
 
-     ev-appl-did-operator
-     (restore unev) ;; the operands
-     (restore env)
-     (assign argl (op empty-arglist))
-     (assign proc (reg val)) ;; the operator
-     (test (op no-operands?) (reg unev))
-     (branch (label apply-dispatch))
-     (save proc)
+                                     ev-appl-did-operator
+                                     (restore unev) ;; the operands
+                                     (restore env)
+                                     (assign argl (op empty-arglist))
+                                     (assign proc (reg val)) ;; the operator
+                                     (test (op no-operands?) (reg unev))
+                                     (branch (label apply-dispatch))
+                                     (save proc)
 
-     ev-appl-operand-loop
-     (save argl)
-     (assign exp (op first-operand) (reg unev))
-     (test (op last-operand?) (reg unev))
-     (branch (label ev-appl-last-arg))
-     (save env)
-     (save unev)
-     (assign continue (label ev-appl-accumulate-arg))
-     (goto (label eval-dispatch))
+                                     ev-appl-operand-loop
+                                     (save argl)
+                                     (assign exp (op first-operand) (reg unev))
+                                     (test (op last-operand?) (reg unev))
+                                     (branch (label ev-appl-last-arg))
+                                     (save env)
+                                     (save unev)
+                                     (assign continue (label ev-appl-accumulate-arg))
+                                     (goto (label eval-dispatch))
 
-     ev-appl-accumulate-arg
-     (restore unev)
-     (restore env)
-     (restore argl)
-     (assign argl (op adjoin-arg) (reg val) (reg argl))
-     (assign unev (op rest-operands) (reg unev))
-     (goto (label ev-appl-operand-loop))
+                                     ev-appl-accumulate-arg
+                                     (restore unev)
+                                     (restore env)
+                                     (restore argl)
+                                     (assign argl (op adjoin-arg) (reg val) (reg argl))
+                                     (assign unev (op rest-operands) (reg unev))
+                                     (goto (label ev-appl-operand-loop))
 
-     ev-appl-last-arg
-     (assign continue (label ev-appl-accum-last-arg))
-     (goto (label eval-dispatch))
+                                     ev-appl-last-arg
+                                     (assign continue (label ev-appl-accum-last-arg))
+                                     (goto (label eval-dispatch))
      ev-appl-accum-last-arg
      (restore argl)
      (assign argl (op adjoin-arg) (reg val) (reg argl))
@@ -1423,8 +1423,8 @@
 (compile-and-go
  '(define (factorial n)
     (if (= n 1)
-        1
-        (* (factorial (- n 1)) n))))
+      1
+      (* (factorial (- n 1)) n))))
 
 ;;EC-Eval input:
 ;; (factorial 1)
@@ -1490,8 +1490,8 @@
  (compile
   '(define (factorial n)
      (if (= n 1)
-         1
-         (* (factorial (- n 1)) n)))
+       1
+       (* (factorial (- n 1)) n)))
   'val
   'next
   the-empty-environment))

@@ -3,20 +3,20 @@
 
 (define (stream-map proc . argstreams)
   (if (stream-empty? (car argstreams))
-      empty-stream
-      (stream-cons
-       (apply proc (map stream-first argstreams))
-       (apply stream-map
-              (cons proc (map stream-rest argstreams))))))
+    empty-stream
+    (stream-cons
+     (apply proc (map stream-first argstreams))
+     (apply stream-map
+            (cons proc (map stream-rest argstreams))))))
 
 (define (random-stream input-stream)
   (stream-cons 0
                (stream-map (lambda (seed request)
                              (cond [(eq? (car request) 'generate) (random)]
-                                   [(eq? (car request) 'reset)
-                                    (random-seed seed)
-                                    (cadr request)]
-                                   [else (error "Unknown request: RANDOM-STREAM" request)]))
+                               [(eq? (car request) 'reset)
+                                (random-seed seed)
+                                (cadr request)]
+                               [else (error "Unknown request: RANDOM-STREAM" request)]))
                            (random-stream input-stream)
                            input-stream)))
 

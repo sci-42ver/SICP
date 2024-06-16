@@ -4,37 +4,37 @@
   (let ([local-table (mcons '*table* null)])
     (define (assoc key records)
       (cond [(null? records) null]
-            [(same-key? key (mcar (mcar records))) (mcar records)]
-            [else (assoc key (mcdr records))]))
+        [(same-key? key (mcar (mcar records))) (mcar records)]
+        [else (assoc key (mcdr records))]))
     (define (lookup key-1 key-2)
       (let ([subtable
              (assoc key-1 (mcdr local-table))])
         (if (not (null? subtable))
-            (let ([record
-                   (assoc key-2 (mcdr subtable))])
-              (if (not (null? record))
-                  (mcdr record)
-                  null))
-            null)))
+          (let ([record
+                 (assoc key-2 (mcdr subtable))])
+            (if (not (null? record))
+              (mcdr record)
+              null))
+          null)))
     (define (insert! key-1 key-2 value)
       (let ([subtable
              (assoc key-1 (mcdr local-table))])
         (if (not (null? subtable))
-            (let ([record
-                   (assoc key-2 (mcdr subtable))])
-              (if (not (null? record))
-                  (set-mcdr! record value)
-                  (set-mcdr! subtable
-                             (mcons (mcons key-2 value)
-                                    (mcdr subtable)))))
-            (set-mcdr! local-table
-                       (mcons (mcons key-1 (mcons (mcons key-2 value) null))
-                              (mcdr local-table)))))
+          (let ([record
+                 (assoc key-2 (mcdr subtable))])
+            (if (not (null? record))
+              (set-mcdr! record value)
+              (set-mcdr! subtable
+                         (mcons (mcons key-2 value)
+                                (mcdr subtable)))))
+          (set-mcdr! local-table
+                     (mcons (mcons key-1 (mcons (mcons key-2 value) null))
+                            (mcdr local-table)))))
       'ok)
     (define (dispatch m)
       (cond [(eq? m 'lookup-proc) lookup]
-            [(eq? m 'insert-proc!) insert!]
-            [else (error "Unknown operation: TABLE" m)]))
+        [(eq? m 'insert-proc!) insert!]
+        [else (error "Unknown operation: TABLE" m)]))
     dispatch))
 
 (define (same-key? key-1 key-2)

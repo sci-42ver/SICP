@@ -4,19 +4,19 @@
 
 (define (merge-weighted s1 s2 weight)
   (cond [(stream-empty? s1) s2]
-        [(stream-empty? s2) s1]
-        [else
-         (let* ([s1car (stream-first s1)]
-                [s2car (stream-first s2)]
-                [weight-result (- (weight s1car) (weight s2car))])
-           (cond [(<= weight-result 0)
-                  (stream-cons
-                   s1car
-                   (merge-weighted (stream-rest s1) s2 weight))] ; !!
-                 [(> weight-result 0)
-                  (stream-cons
-                   s2car
-                   (merge-weighted s1 (stream-rest s2) weight))]))]))
+    [(stream-empty? s2) s1]
+    [else
+     (let* ([s1car (stream-first s1)]
+            [s2car (stream-first s2)]
+            [weight-result (- (weight s1car) (weight s2car))])
+       (cond [(<= weight-result 0)
+              (stream-cons
+               s1car
+               (merge-weighted (stream-rest s1) s2 weight))] ; !!
+         [(> weight-result 0)
+          (stream-cons
+           s2car
+           (merge-weighted s1 (stream-rest s2) weight))]))]))
 
 (define (weighted-pairs s t weight)
   (stream-cons
@@ -29,11 +29,11 @@
 
 (define (stream-map proc . argstreams)
   (if (stream-empty? (car argstreams))
-      empty-stream
-      (stream-cons
-       (apply proc (map stream-first argstreams))
-       (apply stream-map
-              (cons proc (map stream-rest argstreams))))))
+    empty-stream
+    (stream-cons
+     (apply proc (map stream-first argstreams))
+     (apply stream-map
+            (cons proc (map stream-rest argstreams))))))
 
 (define (add-streams s1 s2) (stream-map + s1 s2))
 

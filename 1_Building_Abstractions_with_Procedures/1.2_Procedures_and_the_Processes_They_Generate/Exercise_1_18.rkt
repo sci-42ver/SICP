@@ -8,11 +8,11 @@
 
 (define (mlp x n) (rtl n 0 x))
 (define (rtl N Y Z)
-    (if (even? N)
-        (rtl (quotient N 2) Y (+ Z Z))
-            (if (zero? (quotient N 2))
-                (+ Z Y)
-                (rtl (quotient N 2) (+ Z Y) (+ Z Z)))))
+  (if (even? N)
+    (rtl (quotient N 2) Y (+ Z Z))
+    (if (zero? (quotient N 2))
+      (+ Z Y)
+      (rtl (quotient N 2) (+ Z Y) (+ Z Z)))))
 
 (define (double x) (+ x x))
 
@@ -20,12 +20,12 @@
 (define (halve x) (/ x 2))
 
 (define (mlp x n)
-    (define (helper X N Y)
-        (cond [(zero? N) Y]
-              [(even? N) (helper (double X) (halve N) Y)]
-              [else (helper X (sub1 N) (+ X Y))]))
-            
-(helper x n 0))
+  (define (helper X N Y)
+    (cond [(zero? N) Y]
+      [(even? N) (helper (double X) (halve N) Y)]
+      [else (helper X (sub1 N) (+ X Y))]))
+
+  (helper x n 0))
 
 (mlp 3 2)
 ; 6

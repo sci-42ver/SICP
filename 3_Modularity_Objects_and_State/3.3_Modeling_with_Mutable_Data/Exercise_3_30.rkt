@@ -21,8 +21,8 @@
   (let ([carry (make-wire)])
     (full-adder (car A-wire-list) (car B-wire-list) C-wire (car S-wire-list) carry)
     (if (null? (cdr A-wire-list))
-        (set-signal! carry 0)
-        (ripple-carry-adder (cdr A-wire-list) (cdr B-wire-list) (cdr S-wire-list) carry))))
+      (set-signal! carry 0)
+      (ripple-carry-adder (cdr A-wire-list) (cdr B-wire-list) (cdr S-wire-list) carry))))
 
 ; delays = n * full-adder delay = n * (2 * falf-adder delay + or gate delay)
 ; = n * (2 * ((max (or-gate, (and-gate + inverter)) + and-gate)) + or gate delay)

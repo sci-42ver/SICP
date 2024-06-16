@@ -4,21 +4,21 @@
 (define dx 1)
 
 (define (compose f g)
-    (lambda (x) (f (g x))))
+  (lambda (x) (f (g x))))
 
 (define (square x) (* x x))
 
 (define (repeated f n)
-    (if (< n 1)
-        identity
-        (compose f (repeated f (sub1 n)))))
+  (if (< n 1)
+    identity
+    (compose f (repeated f (sub1 n)))))
 
 (define (smooth f)
-    (lambda (x)
-        (/ (+ (f (- x dx)) (f x) (f (+ x dx))) 3)))
+  (lambda (x)
+    (/ (+ (f (- x dx)) (f x) (f (+ x dx))) 3)))
 
 (define (n-fold-smooth f n)
-    ((repeated smooth n) f))
+  ((repeated smooth n) f))
 
 ((n-fold-smooth square 1) 1)
 ; (f(0) + f(1) + f(2)) / 3

@@ -3,11 +3,11 @@
 
 (define (stream-map proc . argstreams)
   (if (stream-empty? (car argstreams))
-      empty-stream
-      (stream-cons
-       (apply proc (map stream-first argstreams))
-       (apply stream-map
-              (cons proc (map stream-rest argstreams))))))
+    empty-stream
+    (stream-cons
+     (apply proc (map stream-first argstreams))
+     (apply stream-map
+            (cons proc (map stream-rest argstreams))))))
 
 (define (add-streams s1 s2) (stream-map + s1 s2))
 (define (scale-stream stream factor)
@@ -38,8 +38,8 @@
 
 (define (div-series s1 s2)
   (cond [(stream-empty? s2) (error "denominator stream can't be empty")]
-        [(zero? (stream-first s2)) (error "denominator can't be 0")]
-        [else (mul-series s1 (invert-unit-series s2))]))
+    [(zero? (stream-first s2)) (error "denominator can't be 0")]
+    [else (mul-series s1 (invert-unit-series s2))]))
 
 (define tangent-series (div-series sine-series cosine-series))
 

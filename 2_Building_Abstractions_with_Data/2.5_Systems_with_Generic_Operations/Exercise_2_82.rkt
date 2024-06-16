@@ -20,17 +20,17 @@
   (cond [(and (eq? type-tag 'scheme-number)
               (number? contents))
          contents]
-        [else (cons type-tag contents)]))
+    [else (cons type-tag contents)]))
 
 (define (type-tag datum)
   (cond [(number? datum) 'scheme-number]
-        [(pair? datum) (car datum)]
-        [else (error "Bad tagged datum: TYPE-TAG" datum)]))
+    [(pair? datum) (car datum)]
+    [else (error "Bad tagged datum: TYPE-TAG" datum)]))
 
 (define (contents datum)
   (cond [(number? datum) datum]
-        [(pair? datum) (cdr datum)]
-        [else (error "Bad tagged datum: CONTENTS" datum)]))
+    [(pair? datum) (cdr datum)]
+    [else (error "Bad tagged datum: CONTENTS" datum)]))
 
 (define (no-method-error op type-tags)
   (error "No method for these types"
@@ -40,30 +40,30 @@
   (let ([type-tags (map type-tag args)])
     (define (iter-types type-list)
       (if (null? type-list)
-          (no-method-error op type-tags) ; all types are tired
-          (let* ([try-type (car type-list)]
-                 [proc-list (map (lambda (arg)
-                                   (if (eq? (type-tag arg) try-type)
-                                       identity
-                                       (get-coercion (type-tag arg) try-type)))
-                                 args)])
-            (if (null? (filter null? proc-list))
-                (let* ([converted-args (map (lambda (proc arg) (proc arg))
-                                            proc-list args)]
-                       [types (map type-tag converted-args)]
-                       [proc (get op types)])
-                  (if (not (null? proc))
-                      (apply proc (map contents converted-args))
-                      (iter-types (cdr type-list)))) ; no suitable coercion procedure
-                (iter-types (cdr type-list))))))     ; can't convert to the same type
+        (no-method-error op type-tags) ; all types are tired
+        (let* ([try-type (car type-list)]
+               [proc-list (map (lambda (arg)
+                                 (if (eq? (type-tag arg) try-type)
+                                   identity
+                                   (get-coercion (type-tag arg) try-type)))
+                               args)])
+          (if (null? (filter null? proc-list))
+            (let* ([converted-args (map (lambda (proc arg) (proc arg))
+                                        proc-list args)]
+                   [types (map type-tag converted-args)]
+                   [proc (get op types)])
+              (if (not (null? proc))
+                (apply proc (map contents converted-args))
+                (iter-types (cdr type-list)))) ; no suitable coercion procedure
+            (iter-types (cdr type-list))))))     ; can't convert to the same type
     (let ([proc (get op type-tags)])
       (if (not (null? proc))
-          (apply proc (map contents args))
-          (if (null? (filter (lambda (type)
-                               (not (eq? type (car type-tags))))
-                             type-tags))
-              (no-method-error op type-tags) ; same type
-              (iter-types type-tags))))))
+        (apply proc (map contents args))
+        (if (null? (filter (lambda (type)
+                             (not (eq? type (car type-tags))))
+                           type-tags))
+          (no-method-error op type-tags) ; same type
+          (iter-types type-tags))))))
 
 (define (install-scheme-number-package)
   (define (tag x) (attach-tag 'scheme-number x))

@@ -22,58 +22,58 @@
 
 (define (symbols tree)
   (if (leaf? tree)
-      (list (symbol-leaf tree))
-      (caddr tree)))
+    (list (symbol-leaf tree))
+    (caddr tree)))
 
 (define (weight tree)
   (if (leaf? tree)
-      (weight-leaf tree)
-      (cadddr tree)))
+    (weight-leaf tree)
+    (cadddr tree)))
 
 (define (adjoin-set x set)
   (cond ((null? set) (list x))
-        ((< (weight x) (weight (car set))) (cons x set))
-        (else (cons (car set)
-                    (adjoin-set x (cdr set))))))
+    ((< (weight x) (weight (car set))) (cons x set))
+    (else (cons (car set)
+                (adjoin-set x (cdr set))))))
 
 (define (make-leaf-set pairs)
   (if (null? pairs)
-      '()
-      (let ((pair (car pairs)))
-        (adjoin-set (make-leaf (car pair)      ; symbol
-                               (cadr pair))    ; frequency
-                    (make-leaf-set (cdr pairs))))))
+    '()
+    (let ((pair (car pairs)))
+      (adjoin-set (make-leaf (car pair)      ; symbol
+                             (cadr pair))    ; frequency
+                  (make-leaf-set (cdr pairs))))))
 
 (define (generate-huffman-tree pairs)
   (successive-merge (make-leaf-set pairs)))
 
 (define (successive-merge ordered-set)
   (if (= 1 (length ordered-set))
-      (car ordered-set)
-      (let ([first (car ordered-set)]
-            [second (cadr ordered-set)]
-            [rest (cddr ordered-set)])
-        (successive-merge (adjoin-set (make-code-tree first second)
-                                      rest)))))
+    (car ordered-set)
+    (let ([first (car ordered-set)]
+          [second (cadr ordered-set)]
+          [rest (cddr ordered-set)])
+      (successive-merge (adjoin-set (make-code-tree first second)
+                                    rest)))))
 
 (define (encode message tree)
   (if (null? message)
-      '()
-      (append (encode-symbol (car message) tree)
-              (encode (cdr message) tree))))
+    '()
+    (append (encode-symbol (car message) tree)
+            (encode (cdr message) tree))))
 
 (define (element-of-set? x set)
   (cond [(null? set) #f]
-        [(equal? x (car set)) #t]
-        [else (element-of-set? x (cdr set))]))
+    [(equal? x (car set)) #t]
+    [else (element-of-set? x (cdr set))]))
 
 (define (encode-symbol x tree)
   (define (encode-symbol-1 result current-branch)
     (cond [(not (element-of-set? x (symbols current-branch))) (error "no such letter" x)]
-          [(leaf? current-branch) result]
-          [(element-of-set? x (symbols (left-branch current-branch)))
-           (encode-symbol-1 (append result (list 0)) (left-branch current-branch))]
-          [else (encode-symbol-1 (append result (list 1)) (right-branch current-branch))]))
+      [(leaf? current-branch) result]
+      [(element-of-set? x (symbols (left-branch current-branch)))
+       (encode-symbol-1 (append result (list 0)) (left-branch current-branch))]
+      [else (encode-symbol-1 (append result (list 1)) (right-branch current-branch))]))
   (encode-symbol-1 null tree))
 
 (define tree (generate-huffman-tree '((A 2) (GET 2) (SHA 3) (WAH 1) (BOOM 1) (JOB 2) (NA 16) (YIP 9))))

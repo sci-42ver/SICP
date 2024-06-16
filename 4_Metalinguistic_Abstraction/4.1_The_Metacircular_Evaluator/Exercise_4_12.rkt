@@ -4,11 +4,11 @@
 
 (define (mmap proc . args)
   (if (null? (car args))
-      null
-      (mcons
-       (apply proc (map car args))
-       (apply mmap
-              (cons proc (map cdr args))))))
+    null
+    (mcons
+     (apply proc (map car args))
+     (apply mmap
+            (cons proc (map cdr args))))))
 
 (define (enclosing-environment env) (cdr env))
 (define (first-frame env) (car env))
@@ -26,16 +26,16 @@
     (define (scan pairs)
       (let ([current-pair
              (if (mpair? pairs)
-                 (mcar pairs)
-                 null)])
+               (mcar pairs)
+               null)])
         (cond [(null? current-pair)
                (end-frame-proc env)]
-              [(eq? var (frame-unit-variable current-pair))
-               (find-proc current-pair)]
-              [else (scan (mcdr pairs))])))
+          [(eq? var (frame-unit-variable current-pair))
+           (find-proc current-pair)]
+          [else (scan (mcdr pairs))])))
     (if (eq? env the-empty-environment)
-        (end-env-proc var)
-        (scan (first-frame env))))
+      (end-env-proc var)
+      (scan (first-frame env))))
   (env-loop env))
 
 (define (set-variable-value! var val env)

@@ -15,8 +15,8 @@
 
     (define (front-queue)
       (if (empty-queue?)
-          (error "FRONT called with an empty queue" (queue))
-          (mcar front-ptr)))
+        (error "FRONT called with an empty queue" (queue))
+        (mcar front-ptr)))
 
     (define (insert-queue! item)
       (let ([new-pair (mcons item '())])
@@ -24,16 +24,16 @@
                (set-front-ptr! new-pair)
                (set-rear-ptr! new-pair)
                (queue)]
-              [else
-               (set-mcdr! rear-ptr new-pair)
-               (set-rear-ptr! new-pair)
-               (queue)])))
+          [else
+           (set-mcdr! rear-ptr new-pair)
+           (set-rear-ptr! new-pair)
+           (queue)])))
 
     (define (delete-queue!)
       (cond [(empty-queue?)
              (error "DELETE! called with an empty queue" (queue))]
-            [else (set-front-ptr! (mcdr front-ptr))
-                  (queue)]))
+        [else (set-front-ptr! (mcdr front-ptr))
+              (queue)]))
 
     (define (print-queue)
       (define (iter item)
@@ -48,13 +48,13 @@
 
     (define (dispatch m)
       (cond [(eq? m 'set-front-ptr!) set-front-ptr!]
-            [(eq? m 'set-rear-ptr!) set-rear-ptr!]
-            [(eq? m 'empty-queue?) (empty-queue?)]
-            [(eq? m 'front-queue) (front-queue)]
-            [(eq? m 'insert-queue!) insert-queue!]
-            [(eq? m 'delete-queue!) (delete-queue!)]
-            [(eq? m 'print-queue) (print-queue)]
-            [else (error "Unknown operation" m)]))
+        [(eq? m 'set-rear-ptr!) set-rear-ptr!]
+        [(eq? m 'empty-queue?) (empty-queue?)]
+        [(eq? m 'front-queue) (front-queue)]
+        [(eq? m 'insert-queue!) insert-queue!]
+        [(eq? m 'delete-queue!) (delete-queue!)]
+        [(eq? m 'print-queue) (print-queue)]
+        [else (error "Unknown operation" m)]))
     dispatch))
 
 (define q1 (make-queue))

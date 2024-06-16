@@ -4,13 +4,13 @@
 
 (define (distinct? items)
   (cond [(null? items) true]
-        [(null? (cdr items)) true]
-        [(member (car items) (cdr items)) false]
-        [else (distinct? (cdr items))]))
+    [(null? (cdr items)) true]
+    [(member (car items) (cdr items)) false]
+    [else (distinct? (cdr items))]))
 
 (define (verify daughter-yacht parker)
   (if (eq? (car daughter-yacht) "Gabrielle")
-      (require (eq? (cdr daughter-yacht) (car parker)))))
+    (require (eq? (cdr daughter-yacht) (car parker)))))
 
 (define (weirdos)
   (let ([moore (cons "Mary Ann" "Lorna")]

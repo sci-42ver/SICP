@@ -13,11 +13,11 @@
 
 (define (type-tag datum)
   (if (pair? datum)
-      (car datum)
-      (error "Bad tagged datum: TYPE-TAG" datum)))
+    (car datum)
+    (error "Bad tagged datum: TYPE-TAG" datum)))
 (define (contents datum)
   (if (pair? datum) (cdr datum)
-      (error "Bad tagged datum: CONTENTS" datum)))
+    (error "Bad tagged datum: CONTENTS" datum)))
 
 (define (install-rectangular-package)
   ;; internal procedures
@@ -74,10 +74,10 @@
   (let ((type-tags (map type-tag args)))
     (let ((proc (get op type-tags)))
       (if proc
-          (apply proc (map contents args))
-          (error
-           "No method for these types: APPLY-GENERIC"
-           (list op type-tags))))))
+        (apply proc (map contents args))
+        (error
+         "No method for these types: APPLY-GENERIC"
+         (list op type-tags))))))
 
 (define (real-part z) (apply-generic 'real-part z))
 (define (imag-part z) (apply-generic 'imag-part z))

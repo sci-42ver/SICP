@@ -2,15 +2,15 @@
 
 (define (find-in-list item l)
   (cond [(null? l) #f]
-        [(eq? item (mcar l)) #t]
-        [else (find-in-list item (mcdr l))]))
+    [(eq? item (mcar l)) #t]
+    [else (find-in-list item (mcdr l))]))
 
 (define (count-pairs x)
   (define (iter pair counted-list count)
     (cond [(null? pair) count]
-          [(find-in-list (mcar pair) counted-list) count]
-          [(not (mpair? pair)) 0]
-          [else (iter (mcdr pair) (mcons (mcar pair) counted-list) (add1 count))]))
+      [(find-in-list (mcar pair) counted-list) count]
+      [(not (mpair? pair)) 0]
+      [else (iter (mcdr pair) (mcons (mcar pair) counted-list) (add1 count))]))
   (iter x null 0))
 
 (define (last-pair x)
@@ -32,6 +32,6 @@
 
 (define infinite-list (mcons 'a (mcons 'b (mcons 'c null))))
 (let ([last (last-pair count-4-list)])
-      (set-mcdr! last last))
+  (set-mcdr! last last))
 (count-pairs infinite-list)
 ; 3

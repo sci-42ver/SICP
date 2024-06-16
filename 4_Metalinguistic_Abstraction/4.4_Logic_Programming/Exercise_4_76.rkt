@@ -2,9 +2,9 @@
 
 (define (conjoin conjuncts frame-stream)
   (if (empty-conjunction? conjuncts)
-      frame-stream
-      (merge-frame-streams (qeval (first-conjunct conjuncts) frame-stream)
-                           (conjoin (rest-conjuncts conjuncts) frame-stream))))
+    frame-stream
+    (merge-frame-streams (qeval (first-conjunct conjuncts) frame-stream)
+                         (conjoin (rest-conjuncts conjuncts) frame-stream))))
 (put 'and 'qeval conjoin)
 
 (define (merge-frame-streams s1 s2)
@@ -14,21 +14,21 @@
       (lambda (frame2)
         (let ([frame (merge-frames frame1 frame2)])
           (if (null? frame)
-              empty-stream
-              (singleton-stream frame))))
+            empty-stream
+            (singleton-stream frame))))
       s2))
    s1))
 
 (define (merge-frames f1 f2)
   (cond [(null? f2) f1]
-        [(eq? f2 'failed) null]
-        [(null? f1) f2]
-        [else
-         (let* ([binding (car f1)]
-                [var (binding-variable binding)]
-                [val (binding-value binding)]
-                [frame (extend-if-possible var val f2)])
-           (merge-frames (cdr f1) frame))]))
+    [(eq? f2 'failed) null]
+    [(null? f1) f2]
+    [else
+     (let* ([binding (car f1)]
+            [var (binding-variable binding)]
+            [val (binding-value binding)]
+            [frame (extend-if-possible var val f2)])
+       (merge-frames (cdr f1) frame))]))
 
 ;; tests
 (and (address ?p ?l)

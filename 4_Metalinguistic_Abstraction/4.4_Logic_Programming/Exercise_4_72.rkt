@@ -14,8 +14,8 @@
   (hash-set! table (list op type) item))
 (define (get op type)
   (if (hash-has-key? table (list op type))
-      (hash-ref table (list op type))
-      #f))
+    (hash-ref table (list op type))
+    #f))
 
 (define (prompt-for-input string)
   (newline) (newline) (display string) (newline))
@@ -32,36 +32,36 @@
            (newline)
            (display "Assertion added to data base.")
            (query-driver-loop)]
-          [else
-           (announce-output output-prompt)
-           (display-stream
-            (stream-map
-             (lambda (frame)
-               (instantiate
-                   q
-                   frame
-                 (lambda (v f)
-                   (contract-question-mark v))))
-             (qeval q (singleton-stream '()))))
-           (query-driver-loop)])))
+      [else
+       (announce-output output-prompt)
+       (display-stream
+        (stream-map
+         (lambda (frame)
+           (instantiate
+            q
+            frame
+            (lambda (v f)
+              (contract-question-mark v))))
+         (qeval q (singleton-stream '()))))
+       (query-driver-loop)])))
 
 (define (instantiate exp frame unbound-var-handler)
   (define (copy exp)
     (cond [(var? exp)
            (let ([binding (binding-in-frame exp frame)])
              (if binding
-                 (copy (binding-value binding))
-                 (unbound-var-handler exp frame)))]
-          [(pair? exp)
-           (cons (copy (car exp)) (copy (cdr exp)))]
-          [else exp]))
+               (copy (binding-value binding))
+               (unbound-var-handler exp frame)))]
+      [(pair? exp)
+       (cons (copy (car exp)) (copy (cdr exp)))]
+      [else exp]))
   (copy exp))
 
 (define (qeval query frame-stream)
   (let ([qproc (get (type query) 'qeval)])
     (if qproc
-        (qproc (contents query) frame-stream)
-        (simple-query query frame-stream))))
+      (qproc (contents query) frame-stream)
+      (simple-query query frame-stream))))
 
 (define (simple-query query-pattern frame-stream)
   (stream-flatmap
@@ -73,17 +73,17 @@
 
 (define (conjoin conjuncts frame-stream)
   (if (empty-conjunction? conjuncts)
-      frame-stream
-      (conjoin (rest-conjuncts conjuncts)
-               (qeval (first-conjunct conjuncts) frame-stream))))
+    frame-stream
+    (conjoin (rest-conjuncts conjuncts)
+             (qeval (first-conjunct conjuncts) frame-stream))))
 (put 'and 'qeval conjoin)
 
 (define (disjoin disjuncts frame-stream)
   (if (empty-disjunction? disjuncts)
-      empty-stream
-      (interleave-delayed
-       (qeval (first-disjunct disjuncts) frame-stream)
-       (delay (disjoin (rest-disjuncts disjuncts) frame-stream)))))
+    empty-stream
+    (interleave-delayed
+     (qeval (first-disjunct disjuncts) frame-stream)
+     (delay (disjoin (rest-disjuncts disjuncts) frame-stream)))))
 (put 'or 'qeval disjoin)
 
 (define (negate operands frame-stream)
@@ -92,8 +92,8 @@
      (if (stream-empty?
           (qeval (negated-query operands)
                  (singleton-stream frame)))
-         (singleton-stream frame)
-         empty-stream))
+       (singleton-stream frame)
+       empty-stream))
    frame-stream))
 (put 'not 'qeval negate)
 
@@ -102,12 +102,12 @@
    (lambda (frame)
      (if (execute
           (instantiate
-              call
-              frame
-            (lambda (v f)
-              (error "Unknown pat var: LISP-VALUE" v))))
-         (singleton-stream frame)
-         empty-stream))
+           call
+           frame
+           (lambda (v f)
+             (error "Unknown pat var: LISP-VALUE" v))))
+       (singleton-stream frame)
+       empty-stream))
    frame-stream))
 (put 'lisp-value 'qeval lisp-value)
 
@@ -127,25 +127,25 @@
   (let ([match-result
          (pattern-match query-pat assertion query-frame)])
     (if (eq? match-result 'failed)
-        empty-stream
-        (singleton-stream match-result))))
+      empty-stream
+      (singleton-stream match-result))))
 
 (define (pattern-match pat dat frame)
   (cond [(eq? frame 'failed) 'failed]
-        [(equal? pat dat) frame]
-        [(var? pat) (extend-if-consistent pat dat frame)]
-        [(and (pair? pat) (pair? dat))
-         (pattern-match
-          (cdr pat)
-          (cdr dat)
-          (pattern-match (car pat) (car dat) frame))]
-        [else 'failed]))
+    [(equal? pat dat) frame]
+    [(var? pat) (extend-if-consistent pat dat frame)]
+    [(and (pair? pat) (pair? dat))
+     (pattern-match
+      (cdr pat)
+      (cdr dat)
+      (pattern-match (car pat) (car dat) frame))]
+    [else 'failed]))
 
 (define (extend-if-consistent var dat frame)
   (let ([binding (binding-in-frame var frame)])
     (if binding
-        (pattern-match (binding-value binding) dat frame)
-        (extend var dat frame))))
+      (pattern-match (binding-value binding) dat frame)
+      (extend var dat frame))))
 
 (define (apply-rules pattern frame)
   (stream-flatmap (lambda (rule)
@@ -158,68 +158,68 @@
                                      (conclusion clean-rule)
                                      query-frame)])
       (if (eq? unify-result 'failed)
-          empty-stream
-          (qeval (rule-body clean-rule)
-                 (singleton-stream unify-result))))))
+        empty-stream
+        (qeval (rule-body clean-rule)
+               (singleton-stream unify-result))))))
 
 (define (rename-variables-in rule)
   (let ([rule-application-id (new-rule-application-id)])
     (define (tree-walk exp)
       (cond [(var? exp)
              (make-new-variable exp rule-application-id)]
-            [(pair? exp)
-             (cons (tree-walk (car exp))
-                   (tree-walk (cdr exp)))]
-            [else exp]))
+        [(pair? exp)
+         (cons (tree-walk (car exp))
+               (tree-walk (cdr exp)))]
+        [else exp]))
     (tree-walk rule)))
 
 (define (unify-match p1 p2 frame)
   (cond [(eq? frame 'failed) 'failed]
-        [(equal? p1 p2) frame]
-        [(var? p1) (extend-if-possible p1 p2 frame)]
-        [(var? p2) (extend-if-possible p2 p1 frame)]  ;; ***
-        [(and (pair? p1) (pair? p2))
-         (unify-match (cdr p1)
-                      (cdr p2)
-                      (unify-match (car p1)
-                                   (car p2)
-                                   frame))]
-        [else 'failed]))
+    [(equal? p1 p2) frame]
+    [(var? p1) (extend-if-possible p1 p2 frame)]
+    [(var? p2) (extend-if-possible p2 p1 frame)]  ;; ***
+    [(and (pair? p1) (pair? p2))
+     (unify-match (cdr p1)
+                  (cdr p2)
+                  (unify-match (car p1)
+                               (car p2)
+                               frame))]
+    [else 'failed]))
 
 (define (extend-if-possible var val frame)
   (let ([binding (binding-in-frame var frame)])
     (cond [binding
            (unify-match (binding-value binding) val frame)]
-          [(var? val)                      ;; ***
-           (let ([binding (binding-in-frame val frame)])
-             (if binding
-                 (unify-match
-                  var (binding-value binding) frame)
-                 (extend var val frame)))]
-          [(depends-on? val var frame)     ;; ***
-           'failed]
-          [else (extend var val frame)])))
+      [(var? val)                      ;; ***
+                                       (let ([binding (binding-in-frame val frame)])
+                                         (if binding
+                                           (unify-match
+                                            var (binding-value binding) frame)
+                                           (extend var val frame)))]
+      [(depends-on? val var frame)     ;; ***
+                                       'failed]
+      [else (extend var val frame)])))
 
 (define (depends-on? exp var frame)
   (define (tree-walk e)
     (cond [(var? e)
            (if (equal? var e)
-               #t
-               (let ([b (binding-in-frame e frame)])
-                 (if b
-                     (tree-walk (binding-value b))
-                     #f)))]
-          [(pair? e)
-           (or (tree-walk (car e))
-               (tree-walk (cdr e)))]
-          [else #f]))
+             #t
+             (let ([b (binding-in-frame e frame)])
+               (if b
+                 (tree-walk (binding-value b))
+                 #f)))]
+      [(pair? e)
+       (or (tree-walk (car e))
+           (tree-walk (cdr e)))]
+      [else #f]))
   (tree-walk exp))
 
 (define THE-ASSERTIONS empty-stream)
 (define (fetch-assertions pattern frame)
   (if (use-index? pattern)
-      (get-indexed-assertions pattern)
-      (get-all-assertions)))
+    (get-indexed-assertions pattern)
+    (get-all-assertions)))
 (define (get-all-assertions) THE-ASSERTIONS)
 (define (get-indexed-assertions pattern)
   (get-stream (index-key-of pattern) 'assertion-stream))
@@ -231,8 +231,8 @@
 (define THE-RULES empty-stream)
 (define (fetch-rules pattern frame)
   (if (use-index? pattern)
-      (get-indexed-rules pattern)
-      (get-all-rules)))
+    (get-indexed-rules pattern)
+    (get-all-rules)))
 (define (get-all-rules) THE-RULES)
 (define (get-indexed-rules pattern)
   (stream-append
@@ -241,13 +241,13 @@
 
 (define (add-rule-or-assertion! assertion)
   (if (rule? assertion)
-      (add-rule! assertion)
-      (add-assertion! assertion)))
+    (add-rule! assertion)
+    (add-assertion! assertion)))
 (define (add-assertion! assertion)
   (store-assertion-in-index assertion)
   (let ([old-assertions THE-ASSERTIONS])
     (set! THE-ASSERTIONS
-          (stream-cons assertion old-assertions))
+      (stream-cons assertion old-assertions))
     'ok))
 (define (add-rule! rule)
   (store-rule-in-index rule)
@@ -257,24 +257,24 @@
 
 (define (store-assertion-in-index assertion)
   (when (indexable? assertion)
-      (let ([key (index-key-of assertion)])
-        (let ([current-assertion-stream
-               (get-stream key 'assertion-stream)])
-          (put key
-               'assertion-stream
-               (stream-cons
-                assertion
-                current-assertion-stream))))))
+    (let ([key (index-key-of assertion)])
+      (let ([current-assertion-stream
+             (get-stream key 'assertion-stream)])
+        (put key
+             'assertion-stream
+             (stream-cons
+              assertion
+              current-assertion-stream))))))
 (define (store-rule-in-index rule)
   (let ([pattern (conclusion rule)])
     (when (indexable? pattern)
-        (let ([key (index-key-of pattern)])
-          (let ([current-rule-stream
-                 (get-stream key 'rule-stream)])
-            (put key
-                 'rule-stream
-                 (stream-cons rule
-                              current-rule-stream)))))))
+      (let ([key (index-key-of pattern)])
+        (let ([current-rule-stream
+               (get-stream key 'rule-stream)])
+          (put key
+               'rule-stream
+               (stream-cons rule
+                            current-rule-stream)))))))
 
 (define (indexable? pat)
   (or (constant-symbol? (car pat))
@@ -288,42 +288,42 @@
 
 (define (stream-append-delayed s1 delayed-s2)
   (if (stream-empty? s1)
-      (force delayed-s2)
-      (stream-cons
-       (stream-first s1)
-       (stream-append-delayed
-        (stream-rest s1)
-        delayed-s2))))
+    (force delayed-s2)
+    (stream-cons
+     (stream-first s1)
+     (stream-append-delayed
+      (stream-rest s1)
+      delayed-s2))))
 (define (interleave-delayed s1 delayed-s2)
   (if (stream-empty? s1)
+    (force delayed-s2)
+    (stream-cons
+     (stream-first s1)
+     (interleave-delayed
       (force delayed-s2)
-      (stream-cons
-       (stream-first s1)
-       (interleave-delayed
-        (force delayed-s2)
-        (delay (stream-rest s1))))))
+      (delay (stream-rest s1))))))
 
 (define (stream-flatmap proc s)
   (flatten-stream (stream-map proc s)))
 
 (define (flatten-stream stream)
   (if (stream-empty? stream)
-      empty-stream
-      (interleave-delayed
-       (stream-first stream)
-       (delay (flatten-stream (stream-rest stream))))))
+    empty-stream
+    (interleave-delayed
+     (stream-first stream)
+     (delay (flatten-stream (stream-rest stream))))))
 
 (define (singleton-stream x)
   (stream-cons x empty-stream))
 
 (define (type exp)
   (if (pair? exp)
-      (car exp)
-      (error "Unknown expression TYPE" exp)))
+    (car exp)
+    (error "Unknown expression TYPE" exp)))
 (define (contents exp)
   (if (pair? exp)
-      (cdr exp)
-      (error "Unknown expression CONTENTS" exp)))
+    (cdr exp)
+    (error "Unknown expression CONTENTS" exp)))
 
 (define (assertion-to-be-added? exp)
   (eq? (type exp) 'assert!))
@@ -342,8 +342,8 @@
 
 (define (tagged-list? exp tag)
   (if (pair? exp)
-      (eq? (car exp) tag)
-      #f))
+    (eq? (car exp) tag)
+    #f))
 (define (rule? statement)
   (tagged-list? statement 'rule))
 (define (conclusion rule) (cadr rule))
@@ -356,15 +356,15 @@
   (cond [(pair? exp)
          (cons (map-over-symbols proc (car exp))
                (map-over-symbols proc (cdr exp)))]
-        [(symbol? exp) (proc exp)]
-        [else exp]))
+    [(symbol? exp) (proc exp)]
+    [else exp]))
 (define (expand-question-mark symbol)
   (let ([chars (symbol->string symbol)])
     (if (string=? (substring chars 0 1) "?")
-        (list '?
-              (string->symbol
-               (substring chars 1 (string-length chars))))
-        symbol)))
+      (list '?
+            (string->symbol
+             (substring chars 1 (string-length chars))))
+      symbol)))
 
 (define (var? exp) (tagged-list? exp '?))
 (define (constant-symbol? exp) (symbol? exp))
@@ -381,10 +381,10 @@
   (string->symbol
    (string-append "?"
                   (if (number? (cadr variable))
-                      (string-append (symbol->string (caddr variable))
-                                     "-"
-                                     (number->string (cadr variable)))
-                      (symbol->string (cadr variable))))))
+                    (string-append (symbol->string (caddr variable))
+                                   "-"
+                                   (number->string (cadr variable)))
+                    (symbol->string (cadr variable))))))
 
 (define (make-binding variable value)
   (cons variable value))

@@ -2,25 +2,25 @@
 
 (define (preserving regs seq1 seq2)
   (if (null? regs)
-      (append-instruction-sequences seq1 seq2)
-      (let ([first-reg (car regs)])
-        ;; don't check first-reg is actually needed by seq2
-        ;; and modified by seq1
-        (preserving (cdr regs)
-                    (make-instruction-sequence
-                     (list-union (list first-reg)
-                                 (registers-needed seq1))
-                     (list-difference (registers-modified seq1)
-                                      (list first-reg))
-                     (append `((save ,first-reg))
-                             (statements seq1)
-                             `((restore ,first-reg))))
-                    seq2))))
+    (append-instruction-sequences seq1 seq2)
+    (let ([first-reg (car regs)])
+      ;; don't check first-reg is actually needed by seq2
+      ;; and modified by seq1
+      (preserving (cdr regs)
+                  (make-instruction-sequence
+                   (list-union (list first-reg)
+                               (registers-needed seq1))
+                   (list-difference (registers-modified seq1)
+                                    (list first-reg))
+                   (append `((save ,first-reg))
+                           (statements seq1)
+                           `((restore ,first-reg))))
+                  seq2))))
 
 (compile
  '(if (eq? "Винни-Пух" "der Große Steuermann")
-      "Пока есть государство, нет свободы. Когда будет свобода, не будет государства."
-      "Ein Volk, ein Reich, ein Führer.")
+    "Пока есть государство, нет свободы. Когда будет свобода, не будет государства."
+    "Ein Volk, ein Reich, ein Führer.")
  'val
  'next)
 

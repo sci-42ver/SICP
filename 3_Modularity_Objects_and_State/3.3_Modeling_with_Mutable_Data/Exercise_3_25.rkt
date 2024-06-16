@@ -4,20 +4,20 @@
   (let ([local-table (mcons '*table* null)])
     (define (assoc key records)
       (cond [(null? records) null]
-            [(same-key? key (mcar (mcar records))) (mcar records)]
-            [else (assoc key (mcdr records))]))
+        [(same-key? key (mcar (mcar records))) (mcar records)]
+        [else (assoc key (mcdr records))]))
     (define (lookup keys)
       (define (iter-lookup keys-list subtable)
         (if (pair? keys-list)
-            (let ([subtable-or-record
-                   (assoc (car keys-list) (mcdr subtable))]
-                  [next-key-pair (cdr keys-list)])
-              (cond [(and (not (null? subtable-or-record)) (null? next-key-pair))
-                     (mcdr subtable-or-record)]
-                    [(and (not (null? subtable-or-record)) (not (null? next-key-pair)))
-                     (iter-lookup next-key-pair subtable-or-record)]
-                    [else null]))
-            null))
+          (let ([subtable-or-record
+                 (assoc (car keys-list) (mcdr subtable))]
+                [next-key-pair (cdr keys-list)])
+            (cond [(and (not (null? subtable-or-record)) (null? next-key-pair))
+                   (mcdr subtable-or-record)]
+              [(and (not (null? subtable-or-record)) (not (null? next-key-pair)))
+               (iter-lookup next-key-pair subtable-or-record)]
+              [else null]))
+          null))
       (iter-lookup keys local-table))
     (define (insert! keys value)
       (define (iter-insert! keys-list subtable)
@@ -27,23 +27,23 @@
                   (assoc current-key (mcdr subtable))]
                  [next-key-pair (cdr keys-list)])
             (if (not (null? subtable-or-record))
-                (if (null? next-key-pair)
-                    (set-mcdr! subtable-or-record value)
-                    (iter-insert! next-key-pair subtable-or-record))
-                (if (null? next-key-pair)
-                    (set-mcdr! subtable
-                               (mcons (mcons current-key value)
-                                      (mcdr subtable)))
-                    (begin (set-mcdr! subtable
-                                      (mcons (mcons current-key null)
-                                             (mcdr subtable)))
-                           (iter-insert! next-key-pair (mcar (mcdr subtable)))))))))
+              (if (null? next-key-pair)
+                (set-mcdr! subtable-or-record value)
+                (iter-insert! next-key-pair subtable-or-record))
+              (if (null? next-key-pair)
+                (set-mcdr! subtable
+                           (mcons (mcons current-key value)
+                                  (mcdr subtable)))
+                (begin (set-mcdr! subtable
+                                  (mcons (mcons current-key null)
+                                         (mcdr subtable)))
+                  (iter-insert! next-key-pair (mcar (mcdr subtable)))))))))
       (iter-insert! keys local-table)
       'ok)
     (define (dispatch m)
       (cond [(eq? m 'lookup-proc) lookup]
-            [(eq? m 'insert-proc!) insert!]
-            [else (error "Unknown operation: TABLE" m)]))
+        [(eq? m 'insert-proc!) insert!]
+        [else (error "Unknown operation: TABLE" m)]))
     dispatch))
 
 (define (same-key? key-1 key-2)

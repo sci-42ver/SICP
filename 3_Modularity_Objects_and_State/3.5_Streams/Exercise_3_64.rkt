@@ -19,8 +19,8 @@
 
 (define (euler-transform s)
   (let ((s0 (stream-ref s 0))   ; Sn-1
-        (s1 (stream-ref s 1))   ; Sn
-        (s2 (stream-ref s 2)))  ; Sn+1
+                                (s1 (stream-ref s 1))   ; Sn
+                                (s2 (stream-ref s 2)))  ; Sn+1
     (stream-cons (- s2 (/ (square (- s2 s1))
                           (+ s0 (* -2 s1) s2)))
                  (euler-transform (stream-rest s)))))
@@ -35,8 +35,8 @@
   (let ([first (stream-ref stream 0)]
         [second (stream-ref stream 1)])
     (if (< (abs (- first second)) tolerance)
-        second
-        (stream-limit (stream-rest stream) tolerance))))
+      second
+      (stream-limit (stream-rest stream) tolerance))))
 
 (define (sqrt x tolerance)
   (stream-limit (sqrt-stream x) tolerance))

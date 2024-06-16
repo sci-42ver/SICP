@@ -7,11 +7,11 @@
    initial-value
    (let ([integrand (force delayed-integrand)])
      (if (stream-empty? integrand)
-         empty-stream
-         (integral (delay (stream-rest integrand))
-                   (+ (* dt (stream-first integrand))
-                      initial-value)
-                   dt)))))
+       empty-stream
+       (integral (delay (stream-rest integrand))
+                 (+ (* dt (stream-first integrand))
+                    initial-value)
+                 dt)))))
 
 (define (solve f y0 dt)
   (define y (integral (delay dy) y0 dt))

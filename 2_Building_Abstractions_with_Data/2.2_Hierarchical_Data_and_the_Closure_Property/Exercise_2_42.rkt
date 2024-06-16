@@ -3,14 +3,14 @@
 
 (define (accumulate op initial sequence)
   (if (null? sequence)
-      initial
-      (op (car sequence)
-          (accumulate op initial (cdr sequence)))))
+    initial
+    (op (car sequence)
+        (accumulate op initial (cdr sequence)))))
 
 (define (enumerate-interval low high)
   (if (> low high)
-      null
-      (cons low (enumerate-interval (+ low 1) high))))
+    null
+    (cons low (enumerate-interval (+ low 1) high))))
 
 (define (flatmap proc seq)
   (accumulate append null (map proc seq)))
@@ -18,35 +18,35 @@
 (define (queens board-size)
   (define (queen-cols k)
     (if (= k 0)
-        (list empty-board)
-        (filter
-         (lambda (positions) (safe? k positions))
-         (flatmap
-          (lambda (rest-of-queens)
-            (map (lambda (new-row)
-                   (adjoin-position
-                    new-row k rest-of-queens))
-                 (enumerate-interval 1 board-size)))
-          (queen-cols (- k 1))))))
+      (list empty-board)
+      (filter
+       (lambda (positions) (safe? k positions))
+       (flatmap
+        (lambda (rest-of-queens)
+          (map (lambda (new-row)
+                 (adjoin-position
+                  new-row k rest-of-queens))
+               (enumerate-interval 1 board-size)))
+        (queen-cols (- k 1))))))
   (queen-cols board-size))
 
 (define empty-board null)
 
 (define (adjoin-position new-row nth-row rest-queens)
   (if (= 1 nth-row)
-      (list new-row) ;; first row
-      (append rest-queens (list new-row))))
+    (list new-row) ;; first row
+    (append rest-queens (list new-row))))
 
 (define (safe? nth-row positions)
   (if (= nth-row 1)
-      #t
-      (let ([new-queen (last positions)]
-            [rest-queens (drop-right positions 1)])
-        (for/and ([another-queen (in-list rest-queens)]
-                  [i (in-naturals)])
-          (and (not (= new-queen another-queen)) ;; not in same column
-               (not (= (abs (- new-queen another-queen)) ;; not in same diagonal
-                       (abs (- nth-row (add1 i))))))))))
+    #t
+    (let ([new-queen (last positions)]
+          [rest-queens (drop-right positions 1)])
+      (for/and ([another-queen (in-list rest-queens)]
+                [i (in-naturals)])
+        (and (not (= new-queen another-queen)) ;; not in same column
+             (not (= (abs (- new-queen another-queen)) ;; not in same diagonal
+                     (abs (- nth-row (add1 i))))))))))
 
 (queens 4)
 ;; '((2 4 1 3) (3 1 4 2))

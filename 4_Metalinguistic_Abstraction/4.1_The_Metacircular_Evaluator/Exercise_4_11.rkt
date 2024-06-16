@@ -2,16 +2,16 @@
 
 (define (mmap proc . args)
   (if (null? (car args))
-      null
-      (mcons
-       (apply proc (map mcar args))
-       (apply mmap
-              (cons proc (map mcdr args))))))
+    null
+    (mcons
+     (apply proc (map mcar args))
+     (apply mmap
+            (cons proc (map mcdr args))))))
 (define (mlist . args)
   (define (mlist-iter a l)
     (if (null? a)
-        l
-        (mlist-iter (cdr a) (mcons (car a) l))))
+      l
+      (mlist-iter (cdr a) (mcons (car a) l))))
   (mlist-iter args null))
 
 (define (enclosing-environment env) (cdr env))
@@ -31,25 +31,25 @@
   (define (env-loop env)
     (define (scan pairs)
       (let ([current-pair (mcar pairs)])
-      (cond [(null? current-pair)
-             (env-loop (enclosing-environment env))]
-            [(eq? var (frame-unit-variable current-pair)) (set-mcdr! current-pair val)]
-            [else (scan (mcdr pairs))])))
+        (cond [(null? current-pair)
+               (env-loop (enclosing-environment env))]
+          [(eq? var (frame-unit-variable current-pair)) (set-mcdr! current-pair val)]
+          [else (scan (mcdr pairs))])))
     (if (eq? env the-empty-environment)
-        (error "Unbound variable: SET!" var)
-        (let ([frame (first-frame env)])
-          (scan (frame-variables frame)
-                (frame-values frame)))))
+      (error "Unbound variable: SET!" var)
+      (let ([frame (first-frame env)])
+        (scan (frame-variables frame)
+              (frame-values frame)))))
   (env-loop env))
 
 (define (define-variable! var val env)
   (let ([frame (first-frame env)])
     (define (scan pairs)
       (let ([current-pair (mcar pairs)])
-      (cond [(null? current-pair)
-             (add-binding-to-frame! var val frame)]
-            [(eq? var (frame-unit-variable current-pair)) (set-mcdr! current-pair val)]
-            [else (scan (mcdr pairs))])))
+        (cond [(null? current-pair)
+               (add-binding-to-frame! var val frame)]
+          [(eq? var (frame-unit-variable current-pair)) (set-mcdr! current-pair val)]
+          [else (scan (mcdr pairs))])))
     (scan (frame-variables frame) (frame-values frame))))
 
 ;; test

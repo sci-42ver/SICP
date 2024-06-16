@@ -4,11 +4,11 @@
 
 (define (stream-mapp proc . argstreams)
   (if (stream-empty? (car argstreams))
-      empty-stream
-      (stream-cons
-       (apply proc (map stream-first argstreams))
-       (apply stream-mapp
-              (cons proc (map stream-rest argstreams))))))
+    empty-stream
+    (stream-cons
+     (apply proc (map stream-first argstreams))
+     (apply stream-mapp
+            (cons proc (map stream-rest argstreams))))))
 
 ; test
 (define stream_a (stream-cons 1 (list 2)))

@@ -5,8 +5,8 @@
 
 (define (euler-transform s)
   (let ((s0 (stream-ref s 0))   ; Sn-1
-        (s1 (stream-ref s 1))   ; Sn
-        (s2 (stream-ref s 2)))  ; Sn+1
+                                (s1 (stream-ref s 1))   ; Sn
+                                (s2 (stream-ref s 2)))  ; Sn+1
     (stream-cons (- s2 (/ (square (- s2 s1))
                           (+ s0 (* -2 s1) s2)))
                  (euler-transform (stream-rest s)))))
@@ -23,11 +23,11 @@
 
 (define (stream-map proc . argstreams)
   (if (stream-empty? (car argstreams))
-      empty-stream
-      (stream-cons
-       (apply proc (map stream-first argstreams))
-       (apply stream-map
-              (cons proc (map stream-rest argstreams))))))
+    empty-stream
+    (stream-cons
+     (apply proc (map stream-first argstreams))
+     (apply stream-map
+            (cons proc (map stream-rest argstreams))))))
 
 (define (add-streams s1 s2) (stream-map + s1 s2))
 

@@ -18,17 +18,17 @@
   (cond [(and (eq? type-tag 'scheme-number)
               (number? contents))
          contents]
-        [else (cons type-tag contents)]))
+    [else (cons type-tag contents)]))
 
 (define (type-tag datum)
   (cond [(number? datum) 'scheme-number]
-        [(pair? datum) (car datum)]
-        [else (error "Bad tagged datum: TYPE-TAG" datum)]))
+    [(pair? datum) (car datum)]
+    [else (error "Bad tagged datum: TYPE-TAG" datum)]))
 
 (define (contents datum)
   (cond [(number? datum) datum]
-        [(pair? datum) (cdr datum)]
-        [else (error "Bad tagged datum: CONTENTS" datum)]))
+    [(pair? datum) (cdr datum)]
+    [else (error "Bad tagged datum: CONTENTS" datum)]))
 
 (define (no-method-error op type-tags)
   (error "No method for these types"
@@ -38,10 +38,10 @@
   (let ([type-tags (map type-tag args)])
     (let ([proc (get op type-tags)])
       (if (not (null? proc))
-          (apply proc (map contents args))
-          (error
-           "No method for these types: APPLY-GENERIC"
-           (list op type-tags))))))
+        (apply proc (map contents args))
+        (error
+         "No method for these types: APPLY-GENERIC"
+         (list op type-tags))))))
 
 (define (install-scheme-number-package)
   (define (tag x) (attach-tag 'scheme-number x))

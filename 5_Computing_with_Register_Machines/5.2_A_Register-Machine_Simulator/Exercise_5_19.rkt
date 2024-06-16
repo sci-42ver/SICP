@@ -9,20 +9,20 @@
 (define (execute)
   (let ([insts (get-contents pc)])
     (if (null? insts)
-        'done
-        (let ([inst (car insts)])
-          (when trace
-            (when (not (null? (instruction-label inst)))
-              (displayln (list 'Label: (instruction-label inst))))
-            (displayln (list 'Executing: (instruction-text inst))))
-          (when (breakpoint? inst) ;; ***
-            (let br-loop ([input (read)])
-              (when (not (tagged-list? input 'proceed-machine))
-                (displayln (eval input ns))
-                (br-loop (read)))))
-          ((instruction-execution-proc inst))
-          (set! inst-counts (add1 inst-counts))
-          (execute)))))
+      'done
+      (let ([inst (car insts)])
+        (when trace
+          (when (not (null? (instruction-label inst)))
+            (displayln (list 'Label: (instruction-label inst))))
+          (displayln (list 'Executing: (instruction-text inst))))
+        (when (breakpoint? inst) ;; ***
+          (let br-loop ([input (read)])
+            (when (not (tagged-list? input 'proceed-machine))
+              (displayln (eval input ns))
+              (br-loop (read)))))
+        ((instruction-execution-proc inst))
+        (set! inst-counts (add1 inst-counts))
+        (execute)))))
 
 (define (get-insts machine)
   (machine 'insts))
@@ -46,25 +46,25 @@
 (define (set-or-cancel-br machine label n set-br?)
   (define (iter insts found-label count)
     (cond [(null? insts) (error "Can't find instruction to add or cancel breakpoint")]
-          [(and found-label (zero? count))
-           (if set-br?
-               (inst-set-br (car insts))
-               (inst-cancel-br (car insts)))
-           'done]
-          [found-label
-           (iter (cdr insts) found-label (sub1 count))]
-          [else
-           (let* ([inst (car insts)]
-                  [inst-label (instruction-label inst)])
-             (if (and (not (null? inst-label))
-                      (equal? label inst-label))
-                 (iter insts #t count)
-                 (iter (cdr insts) found-label count)))]))
+      [(and found-label (zero? count))
+       (if set-br?
+         (inst-set-br (car insts))
+         (inst-cancel-br (car insts)))
+       'done]
+      [found-label
+       (iter (cdr insts) found-label (sub1 count))]
+      [else
+       (let* ([inst (car insts)]
+              [inst-label (instruction-label inst)])
+         (if (and (not (null? inst-label))
+                  (equal? label inst-label))
+           (iter insts #t count)
+           (iter (cdr insts) found-label count)))]))
   (if (< n 1)
-      (error "n should be at least one")
-      (iter (get-insts machine)
-            #f
-            (sub1 n))))
+    (error "n should be at least one")
+    (iter (get-insts machine)
+          #f
+          (sub1 n))))
 
 (define (set-breakpoint machine label n)
   (set-or-cancel-br machine label n #t))

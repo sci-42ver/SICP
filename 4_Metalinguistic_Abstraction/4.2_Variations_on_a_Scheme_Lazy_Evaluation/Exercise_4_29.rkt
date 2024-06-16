@@ -8,30 +8,30 @@
 (define (fib n)
   (define (fib-iter a b p q count)
     (cond [(= count 0) b]
-          [(even? count)
-           (fib-iter a
-                     b
-                     (+ (* q q) (* p p))   ;; compute p′
-                     (+ (* 2 p q) (* q q)) ;; compute q′
-                     (/ count 2))]
-          [else (fib-iter (+ (* b q) (* a q) (* a p))
-                          (+ (* b p) (* a q))
-                          p
-                          q
-                          (- count 1))]))
+      [(even? count)
+       (fib-iter a
+                 b
+                 (+ (* q q) (* p p))   ;; compute p′
+                 (+ (* 2 p q) (* q q)) ;; compute q′
+                 (/ count 2))]
+      [else (fib-iter (+ (* b q) (* a q) (* a p))
+                      (+ (* b p) (* a q))
+                      p
+                      q
+                      (- count 1))]))
   (fib-iter 1 0 0 1 n))
 
 (define (fib2 n)
   (define (iter a b k)
     (if (= k 0)
-        b
-        (iter (+ a b) a (- k 1))))
+      b
+      (iter (+ a b) a (- k 1))))
   (iter 1 0 n))
 
 (define (factorial n)
   (if (= n 0)
-      1
-      (* n (factorial (- n 1)))))
+    1
+    (* n (factorial (- n 1)))))
 
 ;; add even? to primitive-procedures
 

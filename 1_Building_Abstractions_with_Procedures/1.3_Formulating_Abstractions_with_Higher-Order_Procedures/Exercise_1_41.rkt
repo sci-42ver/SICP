@@ -1,7 +1,7 @@
 #lang racket/base
 
 (define (double f)
-    (lambda (x) (f (f x))))
+  (lambda (x) (f (f x))))
 
 (define (inc x) (+ x 1))
 

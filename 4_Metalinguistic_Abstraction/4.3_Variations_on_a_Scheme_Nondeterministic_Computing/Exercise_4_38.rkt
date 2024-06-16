@@ -4,9 +4,9 @@
 
 (define (distinct? items)
   (cond [(null? items) true]
-        [(null? (cdr items)) true]
-        [(member (car items) (cdr items)) false]
-        [else (distinct? (cdr items))]))
+    [(null? (cdr items)) true]
+    [(member (car items) (cdr items)) false]
+    [else (distinct? (cdr items))]))
 
 (define (multiple-dwelling)
   (let ([baker (amb 1 2 3 4 5)]

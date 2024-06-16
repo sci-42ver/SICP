@@ -14,13 +14,13 @@
 
 (define (let-bindings exp)
   (if (named-let? exp)
-      (caddr exp)
-      (cadr exp)))
+    (caddr exp)
+    (cadr exp)))
 
 (define (let-body exp)
   (if (named-let? exp)
-      (cdddr exp)
-      (cddr exp)))
+    (cdddr exp)
+    (cddr exp)))
 
 (define (make-let bindings body)
   (cons 'let (cons bindings body)))
@@ -34,10 +34,10 @@
          [exp-list (map cadr bindings)]
          [body (let-body exp)])
     (if (named-let? exp)
-        (make-let bindings
-                  (list (make-define (cons (cadr exp) var-list) body)
-                        (cons (cadr exp) var-list)))
-        (cons (make-lambda var-list body) exp-list))))
+      (make-let bindings
+                (list (make-define (cons (cadr exp) var-list) body)
+                      (cons (cadr exp) var-list)))
+      (cons (make-lambda var-list body) exp-list))))
 
 (define (eval-let exp env) (eval (let->combination exp) env))
 

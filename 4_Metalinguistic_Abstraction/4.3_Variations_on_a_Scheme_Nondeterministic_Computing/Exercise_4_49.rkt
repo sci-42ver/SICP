@@ -35,8 +35,8 @@
 
 (define (find-word words)
   (if (null? words)
-      (amb)
-      (amb (car words) (find-word (cdr words)))))
+    (amb)
+    (amb (car words) (find-word (cdr words)))))
 
 (define (parse-word word-list)
   (require (not (null? *unparsed*)))

@@ -4,8 +4,8 @@
   (let* ([var (operator exp)]
          [address (find-variable var compile-env)])
     (if (eq? address 'not-found)
-        (memq var '(= * - +))
-        #f)))
+      (memq var '(= * - +))
+      #f)))
 
 ;; test
 (define test

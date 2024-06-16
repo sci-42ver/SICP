@@ -63,9 +63,9 @@
     (let* ([coeff-list (map (lambda (term) (coeff term)) a)]
            [coeff-gcd (apply gcd coeff-list)])
       (map (lambda (term)
-              (make-term (order term)
-                         (/ (coeff term) coeff-gcd)))
-              a))
+             (make-term (order term)
+                        (/ (coeff term) coeff-gcd)))
+           a))
     (gcd-terms b (pseudoremainder-terms a b))))
 
 (greatest-common-divisor q1 q2)

@@ -5,8 +5,8 @@
 
 (define fibs
   (stream-cons
-    0
-    (stream-cons 1 (add-streams (stream-rest fibs) fibs))))
+   0
+   (stream-cons 1 (add-streams (stream-rest fibs) fibs))))
 
 ; without cache
 ; f(2) = f(1) + f(0)   1

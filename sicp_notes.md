@@ -1,17 +1,18 @@
-Thanks for your more detailed explanation using the more powerful Racket. I use MIT-Scheme same as the course. Someone also recommends using Clojure but I thought the most simple Scheme may teach more with the above introduction book. Here I add some notes about the above syntax for someone only using Scheme as me: 1. `precision` is one optional argument https://docs.racket-lang.org/guide/lambda.html#%28part._.Declaring_.Optional_.Arguments%29. 2. parameterize https://docs.racket-lang.org/guide/parameterize.html and bf https://docs.racket-lang.org/math/bigfloat.html.
+@WillNess Thanks for your alternative solution. 1.1 Googling "streams of decimal digits" recommends one post about c++ https://stackoverflow.com/a/13186757/21294350 saying we need to multiply 10^k and then floor -> divide by 10^k for precision k. But "multiply 10^k" may cause overflow. I think it is wrong. 1.2. https://stackoverflow.com/a/34095030/21294350 uses `std::setprecision`.
 
-Could you help clarifying some questions about your answer? Thanks in advance. 1. Where is "since we want it to affect free variables only, and $x$ is bound" from? Your first 3 formulas are both renaming the bound variables $x$ and "$y$ does not occur free in $e$" cares about $t$ in $t/y$.
+2. For scheme, https://stackoverflow.com/a/5208049/21294350 may work. I didn't dig into it because learning SICP is not to learn Scheme. The link has many syntaxes absent from SICP up to chapter 1, so I will follow the instructor solution by using Taylor Series.
 
-2. What is exactly meaning of $\sum_z (e\{z/x\}\{t/y\})$ about a. $\{z/x\}$ first or $\{t/y\}$ first to be calculated. b. whether $\{z/x\}$ will make $t$ change like $t=2x\mapsto 2z$? IMHO if $\{z/x\}$ is first then the renaming did nothing by just thinking $x$ as $z$. If $\{t/y\}$ is first then "if $x$ occurs free" problem is still there.
+@WillNess Thanks for your patience. In a summary, 1. "{23%10} ÷ {20%10} = {12%10}" is solved by "23/20.0" -> 1.15 and then round to 1.2 -> "12%10". Is the calculation process as you expect?
 
-3. Does "Now, imagine having to deal with this intricate definition every time ... It's boring, tedious, error-prone" mean that it is tedious to iterate for all $e$ which may be complex because it may be long?
+2. you means we should use https://stackoverflow.com/a/13186757/21294350 method. "You'd have to implement exponentiation of these ratios yourself, by repeated squaring, say, *rounding* after each squaring." and "Each squaring is simply done with the underlying *unlimited integers*": Here 1e-100 must need precision *at least 100 decimal bits*. Then at last we will encounter Shawn's format where the big exponentiation needs *too much time* which is impractical.
 
-Thanks for the detailed explanation. I can understand 2 now. For 1, for example assume $\sum_x e=x=y$. Then $\sum_x e\{t/y\}=t$ instead of $x=y$. I can't understand why "We want $e\{t/x\}$ to be unaffected by renaming bound variables in $e$". Could you tell me why the demand is reasonable here? For 3, I am also reading SICP as the intro book so I know little about lambda calculus. From "makes the proof cluttered" I think I understand why people avoid doing that renaming explicitly.
+Then how do we solve the problem using "streams of decimal digits" (could you give the process for the above example)? (Hope my understanding of what you says is right.)
 
-4. Ensure Objective in each course is achieved after learning the 2 books (SICP, SDF)
-5. We [need to read the footnotes](https://www.reddit.com/r/GradSchool/comments/1gf2td/comment/cajrgmj/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button) which is posted by one Mod of r/academia.
+I failed to move this discussion to chat. As https://meta.stackoverflow.com/questions/388670/why-does-it-always-say-moving-discussion-to-chat-failed#comment722895_388670 says it seems only dev can solve the problem. @WillNess I can understand your point 2. For 3, I think you may mean *10^{b} instead of quotient using %b. "I'll see if I can find a related answer if mine.": "the big exponentiation needs too much time" is where I doubts about the feasibility of this method. Can keeping "squaring" up to 1e100 can be solved in one practical short time using "streams of decimal digits"?
 
-Is it easy to implement in Scheme? Googling "streams of decimal digits" recommends one post about c++ https://stackoverflow.com/a/13186757/21294350 saying we need to multiply 10^k and then floor -> divide by 10^k for precision k. But "multiply 10^k" may cause overflow. I think it is wrong. https://stackoverflow.com/a/34095030/21294350 uses `std::setprecision`. For scheme, https://stackoverflow.com/a/5208049/21294350 may work (I didn't dig into it which has many syntaxes absent from SICP up to chapter 1 because learning SICP is not to learn Scheme).
+@WillNess Thanks for your link. I understand now. But "underlying unlimited integers" seems to not hold in Scheme (the reason is probably due to the bit limit same as the floating number). I will post the scheme code translated from your pseudocode in one answer since the code is a bit long.
+
+@WillNess Thanks. 1. Anyway I understood your basic ideas although in practice this method is much more complex than the solution given by the instructor. 2. Probably you upvoted this answer. IMHO this method is a bit deviated of what the exercise expects to teach so I don't plan to post one new question. Do you think it is  appropriate for me to delete this answer and merge the answers and comments into the question?
 # projects recommended by [course_note] to be done.
 > Examples include an event-driven object-oriented simulation game, a conversational program that uses rules and pattern matching, symbolic algebra of polynomials and rational functions, interpreters for various languages, and a compiler with register optimization.
 I skipped [Problem Sets](https://github.com/abrantesasf/sicp-abrantes-study-guide?tab=readme-ov-file), Exam, homework and Quizzes because IMHO those numerous exercises in the book is enough and most of courses pay more attention for projects when grading. Also 
@@ -155,6 +156,7 @@ TODO who is the instructor Mike Phillips, is [him](https://en.wikipedia.org/wiki
     - > If you take the extra 5th unit, it will be called CS 98. (Despite what Brian wrote, the "H61AS" course description never actually happened.)
       may [mean (crawled by google)](https://inst.eecs.berkeley.edu/~cs61as/su12/)
       > Credit for Unit 5 will be assigned through a CS 98 course
+      [CS 98](https://www2.eecs.berkeley.edu/Courses/CS98/)
     - maybe "problems" mean "high 61A dropout rate"
       > There is a plan afoot to *eliminate some of these problems* by recasting 61AS as a two-semester course
     - course design
@@ -279,7 +281,8 @@ I only check labs without checking Homework, Quizzes and Retakes
 # Emacs
 - [reference card](https://www.gnu.org/software/emacs/refcards/pdf/refcard.pdf)
 - [brief intro to run scheme](https://languageagnostic.blogspot.com/2011/05/mit-scheme-in-emacs.html?m=1) from [this](https://www.reddit.com/r/scheme/comments/grnz6o/comment/fs248nv/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button)
-# (misc) How to write emails to TA, etc
+# (misc)
+## How to write emails to TA, etc
 - see [comics](https://advising.yalecollege.yale.edu/how-write-email-your-instructor) or [example](https://www.purdue.edu/advisors/students/professor.php)
   - 1
     - a clear subject line
@@ -290,6 +293,11 @@ I only check labs without checking Homework, Quizzes and Retakes
   - 2
     - correct grammar and spelling
 - [more general](https://sparkmailapp.com/formal-email-template)
+- [should I add period at the end in the brackets](https://proofed.com/writing-tips/punctuate-brackets/#:~:text=However%2C%20we%20have%20a%20few,case%20the%20period%20goes%20inside.)
+  > I ate the whole cake. (And now I am full.)
+## grading curve
+- https://www.bestcolleges.com/blog/curved-grading/#:~:text=What%20Is%20Grading%20on%20a%20Curve%3F,A%20grades%20and%20failing%20grades.
+  > they can grade on a curve. That means *modifying each student's grade* to *raise the average*.
 # MIT-scheme miscs
 - [exit message meaning](https://github.com/search?q=repo%3Abarak%2Fmit-scheme%20term_halt_messages&type=code) https://github.com/barak/mit-scheme/blob/56e1a12439628e4424b8c3ce2a3118449db509ab/src/microcode/term.c#L111C5-L111C30
 # html book searching tips
@@ -297,6 +305,17 @@ I only check labs without checking Homework, Quizzes and Retakes
   [XPath](https://scrapfly.io/blog/how-to-select-elements-by-text-in-xpath/) ([no corresponding CSS selector](https://stackoverflow.com/a/4561376/21294350))
 - following-sibling
   [XPath -> selector](https://devhints.io/xpath#using-axes)
+# scheme style
+- [1](https://web.archive.org/web/20240117063034/http://community.schemewiki.org/?scheme-style)
+  - preface says about the indentation.
+  - Rule 1: not "Don't put closing (or opening) parens on a line of their own", i.e. one line with only one paren.
+    > Notice how the closing parens are all on a line of their own, *indented so to mark* where the expression will continue. Remember, it's *an exception - use this rarely*.
+  - For the rest I only read their titles.
+- [naming](https://web.archive.org/web/20231129221311/http://community.schemewiki.org/?variable-naming-convention)
+  - TODO
+    *Name
+- [comment convention](https://web.archive.org/web/20220526005605/http://community.schemewiki.org/?comment-style)
+- I skipped "Scheme Tips from Dartmouth" since format is not that important but needs to be consistent when cooperation.
 
 ---
 
@@ -392,6 +411,117 @@ I only check labs without checking Homework, Quizzes and Retakes
   - read the book
   - use video when unable to understand
 
+# CS 61AS chapter 0
+## 0.1
+- https://web.archive.org/web/20150601000000*/http://start.cs61as.org/ doesn't work
+- > Computer scientists are like engineers: we build cool stuff, and we solve problems.
+  the links are interesting.
+- > your browser has to determine which server to contact, ask that server to give it the webpage you're looking for, download the webpage, interpret the webpage, and display it on your screen.
+  DNS -> communication -> network transfer -> interpreter -> GUI
+- `(+)` just adds nothing -> 0.
+- kw
+  > This so-called "textbook" consists of 17 lessons, *most of which are based on the classic text* Structure and Interpretation of Computer Programs, which gives this course its name.
+  programming languages
+  > That's because in the grand scheme of things, *programming languages don't matter*. They only matter because, for any given problem, one language might let us solve the problem *in fewer lines* of code over another, or one language might let us solve the problem *more efficiently*, and so on.
+  > As you learn more computer science, we'll *incrementally show you more of the language*.
+  Interpreters
+  > Interpreters: We go into how an interpreter works, and we'll even write our own. We'll also consider a few other interpreters and see *what they all have in common*.
+  CS 61A
+  > CS 61A is the sister course to CS 61AS. It is offered in the traditional *lecture-lab-discussion* format,
+  > CS 61AS is a lab-centric class—there are no lectures. Students learn by working *through guided readings and participating in discussions*.
+- [detailed comparison](https://docs.google.com/document/d/1htUkJJHXnXnDVMLq4avHsCbIAWFfki_hxuLumtYz6Os/edit)
+  > In CS 61A, we are interested in teaching you about programming, *not about how to use one particular programming language*. ... Mastery of a particular programming language is a very useful *side effect* of studying these general techniques.
+  Comparison of Courses
+  > A bit of Python (build a Python interpreter)
+  - What if I've never programmed before? -> Unit 0
+  - Do I have to go to lab/discussion?
+    > You are highly encouraged, but *not required to attend discussions*.
+    > In CS 10 and CS 61AS, lab is the only place in order to *take quizzes*.
+  - [L&S](https://guide.berkeley.edu/courses/l_s/) [Breadths](https://lsadvising.berkeley.edu/seven-course-breadth#:~:text=An%20exception%20to%20this%20limitation,wish%20for%20Seven%2DCourse%20Breadth.) may be targetted more at Letters
+    > introducing them to *a multitude of perspectives and approaches to research and scholarship*.
+  - Why does 61AS use Scheme/Racket when 61A uses Python?
+    This is almost same as the preface about syntax.
+    Also same as about "Python" as "The End of an Era" says.
+    > It should be said that both 61A and 61AS staff consider Python and Scheme to be good programming languages to learn (hence they *show up in both* courses),
+  - TODO 
+    my facebook account is always banned due to the IP problem.
+    "Berkeley Facebook group"
+  - General Info of CS 61AS
+    - > You learn by working through short readings and guided labs and participating in discussions
+      "short readings and guided labs" is almost same as MIT 6.5151 (6.905).
+    - > 61AS Uses SICP, which is The Best Computer Science Book. This is the book that the *61A lecture notes are based off of*.
+      Here probably mean the new 61A using Python as indicated by the above "detailed comparison".
+    - This is probably for [CS 61AS 2015](https://www.alicialuengo.com/Resume.pdf)
+### Homework
+- > Why is and a special form? Because it evaluates its arguments and stops as soon as it can, returning false as soon as any argument evaluates to false.
+  ~~TODO can `cond` implement `and` correctly?~~
+  Same reasons as `if` in Exercise 1.6 where applicative-order causes the evaluation order to be wrong.
+  See summary in 0.2
+  > quote is different from most other procedures in that it *does not evaluate its argument*. Functions that exhibit this type of behavior are special forms.
+  And https://berkeley-cs61as.github.io/textbook/special-forms.html#sub2
+- [`[,bt for context]`](https://github.com/racket/xrepl/issues/6#issuecomment-271360651)
+- > Why did the Walrus cross the Serengeti?
+  https://www.expertafrica.com/tanzania/info/serengeti-wildebeest-migration
+  > They migrate throughout the year, constantly seeking fresh grazing and, it's now thought, better quality water.
+- 0.1-Exercise 4 is same as book exercise 1.6.
+- Recommended Readings is 
+  CS61a 2011 notes and the book
+- TODO
+  - scheme require file diff load in `racket -t` vs `-f`.
+- `sudo racket -tm grader.rkt -- hw0-1-tests.rkt hw0-1.rkt` to run all tests.
+## 0.2
+- > "the greatest single programming language ever designed" -- Alan Kay
+  See https://qr.ae/psmZZR. At least "operators" differ.
+  This also implies Scheme can define other lanugages.
+- Readings are from "Simply Scheme: Introducing Computer Science".
+- `'61AS` in newer Racket at least has the value.
+- Use `(require (planet dyoo/simply-scheme))` to use `butlast`.
+- See "The Empty Sentence" and "The Empty Word".
+- [`.` usage](https://groups.csail.mit.edu/mac/ftpdir/scheme-reports/r5rs-html/r5rs_6.html#SEC29)
+  - Also see [`define`](https://groups.csail.mit.edu/mac/ftpdir/scheme-reports/r5rs-html/r5rs_7.html#IDX135)
+    > the value of the definition is completely evaluated before being assigned to its variable.
+    [same](https://groups.csail.mit.edu/mac/ftpdir/scheme-reports/r5rs-html/r5rs_7.html#SEC45) as [`set!`](https://groups.csail.mit.edu/mac/ftpdir/scheme-reports/r5rs-html/r5rs_6.html#IDX77)
+    > If <variable> is not bound, however, then the definition will bind <variable> to a new location before performing the assignment
+    i.e. it will init while `set!` won't.
+    - [letrec](https://groups.csail.mit.edu/mac/ftpdir/scheme-reports/r5rs-html/r5rs_6.html#IDX93)
+      > the <init>s are evaluated in the resulting environment (in *some unspecified order*)
+      implies
+      > it must be possible to evaluate each <expression> of every internal definition in a <body> *without assigning or referring to* the value of any <variable> *being defined*.
+    - > An important property of procedure definitions is that the body of the procedure is not evaluated until the procedure is called.
+      I didn't fine it in the R5RS doc.
+      This is reasonable because the `body` may contain argument.
+      ```scheme
+      (define (foo sent word)
+        (word sent word)) ; Here word will be local. If pass in `'a`, then it is not one procedure.
+      ```
+- TODO
+  > The period and comma also have special meaning, so you cannot use those, either.
+- https://berkeley-cs61as.github.io/textbook/special-forms.html#sub2
+  - Test Your Understanding
+    `(and #f (/ 1 0) #t)`
+    `(or #t #f (/ 1 0))`
+  - > *Simple code is smart code*, and will make complex programs much more readable and maneuverable.
+## 0.3
+- > One of its arguments must be a number that tracks the stage of computation for the current recursive call.
+  this is not necessary always because we can [use *global* variables](https://stackoverflow.com/q/51682848/21294350).
+- > Back in Lesson 0-2, we stated an important property of defining procedures, where the procedure body is not evaluated when it is definted. This is the technical reason why recursion can work.
+  So when define `(factorial n)`, `(factorial (- n 1))` doesn't need to be valid.
+  > Thus, define is a special form that does not evaluate its arguments and keeps the procedure body from being evaluated. The body is only evaluated when you call the procedure outside of the definition.
+  i.e. "not evaluate"d when `define` but "evaluate"d when invoked.
+- > Which of these expressions cause an error in Racket? Select all that apply.
+  Notice
+  https://groups.csail.mit.edu/mac/ftpdir/scheme-reports/r5rs-html/r5rs_6.html#SEC29
+  > When the procedure is *later called* with some actual arguments, the environment in which the lambda expression was evaluated will be extended by binding the variables in the formal argument list to fresh locations, the corresponding *actual argument values will be stored* in those locations, and the expressions in *the body of the lambda expression will be evaluated sequentially* in the extended environment.
+  https://groups.csail.mit.edu/mac/ftpdir/scheme-reports/r5rs-html/r5rs_6.html#SEC31 (See the above `set!`)
+  > <Expression> is *evaluated*, and the resulting value is stored in the location to which <variable> is bound.
+- > Think about what happens if the word contains no vowels.
+  The endless loop.
+- > we have to decide whether or not to keep the first available element in the return value. When we do keep an element, we keep the element itself, not some function of the element.
+  i.e. no need to call "some function of the element" recursively.
+  IMHO here obviously we need to manipulate with "the element", so not "the element itself".
+- Comparing "The "Accumulate" Pattern" with "The "Every" Pattern",
+  the former has "a single result" while the latter will have a list like "a sentence".
+- `(pigl wd)` doesn't iterate all elements although it follows "the accumulate pattern".
 # chapter 1
 Since I was to learn programming, so for paragraphs not intensively with programming knowledge I only read their first sentence.
 ## 6.037 (dropped for future reading except this one already read)
@@ -609,8 +739,9 @@ IMHO 6.037 is the condensed (as its main page says) of 6.001 lectures by removin
       QUESTION is same as the problem
       kw: scale, relative error, scaled to the radicand/guess
 - [ ] 1.8
-  if we solve $y=x^3\Rightarrow f(y)=y-x^3$
-  then $y-\frac{y-x^3}{1}=x^3$ ~~says nothing useful.~~ implies directly calculating $x^3$.
+  I didn't notice the special case of $x=-2$
+  - if we solve $y=x^3\Rightarrow f(y)=y-x^3$
+    then $y-\frac{y-x^3}{1}=x^3$ ~~says nothing useful.~~ implies directly calculating $x^3$.
   - Newton's method [may not work](https://scholarworks.utep.edu/cgi/viewcontent.cgi?article=2421&context=cs_techrep#:~:text=Interestingly%2C%20the%20simplest%20example%20on,the%20Newton's%20method%20works%20perfectly.&text=desired%20extension.,%E2%88%92F(%E2%88%92x).) at least when $x_2=x_0$ and ad infinitum.
     This also relates with the init guess. See the code 1_8.scm from wiki.
   - wiki
@@ -629,6 +760,17 @@ IMHO 6.037 is the condensed (as its main page says) of 6.001 lectures by removin
         one solution is to change from `0.001` to one smaller number.
 ## cs61a (read the *related reading* before reading the lecture as the above advises)
 - [recursion equation](https://www.geeksforgeeks.org/recursion-in-lisp/)
+- [quote diff list](https://stackoverflow.com/a/34984553/21294350) (I only read "A rule of thumb").
+- the codes (e.g. 1.1/plural.scm) are pseudocode.
+  - `bl` may probably mean butlast.
+- >  the clauses aren’t invocations.
+  i.e. not procedures.
+- > BASIC doesn’t scale up
+  maybe [due to](https://qr.ae/psm2OD)
+  > More modern versions of BASIC are a lot more powerful, but they’ve lost sight of the original intent of the language. It *wasn’t even a structured language originally*.
+- plumbing diagrams See COD FIGURE A.6.2.
+- `se ` means [sentence](https://people.eecs.berkeley.edu/~bh/ssch5/words.html)
+- map is [more general than function](https://en.wikipedia.org/wiki/Map_(mathematics)#:~:text=Maps%20as%20functions,-Main%20article%3A%20Function&text=In%20many%20branches%20of%20mathematics,%22%20in%20linear%20algebra%2C%20etc.)
 # TODO about the earlier chapters after reading later chapters
 - > by incorporating a limited form of normal-order evaluation
 # TODO after lambda calculus

@@ -20,8 +20,8 @@
         [body (cddr exp)])
     (define (iter bindings-list)
       (if (null? bindings-list)
-          body
-          (make-let (car bindings-list) (iter (cdr bindings-list)))))
+        body
+        (make-let (car bindings-list) (iter (cdr bindings-list)))))
     (iter bindings)))
 
 (define (eval-let* exp env) (eval (let*->nested-lets exp) env))

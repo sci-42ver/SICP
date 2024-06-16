@@ -3,8 +3,8 @@
 (define (sqrt-iter guess x)
   (displayln guess)
   (if (good-enough? guess x)
-      guess
-      (sqrt-iter (improve guess x) x)))
+    guess
+    (sqrt-iter (improve guess x) x)))
 
 (define (improve guess x)
   (average guess (/ x guess)))
@@ -20,8 +20,8 @@
 
 (define (good-enough? guess x)
   (if (= guess 0)
-      0
-      (< (/ (abs (- (improve guess x) guess)) guess) 0.00001)))
+    0
+    (< (/ (abs (- (improve guess x) guess)) guess) 0.00001)))
 
 (define (sqrt x)
   (sqrt-iter 1.0 x))
