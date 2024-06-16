@@ -80,7 +80,7 @@ I will use [official wiki](https://web.archive.org/web/20240228152042/http://com
 I choose R5RS as Racket is based on it and 6.5151 (6.905) Red Tape Memo recommends it.
 
 # book
-- sicp from [this 2019 course material although "The End of an Era" says 6.001 is obsolete since 2008](https://web.mit.edu/6.001/6.037/sicp.pdf) ([newer 2.andresraba6.6](https://sarabander.github.io/sicp/)). Also see [this](https://www.cliki.net/SICP) and [this](https://news.ycombinator.com/item?id=13918465) for other forms.
+- sicp from [this 2019 course material although "The End of an Era" says 6.001 is obsolete since 2008](https://web.mit.edu/6.001/6.037/sicp.pdf) ([newer 2.andresraba6.6](https://sarabander.github.io/sicp/) [without](https://github.com/sarabander/sicp-pdf/tree/master) the corresponding pdf). Also see [this](https://www.cliki.net/SICP) and [this](https://news.ycombinator.com/item?id=13918465) for other forms.
   [*official*](https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book-Z-H-5.html) ([archive](https://web.archive.org/web/20170710220837/https://mitpress.mit.edu/sicp/full-text/book/book-Z-H-1.html))
   - [interactive](https://xuanji.appspot.com/isicp/1-1-elements.html)
 # prerequisite

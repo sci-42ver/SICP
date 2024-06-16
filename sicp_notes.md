@@ -13,6 +13,11 @@ I failed to move this discussion to chat. As https://meta.stackoverflow.com/ques
 @WillNess Thanks for your link. I understand now. But "underlying unlimited integers" seems to not hold in Scheme (the reason is probably due to the bit limit same as the floating number). I will post the scheme code translated from your pseudocode in one answer since the code is a bit long.
 
 @WillNess Thanks. 1. Anyway I understood your basic ideas although in practice this method is much more complex than the solution given by the instructor. 2. Probably you upvoted this answer. IMHO this method is a bit deviated of what the exercise expects to teach so I don't plan to post one new question. Do you think it is  appropriate for me to delete this answer and merge the answers and comments into the question?
+
+@WillNess I found in SICP footnote saying chapter 3 will cover "stream processing". I will revisit this QA after reading that part.
+# reading order recommendation with other books
+- better read *pure* "Computer Architecture" (So not csapp) before SICP if having learnt other programming languages like C.
+  Also read maths before SICP although not needed to be as deep as mcs.pdf.
 # projects recommended by [course_note] to be done.
 > Examples include an event-driven object-oriented simulation game, a conversational program that uses rules and pattern matching, symbolic algebra of polynomials and rational functions, interpreters for various languages, and a compiler with register optimization.
 I skipped [Problem Sets](https://github.com/abrantesasf/sicp-abrantes-study-guide?tab=readme-ov-file), Exam, homework and Quizzes because IMHO those numerous exercises in the book is enough and most of courses pay more attention for projects when grading. Also 
@@ -410,7 +415,8 @@ I only check labs without checking Homework, Quizzes and Retakes
     - 6.001 2007
   - read the book
   - use video when unable to understand
-
+- For SICP book, I didn't revisit the book back for something like
+  > who explained it in terms of the “message-passing” model of computation that we *shall discuss in Chapter 3*
 # CS 61AS chapter 0
 ## 0.1
 - https://web.archive.org/web/20150601000000*/http://start.cs61as.org/ doesn't work
@@ -522,6 +528,11 @@ I only check labs without checking Homework, Quizzes and Retakes
 - Comparing "The "Accumulate" Pattern" with "The "Every" Pattern",
   the former has "a single result" while the latter will have a list like "a sentence".
 - `(pigl wd)` doesn't iterate all elements although it follows "the accumulate pattern".
+# CS 61A Unix_Shell_Programming
+- `tr -d '.,;:"![]()' < summary` is enough.
+- `tr ’[A-Z]’ ’[a-z]’ < oneword > lowcase` See `info tr`.
+- [`[=e=]` (See macOS tr)](https://www.davekb.com/browse_computer_tips:linux_tr_equiv_chars:txt)
+- Also see `info join` example
 # chapter 1
 Since I was to learn programming, so for paragraphs not intensively with programming knowledge I only read their first sentence.
 ## 6.037 (dropped for future reading except this one already read)
@@ -648,6 +659,16 @@ IMHO 6.037 is the condensed (as its main page says) of 6.001 lectures by removin
   i.e. to [package the function](https://stackoverflow.com/a/20520767/21294350).
   > better structuring a procedure, not for efficiency
   - Also see [this with one ASCII figure](https://veliugurguney.com/blog/post/sicp_7_-_sections_1.1.6_1.1.7_1.1.8)
+### 1.2 (Here I read it first to check why CS 61A Week 2 chooses Section 1.3)
+- footnote 30 is trivial if having learnt computer architecture.
+- tail-recursive
+  - [naming source](https://stackoverflow.com/a/33930/21294350)
+    > In tail recursion, you perform your calculations first, and then you execute the recursive call,
+    Also see comment [1](https://stackoverflow.com/questions/33923/what-is-tail-recursion#comment18950582_37010) which is same as book
+    > In this case there is some additional “hidden” information, maintained by the interpreter and *not contained in the program variables*, which indicates “where the process is” in negotiating the chain of deferred operations
+    - TODO what does [this](https://stackoverflow.com/questions/33923/what-is-tail-recursion#comment30739771_37010) mean since with `else` removed then the call disappears.
+      > It would have been more clearly a tail call, if the "else:" were omitted. Wouldn't change the behavior, but would place the tail call as an independent statement
+      [tail call](https://stackoverflow.com/questions/12045299/what-is-difference-between-tail-calls-and-tail-recursion#comment16081995_12045299)
 ### TODO
 - > should note the remarks on “tail recursion” in Section 1.2.1.
 ### exercises
@@ -758,7 +779,10 @@ IMHO 6.037 is the condensed (as its main page says) of 6.001 lectures by removin
       and `good-enough?` is just same as the 5th.
       - > But I just made this procedure with low precision. I think you can fix this
         one solution is to change from `0.001` to one smaller number.
+- [ ] 1.9
+  - 
 ## cs61a (read the *related reading* before reading the lecture as the above advises)
+### 1.1
 - [recursion equation](https://www.geeksforgeeks.org/recursion-in-lisp/)
 - [quote diff list](https://stackoverflow.com/a/34984553/21294350) (I only read "A rule of thumb").
 - the codes (e.g. 1.1/plural.scm) are pseudocode.
@@ -771,6 +795,12 @@ IMHO 6.037 is the condensed (as its main page says) of 6.001 lectures by removin
 - plumbing diagrams See COD FIGURE A.6.2.
 - `se ` means [sentence](https://people.eecs.berkeley.edu/~bh/ssch5/words.html)
 - map is [more general than function](https://en.wikipedia.org/wiki/Map_(mathematics)#:~:text=Maps%20as%20functions,-Main%20article%3A%20Function&text=In%20many%20branches%20of%20mathematics,%22%20in%20linear%20algebra%2C%20etc.)
+- NOTICE 
+  - `(zero (random 10))` differs for "Applicative order" and "Normal order".
+    > Because it’s not a function
+    i.e. `(random 10)` will output different values each time.
+  - > But later in the semester we’ll see that sometimes normal order is more efficient.
+    TODO
 # TODO about the earlier chapters after reading later chapters
 - > by incorporating a limited form of normal-order evaluation
 # TODO after lambda calculus
