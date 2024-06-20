@@ -10,16 +10,18 @@
 (define (rtl N Y Z)
   (if (even? N)
     (rtl (quotient N 2) Y (+ Z Z))
-    (if (zero? (quotient N 2))
+    (if (zero? (quotient N 2)) ; N=1 since every number after multiple >> it will become 1.
       (+ Z Y)
       (rtl (quotient N 2) (+ Z Y) (+ Z Z)))))
+(mlp 3 2)
+; (mlp 3 0) ; infinite loop
 
 (define (double x) (+ x x))
 
 ; divides an (even) integer by 2
 (define (halve x) (/ x 2))
 
-(define (mlp x n)
+(define (mlp-correct x n)
   (define (helper X N Y)
     (cond [(zero? N) Y]
       [(even? N) (helper (double X) (halve N) Y)]
@@ -27,5 +29,6 @@
 
   (helper x n 0))
 
-(mlp 3 2)
+(mlp-correct 3 2)
 ; 6
+(mlp-correct 3 0)

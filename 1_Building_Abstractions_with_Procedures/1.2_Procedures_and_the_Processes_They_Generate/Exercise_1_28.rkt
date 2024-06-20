@@ -1,5 +1,6 @@
 #lang racket/base
 
+;;; A bit similar to https://web.archive.org/web/20191231030706/http://wiki.drewhess.com/wiki/SICP_exercise_1.28
 (define (square x) (* x x))
 
 (define (expmod base exp m)

@@ -4,6 +4,9 @@
 ;; from section 4.6.3 (page 462) of Seminumerical Algorithms.
 ;; Volume 2 of The Art of Computer Programming. 2nd edition.
 
+;;; The above is the reference used in chapter 1 footnote 39.
+;;; https://seriouscomputerist.atariverse.com/media/pdf/book/Art%20of%20Computer%20Programming%20-%20Volume%202%20(Seminumerical%20Algorithms).pdf p475
+
 ;; This algorithm evaluates x^n, where n is a positive integer.
 ;; (Here x belongs to any algebraic system in which an associative
 ;; multiplication, with identity element 1, has been defined.)
@@ -24,9 +27,11 @@
         [square-z (* Z Z)])
     (cond [(zero? N) 1]  ;; 0 is not a positive integer
       [(zero? t) (rtl n Y square-z)]
-      [(zero? n) y]
+      [(zero? n) y] ; Here combines n=1,0 into oneline
       [else (rtl n y square-z)])))
 
+(require racket/trace)
+(trace rtl)
 (exp 3 2)
 ;; 9
 (exp 3 0)
@@ -39,3 +44,8 @@
 ;; it takes 3 + 4 + 1(x * 1, step A3) multiplications
 ;; the algorithm takes ⌊lg n⌋ + ν(n) multiplications
 ;; ν(n) is the number of ones in the binary representation of n
+
+;;; The above x¹⁶ * x⁴ * x² * x corresponds to wiki (* B A)
+;;; x -> x² -> x⁴ -> x⁸ -> x¹⁶ corresponds to wiki (square B)
+;;; IGNORE: (x * 1, step A3) -> (zero? N) 1.
+;;; (x * 1, step A3) is the first step for the ending 1 in 10111.

@@ -1,3 +1,65 @@
+
+---
+
+Failure to sign up an account: 
+
+When logging in, https://www.flickr.com/signin/auth?data=eyJraWQiOiJPVjBKWGljSCtpUDAzWTQ2aGdsMWxENG96Z1BZdWZTVFg2aXNKRGlXaHprPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJhYzNiYzRlNC1lM2Q3LTQ1OTUtYTNiZC00MDYzYTIxNWM0NjYiLCJldmVudF9pZCI6ImUwNjRjMzRjLTZhYzUtNGE4ZS04ODY1LTg4ODg1M2IyNTI1YiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3MTg2NzE4MDksImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX2dCaWVDd01jMSIsImV4cCI6MTcxODY3NTQwOSwiaWF0IjoxNzE4NjcxODA5LCJqdGkiOiJjNDQ0NzA0ZC1jMzgyLTQ1OTMtYmE2Zi0wNmYyMWJjOGU5MGQiLCJjbGllbnRfaWQiOiIzY2sxNWExb3Y0ZjBkM285N3ZzM3RiamI1MiIsInVzZXJuYW1lIjoiYWMzYmM0ZTQtZTNkNy00NTk1LWEzYmQtNDA2M2EyMTVjNDY2In0.NNCFiMPxjN7DcC8eL_X-Arww77JMA86x_bQYk03yMjh7Ju2MA96lu2Y_d1CCAOzx1zo04xoJkGUGcz0oR4qy7Wds1mKPe_Yd9fk3RzMFPKIyaVirexJXY9HNQ-lVfxIBGOJHIGV6YW4SuCJqJxM7LQtHl1IgzmwsVNzJYAA8O0HC9W7JMTg-jJnNOFCYsGZMoiHqn1FbwBtDYpIGF9N58AQO0dTJEcE9BlTIEubfuVDpmRL8_boNCcl8yR3__Rva3xT8LjZc3-dQRupW-GTNghm9dZ0CTBRMhYN3CRR_QRQo6sa2IZtQtXMv7z-q8URzGUt7647qPWts5jI69fbunQ shows
+
+"""
+
+Account Creation Failed
+
+Your Flickr account could not be created.
+
+Please contact Flickr Help for more details.
+
+"""
+
+
+
+
+Please help making this account valid. Thanks in advance.
+
+---
+
+When logging in, the above URL (I don't have an account now so that is the login link) shows
+
+"""
+
+Account Creation Failed
+
+Your Flickr account could not be created.
+
+Please contact Flickr Help for more details.
+
+"""
+
+
+
+
+Please help making this account valid. Thanks in advance.
+
+---
+
+Follow some friends to see what beautiful images they took recently. 
+
+LOG:
+Failure to sign up an account: 
+
+When logging in, https://www.flickr.com/signin/auth?data=eyJraWQiOiJPVjBKWGljSCtpUDAzWTQ2aGdsMWxENG96Z1BZdWZTVFg2aXNKRGlXaHprPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJhYzNiYzRlNC1lM2Q3LTQ1OTUtYTNiZC00MDYzYTIxNWM0NjYiLCJldmVudF9pZCI6ImUwNjRjMzRjLTZhYzUtNGE4ZS04ODY1LTg4ODg1M2IyNTI1YiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3MTg2NzE4MDksImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX2dCaWVDd01jMSIsImV4cCI6MTcxODY3NTQwOSwiaWF0IjoxNzE4NjcxODA5LCJqdGkiOiJjNDQ0NzA0ZC1jMzgyLTQ1OTMtYmE2Zi0wNmYyMWJjOGU5MGQiLCJjbGllbnRfaWQiOiIzY2sxNWExb3Y0ZjBkM285N3ZzM3RiamI1MiIsInVzZXJuYW1lIjoiYWMzYmM0ZTQtZTNkNy00NTk1LWEzYmQtNDA2M2EyMTVjNDY2In0.NNCFiMPxjN7DcC8eL_X-Arww77JMA86x_bQYk03yMjh7Ju2MA96lu2Y_d1CCAOzx1zo04xoJkGUGcz0oR4qy7Wds1mKPe_Yd9fk3RzMFPKIyaVirexJXY9HNQ-lVfxIBGOJHIGV6YW4SuCJqJxM7LQtHl1IgzmwsVNzJYAA8O0HC9W7JMTg-jJnNOFCYsGZMoiHqn1FbwBtDYpIGF9N58AQO0dTJEcE9BlTIEubfuVDpmRL8_boNCcl8yR3__Rva3xT8LjZc3-dQRupW-GTNghm9dZ0CTBRMhYN3CRR_QRQo6sa2IZtQtXMv7z-q8URzGUt7647qPWts5jI69fbunQ shows
+
+"""
+
+Account Creation Failed
+
+Your Flickr account could not be created.
+
+Please contact Flickr Help for more details.
+
+"""
+
+---
+
 @WillNess Thanks for your alternative solution. 1.1 Googling "streams of decimal digits" recommends one post about c++ https://stackoverflow.com/a/13186757/21294350 saying we need to multiply 10^k and then floor -> divide by 10^k for precision k. But "multiply 10^k" may cause overflow. I think it is wrong. 1.2. https://stackoverflow.com/a/34095030/21294350 uses `std::setprecision`.
 
 2. For scheme, https://stackoverflow.com/a/5208049/21294350 may work. I didn't dig into it because learning SICP is not to learn Scheme. The link has many syntaxes absent from SICP up to chapter 1, so I will follow the instructor solution by using Taylor Series.
@@ -15,9 +77,60 @@ I failed to move this discussion to chat. As https://meta.stackoverflow.com/ques
 @WillNess Thanks. 1. Anyway I understood your basic ideas although in practice this method is much more complex than the solution given by the instructor. 2. Probably you upvoted this answer. IMHO this method is a bit deviated of what the exercise expects to teach so I don't plan to post one new question. Do you think it is  appropriate for me to delete this answer and merge the answers and comments into the question?
 
 @WillNess I found in SICP footnote saying chapter 3 will cover "stream processing". I will revisit this QA after reading that part.
+
+@WillNess Fine. I will revisit and decide whether to "post a new question" at that time. I will mark this answer pending to be revisited.
+
+1. bob's equation can be solved manually or using the simple Python program: `from sympy import init_printing;
+init_printing();
+from sympy import Function, rsolve;
+from sympy.abc import n;
+y = Function('y');
+f = y(n+2)-y(n + 1)-y(n)-1;
+rsolve(f, y(n), {y(0):0, y(1):1})` -> `(1/2 - sqrt(5)/2)**n*(1/2 - 3*sqrt(5)/10) + (1/2 + 3*sqrt(5)/10)*(1/2 + sqrt(5)/2)**n - 1`. (If "*asymptotically* the same", then we drop the small `O(1)` which only affects the coefficient of the exponent term) 2. `O(2^n)` can be trivially got from the binary tree structure.
+
+I have some questions about this answer: 1. I think when "Equal", `a+b` drops to `a` after one iteration and then *finishes*, "decreasing" 50%. 2. `(4/3)^S <= A+B` seems to be wrong. We need `(A+B)*q^{n/2}<1` where `n` is the step number and `q` is the decreasing proportion. Then `(A+B)*q^{n/2}<(A+B)*(3/4)^{n/2}<1` -> `(A+B)<(4/3)^{n/2}`. Since we only care the minimum `n`. So we can get the $n=\lceil 2log_{4/3}(A+B)\rceil$ needed to finish the algorithm. The calculation process is still similar.
+
+3. Could you explain "For numbers that fit into *cpu registers*, it's reasonable to model the iterations as taking *constant* time" more detailedly, especially the relation between the italic words? Thanks in advance.
+
+SICP https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book-Z-H-11.html#%_sec_1.2.5 uses Lamé’s Theorem to prove complexity is $\Theta(\log n)$ where n is the smaller number. We have $\log_{\varphi}\sqrt{5}n>=k>=t \log n$ where t is one very small number. So we have $\Theta(\log n)$. Here only *smaller* number is cared because after *one* step `a',b'<=b` where `a',b'` are new values.
+
+@TheoBendit Thanks very much. I understand now. Strong as you says. My above error is due to using the *wrong index* for $\text{num}_b(n)$. $\text{num}_b(n)$ *starts from 1* and $\text{num}_b(2)=1$.
+
+@Stef Thanks. After reading your comment I understood what the author intends to convey.
+
+Thanks for the more detailed answer. To help future readers, the key part is the 4th paragraph.
+
+Could you say more about why $P(T_k \mid A^c) \le 2^{-k}$ holds? Thanks in advance.
+# em tracking when reading the book
+- 1.2.6  Example: Testing for Primality
+# to reread after reading later chapters
+tracked up to Exercise 1.20.
+## 1.2
+- > You may wonder why anyone would care about raising numbers to the 1000th power. See Section 1.2.6.
+## 1.3
+- chapter 1 footnote 12, footnote 21.
+- > In Section 1.3.4 we will see how to implement Newton’s method in general
+## 2
+- > In Chapter 2, when we investigate how to implement rational-number arithmetic, we will need to be able to compute s in order to reduce rational numbers to lowest terms.
+- chapter 1 footnote 23.
+## 3
+- chapter 1 footnote 9, 16(also with *Chapter 4*), 27, 31
+- > As we shall see in Chapter 3, the general notion of the environment
+- 
+  > We will discuss this more fully in Chapter 3 and *Chapter 4* when we examine the implementation of an interpreter in detail.
+  > we will investigate some of its implications in Chapter 3 and *Chapter 4*
+- > In particular, when we address in Chapter 3 the use of procedures with “mutable data,”
+## 4
+- chapter 1 footnote 20
+## 5
+- > culminat-ing with a complete implementation of an interpreter and com-piler in Chapter 5
+- > When we discuss the implementation of procedures on register machines in Chap-ter 5
+- > e imple- mentation of Scheme we shall consider in Chapter 5 does not share this defect.
 # reading order recommendation with other books
 - better read *pure* "Computer Architecture" (So not csapp) before SICP if having learnt other programming languages like C.
   Also read maths before SICP although not needed to be as deep as mcs.pdf.
+  - maths will help understand something like 
+    1. Figure 1.5
 # projects recommended by [course_note] to be done.
 > Examples include an event-driven object-oriented simulation game, a conversational program that uses rules and pattern matching, symbolic algebra of polynomials and rational functions, interpreters for various languages, and a compiler with register optimization.
 I skipped [Problem Sets](https://github.com/abrantesasf/sicp-abrantes-study-guide?tab=readme-ov-file), Exam, homework and Quizzes because IMHO those numerous exercises in the book is enough and most of courses pay more attention for projects when grading. Also 
@@ -669,118 +782,100 @@ IMHO 6.037 is the condensed (as its main page says) of 6.001 lectures by removin
     - TODO what does [this](https://stackoverflow.com/questions/33923/what-is-tail-recursion#comment30739771_37010) mean since with `else` removed then the call disappears.
       > It would have been more clearly a tail call, if the "else:" were omitted. Wouldn't change the behavior, but would place the tail call as an independent statement
       [tail call](https://stackoverflow.com/questions/12045299/what-is-difference-between-tail-calls-and-tail-recursion#comment16081995_12045299)
+- > us, the process uses a number of steps that grows exponentially with the input.
+  See [this][Fib_complexity] 
+  If seeing it as the binary tree, $O(2^n)$ is trivial. More specifically, the deepest leef is the path following $(fib (- n 1))$ up to 1. So the maximum node number is the maximum time complexity (trace back from the leaf, due to `+ O(1)` each node contributes `O(1)` time. Then the time complexity is `O(1)*node_num`) $(2^0+\ldots+2^{n-1})\cdot O(1)=(2^n-1)\cdot O(1)$.
+  More strictly, we can let $k=O(1)$, then just solve the recurrence relation.
+  - TODO
+    - meaning of
+      > If you could *reach out toward infinity* it would get close to O(golden_ratio^n). That is what an asymptote is, the distance between the two lines must approach 0.
+      - "the distance between the two lines must approach 0" may mean the tree is so big so that the edge distance is samll if put the tree on the paper.
+    - Here depth should be [$n-1$](https://stackoverflow.com/a/2603707/21294350) since the tree is from n to 1.
+- > because we need keep track only of which nodes are above us in the tree at any point in the computation.
+  Here is based on applicative order. See Figure 1.5.
+  In a summary for each node, we only keep the path from it to the root as the stack and will pop & push the stack when moving from the left leaf to the right.
+- In summary of the previous 2 points
+  > In general, the number of steps required by a tree-recursive process will be propor-tional to the number of nodes in the tree, while the space required will be proportional to the maximum depth of the tree.
+- > one linear in n, one growing as fast as Fib(n) itself
+  Compared with Figure 1.3, here we duplicately calculate many terms so `Fib(n)` with exponential time complexity.
+  But the space complexity of these 2 problems are same due to no **redundancy**.
+  Also see [Fib_complexity]
+  > This is assuming that repeated evaluations of the same Fib(n) take the same time
+  - > An example of this was hinted at in Section 1.1.3. e interpreter itself evaluates expressions using a tree-recursive process.
+    TODO Here no redundancy, so we need to always use one tree to represent the data.
+- > To formulate the iterative algorithm required noticing
+  should be "requires" by [this](https://qr.ae/pslucp)
+  > To do what needs to be done, regardless of what one wants to do, *depends* upon discipline, not motivation.
+- > e number of ways to change amount a using n kinds of coins equals
+  This has been learned in DMIA.
+  - > changing smaller amounts using fewer kinds of coins
+    here should be "or using ...".
+    where the former corresponds to $a-d$ and the latter corresponds to "all but the first kind of coin".
+  - > For example, work through in detail how the reduction rule applies to the problem of making change for 10 cents using pennies and nickels.
+    let $A(n)$ -> only use pennies
+    $B(n)$ -> use pennies and nickels.
+    Then $B(10)=A(10)+B(5)=A(10)+A(5)+B(0)=A(10)+A(5)+A(0)+B(-5)$
+    Here $B(0)=1$ because it already chooses 2 nickels.
+    Trivially, to choose 0 cents, using what kinds of coins doesn't matter.
+    - > If n is 0, we should count that as 0 ways to make change.
+      This is trivial since we have no money so impossible "to make change".
+  - "first-denomination" chooses the biggest to accelerate the recursion.
+  - > count-change generates a tree-recursive process with redundancies sim-ilar to those in our first implementation of fib
+    Here either the 1st param (unfixed decrease amount) or the 2nd (fixed decrease amount) is decreased, so reordering the decrease sequence and then add some decreases due to "unfixed decrease amount" *may* cause the same state.
+- > the analysis of a process can be carried out at various *levels of abstraction*.
+  See CS 61A notes.
+- > We can compute exponentials in fewer steps by using successive squaring.
+  This is already said in DMIA "ALGORITHM 4 Recursive Modular Exponentiation.".
+  Iterative see "ALGORITHM 5 Fast *Modular* Exponentiation." and mcs "6.3.1 Fast Exponentiation".
+  Although they are for *Modular* Exponentiation.
+  - In a summary `xy` in mcs just counts the corresponding $1000\ldots 0$. 
+    Or we can see each `x` as the *minimum unit* after `quotient(z,2)`. So `xy` will count that minimum unit.
+    `z = 0` means we have counted all bits.
+- See **footnote** 37 for a *precise* calculation of the complexity.
+  - > equal to 1 less than the log base 2 of n
+    IMHO here should be $\lfloor \log_2 n\rfloor$ instead of $\log_2 n - 1$.
+    For example, $10\xRightarrow{s(quare)}1\xRightarrow{*}0$ so $2=\log_2(0b10)$ multiplications
+    Then $11\xRightarrow{*}10\ldots$ so add 1 due to one 1 for the *odd* case.
+    > is total is always less than twice the log base 2 of n.
+    the num of 1 is at most $\lceil \log_2 n\rceil$.
+    So total is $\lfloor \log_2 n\rfloor+\lceil \log_2 n\rceil<2(\log_2 n+1)$.
+    Notice if $frac(\log_2 n)<0.5$, then the above is bigger than $2\log_2 n$.
+    - $\lfloor \log_2 n\rfloor$ can be intuitively seen as square-rooting the number until the leading 1 is left.
+      While $\lceil \log_2 n\rceil$ will go one more step to count the bit digit number.
+    - since $R(n)\in [\overbrace{\lfloor \log_2 n\rfloor+1}^{1000\ldots 000},\lfloor \log_2 n\rfloor+\lceil \log_2 n\rceil]\Rightarrow R(n)=\Theta(\log n)$
+    - Also see "Exercise_1_16.rkt" comment.
+    - ~~Notice we ignores the multiplication in `square`.~~
+- > For example, fast-expt for n = 1000 re-quires only 14 multiplications
+  See fast-expt.scm the above should be `15=import math;bin(1000).count('1')+math.floor(math.log(1000,2))`.
+- [Chandah-sutra by Áchárya Pingala](https://rarebooksocietyofindia.org/postDetail.php?id=196174216674_480588701674)
+- > is generates an iterative process, whose number of steps grows as the logarithm of the numbers involved.
+  See [this](https://stackoverflow.com/a/3981010/21294350)
+  - Tiny A: `b % (a % b)=b%a<a`
+    to prove $\frac{\frac{b}{2}}{a+b}>\frac{1}{4}$, i.e. prove $2b>a+b\Rightarrow b>a$ which is trivial.
+  - > Input size N is lg(A) + lg(B)
+    strictly "the number of input digits" is $\lceil\log A\rceil$
+  - I skipped the last 2 sentences since they are not directly about gcd.
+- > because it appears in Euclid’s Elements (Book 7, ca. 300 ..)
+  [See](http://aleph0.clarku.edu/~djoyce/java/elements/bookVII/propVII2.html)
+- > since q must be at least 1
+  because $a_k>b_k$
+- Lamé’s Theorem is already proved in mcs.pdf (TODO location)
+- > Hence, the order of growth is Θ(log n)
+  [see](https://stackoverflow.com/questions/3980416/time-complexity-of-euclids-algorithm#comment138640494_3980416)
+- > r will have order of growth √Θ( n)
+  i.e. consider the worst case.
+- `(expmod base exp m)` is based on [modulus multiplication](https://math.stackexchange.com/q/2416119/1059606) which is also said in footnote 46.
+- > Considering an algorithm to be inadequate for the first reason but not for the second illustrates the difference between mathematics and engineering.
+  [See](https://stackoverflow.com/questions/78641848/when-can-we-safely-use-the-randomized-algorithm-considering-probability#comment138650510_78641848)
+- > if n passes the test for some random choice of a, the chances are better than even that n is prime. If n passes the test for two random choices of a, the chances are better than 3 out of 4 that n is prime.
+  This [only holds when $P(A)=\frac{1}{2}$](https://math.stackexchange.com/a/3363464/1059606)
+  - I skipped the [more precise calculation](https://math.stackexchange.com/questions/3363141/probability-that-a-number-passing-the-fermat-test-is-prime#comment6922489_3363141) and [this](https://t5k.org/prove/prove2_3.html) (SkipMath).
+    > It has been proven ([Monier80] and [Rabin80]) that the strong probable primality test is wrong no more than 1/4th of the time (3 out of 4 numbers which pass it will be prime)
+- "information retrieval" is mainly about private information.
+- > ``probabilistic'' algorithm with order of growth $\Theta(\log n)$
+  It only counts `expmod` and if for `fast-prime?` we use `n-1` times then the "order of growth" is worse $\Theta(n\log n)$.
 ### TODO
 - > should note the remarks on “tail recursion” in Section 1.2.1.
-### exercises
-- [Ben Bitdiddle](https://academickids.com/encyclopedia/index.php/Ben_Bitdiddle)
-- [x] 1.1, 1.2, 1.4 trivial
-- [x] 1.3
-```scheme
-(cond ((and (<= x y) (<= x z)) (squareSum y z)))
-```
-  - schemewiki has solutions using `min`, etc.
-- [x] 1.5
-  - "applicative-order" endless loop due to expanding `(p)`.
-    "normal-order" -> `(if (= 0 0) 0 (p)))` -> `0`.
-    detailed see schemewiki
-  - Also see https://stackoverflow.com/a/61307130/21294350.
-- [ ] 1.6 I don't know why "Aborting!: maximum recursion depth exceeded"
-  - wiki
-    - the key
-      > an interpreter follows *applicative substitution*
-      so
-      > it only evaluates one of its parameters- not both.
-      > it never stops calling itself *due to the third parameter* passed to it in sqrt-iter.
-      ~~i.e. it will always expanding the 3rd without ending.~~
-      > such that any expressions within the consequent or alternate portions are evaluated regardless of the predicate
-      > the iteration procedure is *called without return*
-      Also see emmp
-      > That includes sqrt-iter which is extended to new-if which *again* leads to the evaluation of all the sub-expressions including *sqrt-iter* etc.
-      which is same as jhenderson.
-    - See R5RS [Conditionals](https://groups.csail.mit.edu/mac/ftpdir/scheme-reports/r5rs-html/r5rs_6.html#SEC30)
-      and [lambda](https://groups.csail.mit.edu/mac/ftpdir/scheme-reports/r5rs-html/r5rs_6.html#SEC29)
-      > by binding the variables in the formal argument list to fresh locations
-    - jsdalton is same as the main part.
-    - book link https://web.archive.org/web/20160603160145/https://mitpress.mit.edu/sicp/full-text/sicp/book/node85.html from 2018 https://web.archive.org/web/20180101000000*/http://mitpress.mit.edu/sicp/full-text/sicp/book/node85.html (I don't read it when learning chapter 1 since they are from chapter 4)
-      Also see 1.1.5 for one brief intro.
-    - dft
-      - without reading his 2nd comment, here `if` is nested in `lambda` so `(/ 1 0)` is evaluated.
-        This corresponds to
-        > The reason the above example generates an error is because (1 / 0), the second parameter to try, is evaluated before the try is even called.
-        And `try` has the same problem as `new-if` indeed.
-      - > The applicative vs. normal explanation made sense until I saw the try example above.
-        Does him read the 1st version book? See emmp who read the book more carefully.
-    - andersc
-      - > And I guess for a certain interpreter, maybe it should use a consistent way for all processes?
-        As [how_special_form_is_special] says, "special form" is just exception as expected.
-    - See uninja's commment which is what I thought after reading dpchrist's comment for how dpchrist's comment is different from the exercise.
-    - srachamim's comment is trivial
-      See student's comment for where trevoriannguyen is wrong about understanding others' comments although his thoughts are right:
-      > Indeed, the new-if procedure *body (which contains the cond special form) is never even applied* to the resulting 3 arguments as the 3rd argument never stops evaluating itself!
-    - cypherpunkswritecode says right about if but a bit wrong about `cond`
-      See R5RS
-      > A 'cond' expression is evaluated by evaluating the <test> expressions of successive <clause>s in order *until one of them evaluates to a true* value (see section see section Booleans). When a <test> evaluates to a true value, *then the remaining <expression>s in its <clause> are evaluated in order*, and the result(s) of the last <expression> in the <clause> is(are) returned as the result(s) of the entire 'cond' expression.
-      means same as ["Conditional expressions are evaluated as follows. ..."](https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book-Z-H-10.html#call_footnote_Temp_24)
-- [x] 1.7
-  - wiki
-    - TODO
-      - > a relative tolerance of 0.001 times the difference between one guess and the next
-        Here should be "a relative tolerance of 0.001" by [definition](https://www.mathworks.com/matlabcentral/answers/26743-absolute-and-relative-tolerance-definitions#answer_34847)
-      - > This is not the case at all — the original programme checks that the *guess squared* is within 0.001 of the *radicand*, whereas the algorithm described by "random person" checks that the *new guess* is within 0.001 of the *former guess*.
-        ~~Weird in the archive link, it "checks that the *new guess* is within 0.001 of the *former guess*" same as this [oldest archive](https://web.archive.org/web/20111211154013/http://community.schemewiki.org/?sicp-ex-1.7)~~
-        Maybe he wants to mean
-        > because, 0.001 being by definition *smaller than the thousandth of any number larger than 1*, the *lower tolerance* forces the algorithm to continue refining the guess. It is indeed, however, *inferior for very small numbers* because 0.001 is by definition a larger tolerance than the thousandth of any number smaller than 1.
-      - Maggyero
-        - TODO 
-          - after numerical analysis [1](https://math.stackexchange.com/a/3526215/1059606)
-            the proof of the 1st formula, "can be written as", Sterbenz lemma, why $\delta$ disappears after Sterbenz lemma, something which we can easily verify.
-          - I skipped the proof of the 1st formula
-            then the key is
-            > 4×10−3 which is larger than the (absolute) tolerance which we are currently using.
-            Then "relative error" becomes $\frac{1}{2}\tau$ which is `epsilon` in the code.
-            We choose the number maybe due to $|\epsilon|\le u$.
-            - [$\lesssim$](https://math.stackexchange.com/q/1793395/1059606)
-          why 3/2 and 9/4
-        - `(< (abs (- (square guess) x)) (if (= x 0) min-float (* tolerance x)))`
-          `min-float` instead of `0` because `<`.
-        - notice `(* tolerance guess)` corresponds to the difference with `guess`
-          while `(* tolerance x)` is with `x`.
-        - [`min-float`](https://en.wikipedia.org/wiki/Double-precision_floating-point_format#Exponent_encoding)
-    - Here root should be `sqrt` by [R5RS](https://groups.csail.mit.edu/mac/ftpdir/scheme-reports/r5rs-html/r5rs_8)
-    - notice those solutions using `abs (- (square guess) x)` in comparison is wrong when that condition can't be met by the precision.
-    - Owen
-      > because of the *limitation of bits*, the "improved guess" will simply be *equal* to "old guess" at some point, results in (- y^2 x) *never changes* and hence never reach inside the tolerance range. ... This situation applied to the small number case as well --- if *the threshold is to be set extremely small*.
-      i.e. 0.001 is no use at all.
-      > should never care about a specific precision value (or percentage) at all
-      > simply reference to GWB's solution, which I believe is the *best solution*, *guaranteeing to stop* and at the same time, with the *best accuracy*.
-    - Thomas
-      > I should've read the whole discussion before posting — my mistake!
-    - berkentekin is same as solution 1, 2.
-    - Maggyero
-      QUESTION is same as the problem
-      kw: scale, relative error, scaled to the radicand/guess
-- [ ] 1.8
-  I didn't notice the special case of $x=-2$
-  - if we solve $y=x^3\Rightarrow f(y)=y-x^3$
-    then $y-\frac{y-x^3}{1}=x^3$ ~~says nothing useful.~~ implies directly calculating $x^3$.
-  - Newton's method [may not work](https://scholarworks.utep.edu/cgi/viewcontent.cgi?article=2421&context=cs_techrep#:~:text=Interestingly%2C%20the%20simplest%20example%20on,the%20Newton's%20method%20works%20perfectly.&text=desired%20extension.,%E2%88%92F(%E2%88%92x).) at least when $x_2=x_0$ and ad infinitum.
-    This also relates with the init guess. See the code 1_8.scm from wiki.
-  - wiki
-    - See the 2nd solution
-      >  ;; Fix: take absolute cuberoot and return with sign 
-      which ensures positive -> no weird zero.
-      And it directly takes improve instead of `1.0 0.0`
-    - the 3rd solution is similar to the original solution in the book for `sqrt`.
-    - the 4th is similar to the 2nd.
-    - > This solution makes use of the fact that (in LISP) procedures are also data.
-      the 5th
-      i.e. use func as the param, e.g. `sqrt-improve`.
-    - Chan's `if (< x 0)` is said in the 2nd solution
-      and `good-enough?` is just same as the 5th.
-      - > But I just made this procedure with low precision. I think you can fix this
-        one solution is to change from `0.001` to one smaller number.
-- [ ] 1.9
-  - 
 ## cs61a (read the *related reading* before reading the lecture as the above advises)
 ### 1.1
 - [recursion equation](https://www.geeksforgeeks.org/recursion-in-lisp/)
@@ -821,3 +916,7 @@ TODO read Lecture 5,6 & 6.001 in perspective & The Magic Lecture in 6.037 which 
 [how_special_form_is_special]:https://softwareengineering.stackexchange.com/a/137437
 
 [consistent_renaming]:https://cs.stackexchange.com/a/97700/161388
+
+[Fib_complexity]:https://stackoverflow.com/a/360773/21294350
+
+[evernote_proof_1_13]:https://www.evernote.com/shard/s100/client/snv?noteGuid=6a4b59d5-e99f-417c-9ef3-bcf03a4efecd&noteKey=7e030d4602a0bef5df0d6dd4c2ad47bf&sn=https%3A%2F%2Fwww.evernote.com%2Fshard%2Fs100%2Fsh%2F6a4b59d5-e99f-417c-9ef3-bcf03a4efecd%2F7e030d4602a0bef5df0d6dd4c2ad47bf&title=Exercise%2B1.13

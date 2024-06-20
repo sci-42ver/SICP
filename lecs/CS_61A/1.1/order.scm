@@ -51,10 +51,10 @@
 ;		       ',(caadr exp)))))
 
 (define-macro (def form . body) 
-  `(begin
-    (define ,(car form) '(lambda ,(cdr form) ,@body))
-    (set! def-names (cons ',(car form) def-names))
-    ',(car form)))
+              `(begin
+                 (define ,(car form) '(lambda ,(cdr form) ,@body))
+                 (set! def-names (cons ',(car form) def-names))
+                 ',(car form)))
 
 ;;;; (extend-syntax (def)
 ;;;;   [(def (name . args) body)
@@ -78,9 +78,9 @@
 ;		     result))))
 
 (define-macro (applic . exp)
-   `(let ((result (applic1 ',(car exp) "")))
-      (newline)
-      result))
+              `(let ((result (applic1 ',(car exp) "")))
+                 (newline)
+                 result))
 
 ;;;; (extend-syntax (applic)
 ;;;;   [(applic thingo)
@@ -93,43 +93,43 @@
 
 (define (applic1 form spaces)
   (if (not (pair? form))
-      form
-      (begin
-       (newline)
-       (display spaces)
-       (display form)
-       (cond ((and (not (memq (car form) def-names))
-		   (all-numbers? (cdr form)))
-	      (display " ==> ")
-	      (let ((ans (eval form)))
-		(display ans)
-		ans))
- 	     (else
-	      (let ((new-form (subapplic (list (car form))
-					 (cdr form)
-					 (word spaces "   ") )))
-		(if (and (memq (car form) def-names)
-			 (not (all-numbers? (cdr form))) )
-		    (begin (newline) (display spaces) (display new-form)) )
-		(cond ((memq (car form) def-names)
-		       (display " ----> ")
-		       (applic1 (subst (eval (car form)) (cdr new-form))
-				spaces))
-		      ((equal? (car form) 'quote) (cadr form))
-		      (else (applic1 new-form spaces)) )))))))
+    form
+    (begin
+      (newline)
+      (display spaces)
+      (display form)
+      (cond ((and (not (memq (car form) def-names))
+                  (all-numbers? (cdr form)))
+             (display " ==> ")
+             (let ((ans (eval form)))
+               (display ans)
+               ans))
+            (else
+              (let ((new-form (subapplic (list (car form))
+                                         (cdr form)
+                                         (word spaces "   ") )))
+                (if (and (memq (car form) def-names)
+                         (not (all-numbers? (cdr form))) )
+                  (begin (newline) (display spaces) (display new-form)) )
+                (cond ((memq (car form) def-names)
+                       (display " ----> ")
+                       (applic1 (subst (eval (car form)) (cdr new-form))
+                                spaces))
+                      ((equal? (car form) 'quote) (cadr form))
+                      (else (applic1 new-form spaces)) )))))))
 
 (define (all-numbers? l)
   (cond ((null? l) #t)
-	((not (or (number? (car l)) (boolean? (car l)))) #f)
-	(else (all-numbers? (cdr l))) ))
+        ((not (or (number? (car l)) (boolean? (car l)))) #f)
+        (else (all-numbers? (cdr l))) ))
 
 ;; subapplic maps applic1 over the operands, left-to-right.
 
 (define (subapplic done todo spaces)
   (if (null? todo)
-      (reverse done)
-      (let ((result (applic1 (car todo) spaces)))
-	(subapplic (cons result done) (cdr todo) spaces) )))
+    (reverse done)
+    (let ((result (applic1 (car todo) spaces)))
+      (subapplic (cons result done) (cdr todo) spaces) )))
 
 ;; subst takes a lambda expression and an actual argument list, and
 ;; returns the body with substitutions of args for formal parameters.
@@ -139,14 +139,14 @@
 
 (define (subst-in-body form params args)
   (cond ((null? form) '())
-	((not (pair? form)) (lookup form params args))
-	(else (cons (subst-in-body (car form) params args)
-		    (subst-in-body (cdr form) params args) ))))
+        ((not (pair? form)) (lookup form params args))
+        (else (cons (subst-in-body (car form) params args)
+                    (subst-in-body (cdr form) params args) ))))
 
 (define (lookup form params args)
   (cond ((null? params) form)
-	((eq? form (car params)) (car args))
-	(else (lookup form (cdr params) (cdr args))) ))
+        ((eq? form (car params)) (car args))
+        (else (lookup form (cdr params) (cdr args))) ))
 
 ;; The NORMAL special form.  Everything below here is analogous to the
 ;; corresponding piece of APPLIC, but the logic of normal1 is different.
@@ -158,9 +158,9 @@
 ;		     result))))
 
 (define-macro (normal . exp)
-	`(let ((result (normal1 ',(car exp) "")))
-	    (newline)
-	    result))
+              `(let ((result (normal1 ',(car exp) "")))
+                 (newline)
+                 result))
 
 ;;;; (extend-syntax (normal)
 ;;;;   [(normal thingo)
@@ -170,33 +170,33 @@
 
 (define (normal1 form spaces)
   (if (not (pair? form))
-      form
-      (begin
-       (newline)
-       (display spaces)
-       (display form)
-       (cond ((and (not (memq (car form) def-names))
-		   (all-numbers? (cdr form)))
-	      (display " ==> ")
-	      (let ((ans (eval form)))
-		(display ans)
-		ans))
- 	     ((memq (car form) def-names)
-		       (display " ----> ")
-		       (normal1 (subst (eval (car form)) (cdr form))
-				spaces))
-	     ((equal? (car form) 'quote) (cadr form))
-	     (else
-	      (let ((new-form (subnormal (list (car form))
-					 (cdr form)
-					 (word spaces "   ") )))
-		(normal1 new-form spaces) ))))))
+    form
+    (begin
+      (newline)
+      (display spaces)
+      (display form)
+      (cond ((and (not (memq (car form) def-names))
+                  (all-numbers? (cdr form)))
+             (display " ==> ")
+             (let ((ans (eval form)))
+               (display ans)
+               ans))
+            ((memq (car form) def-names)
+             (display " ----> ")
+             (normal1 (subst (eval (car form)) (cdr form))
+                      spaces))
+            ((equal? (car form) 'quote) (cadr form))
+            (else
+              (let ((new-form (subnormal (list (car form))
+                                         (cdr form)
+                                         (word spaces "   ") )))
+                (normal1 new-form spaces) ))))))
 
 (define (subnormal done todo spaces)
   (if (null? todo)
-      (reverse done)
-      (let ((result (normal1 (car todo) spaces)))
-	(subnormal (cons result done) (cdr todo) spaces) )))
+    (reverse done)
+    (let ((result (normal1 (car todo) spaces)))
+      (subnormal (cons result done) (cdr todo) spaces) )))
 
 ;;;
 
