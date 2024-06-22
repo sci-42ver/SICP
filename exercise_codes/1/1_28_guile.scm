@@ -12,7 +12,7 @@ https://stackoverflow.com/q/72107404/21294350
 ;;;; <https://creativecommons.org/licenses/by-sa/4.0/>. 
 
 (define-module (net ricketyspace sicp one twentyeight) 
-              ;  #:use-module (srfi srfi-1 system vm trap-state) ; https://stackoverflow.com/a/62944933/21294350
+               ;  #:use-module (srfi srfi-1 system vm trap-state) ; https://stackoverflow.com/a/62944933/21294350
                #:use-module (srfi srfi-1) 
                #:export (miller-rabin-test prime? run-tests)) 
 

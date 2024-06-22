@@ -26,6 +26,7 @@
   (display n)
   (display " *** ")
   (display elapsed-time)
+  ;; Here `(display n)` before `(< count 2)`, so [0,1,2] will output 3 numbers.
   (when (< count 2)
     (timed-prime-test (+ n 2) (add1 count))))
 

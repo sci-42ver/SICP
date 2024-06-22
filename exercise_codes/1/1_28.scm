@@ -117,33 +117,33 @@ I skip "if n is a prime, then the only square roots of 1 modulo n are 1 and −1
 #|
 1. > avoids nested functions
 i.e. `(squaremod-with-check (miller-rabin-expmod ...`
-2. > Only works for n>0
-same for the original code.
-|#
-(define (miller-rabin n) 
-(miller-rabin-test (- n 1) n)) 
+                                                 2. > Only works for n>0
+                                                 same for the original code.
+                                                 |#
+                                                 (define (miller-rabin n) 
+                                                   (miller-rabin-test (- n 1) n)) 
 
-;; here iterates over all  1~n-1 instead of random.
-(define (miller-rabin-test a n) 
-(cond ((= a 0) true) 
-      ; expmod is congruent to 1 modulo n 
-      ((= (expmod a (- n 1) n) 1) (miller-rabin-test (- a 1) n)) 
-      (else false))) 
+                                                 ;; here iterates over all  1~n-1 instead of random.
+                                                 (define (miller-rabin-test a n) 
+                                                   (cond ((= a 0) true) 
+                                                         ; expmod is congruent to 1 modulo n 
+                                                         ((= (expmod a (- n 1) n) 1) (miller-rabin-test (- a 1) n)) 
+                                                         (else false))) 
 
-(define (expmod base exp m) 
-(cond ((= exp 0) 1) 
-      ((even? exp)
-      ;; here is more readable but the basic idea is same.
-      (let ((x (expmod base (/ exp 2) m))) 
-        (if (non-trivial-sqrt? x m) 0 (remainder (square x) m)))) 
-      (else 
-        (remainder (* base (expmod base (- exp 1) m)) 
-                  m)))) 
+                                                 (define (expmod base exp m) 
+                                                   (cond ((= exp 0) 1) 
+                                                         ((even? exp)
+                                                          ;; here is more readable but the basic idea is same.
+                                                          (let ((x (expmod base (/ exp 2) m))) 
+                                                            (if (non-trivial-sqrt? x m) 0 (remainder (square x) m)))) 
+                                                         (else 
+                                                           (remainder (* base (expmod base (- exp 1) m)) 
+                                                                      m)))) 
 
-(define (non-trivial-sqrt? n m) 
-(cond ((= n 1) false) 
-      ((= n (- m 1)) false) 
-      ; book reads: whose square is equal to 1 modulo n 
-      ;; See mcs here the book probably is based on modulus ring.
-      ; however, what was meant is square is congruent 1 modulo n 
-      (else (= (remainder (square n) m) 1))))
+                                                 (define (non-trivial-sqrt? n m) 
+                                                   (cond ((= n 1) false) 
+                                                         ((= n (- m 1)) false) 
+                                                         ; book reads: whose square is equal to 1 modulo n 
+                                                         ;; See mcs here the book probably is based on modulus ring.
+                                                         ; however, what was meant is square is congruent 1 modulo n 
+                                                         (else (= (remainder (square n) m) 1))))

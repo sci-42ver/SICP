@@ -1,7 +1,7 @@
 I mainly follow the wiki.
 Then I read this repo codes.
 
-I have read repo solution 1.1~20,25,28 (This line is kept to avoid forgetting to check this repo solution). repo solution may be better like 1.7.
+I have read repo solution 1.1~25,28 (This line is kept to avoid forgetting to check this repo solution). repo solution may be better like 1.7.
 
 # notice
 - I didn't prove those theorems which are not proved before when learning DMIA and mcs since I am not reading SICP to learn maths. (SkipMath)
@@ -9,6 +9,8 @@ I have read repo solution 1.1~20,25,28 (This line is kept to avoid forgetting to
 - [cond](https://docs.racket-lang.org/reference/if.html#%28form._%28%28lib._racket%2Fprivate%2Fletstx-scheme..rkt%29._cond%29%29) uses `[]`
 # exercises
 ## chapter 1
+Up to 1.28 I mistakenly use 20220522214709 (verified by viewing the saved page link colors which has the most *orange* count in my browser history. Its adjacent saved pages [1](https://web.archive.org/web/20220605020839/http://community.schemewiki.org/?SICP-Solutions) [2](https://web.archive.org/web/20220516112916/http://community.schemewiki.org/?SICP-Solutions) all have only the *red* link color) wiki archive instead of 20240228133955 which is latest at that time.
+To compare them, I only give one *brief* comparison after inspecting they are mostly similar in  exercise 1.6. And I skip comparing all pages "Last modified" before 20220522214709.
 - [Ben Bitdiddle](https://academickids.com/encyclopedia/index.php/Ben_Bitdiddle)
 - [x] 1.1, 1.2, 1.4 trivial
 - [x] 1.3
@@ -16,6 +18,15 @@ I have read repo solution 1.1~20,25,28 (This line is kept to avoid forgetting to
   (cond ((and (<= x y) (<= x z)) (squareSum y z)))
   ```
   - schemewiki has solutions using `min`, etc.
+  - jfr just splits into 2 if's.
+    - gr should be 
+      ```scheme
+      (+ 
+       (sum-of-square a b) 
+       (square c)) 
+      ```
+      which means same as jfr.
+  - bthomas just excludes min and keep 2 numbers.
 - [x] 1.5
   - "applicative-order" endless loop due to expanding `(p)`.
     "normal-order" -> `(if (= 0 0) 0 (p)))` -> `0`.
@@ -58,6 +69,13 @@ I have read repo solution 1.1~20,25,28 (This line is kept to avoid forgetting to
       See R5RS
       > A 'cond' expression is evaluated by evaluating the <test> expressions of successive <clause>s in order *until one of them evaluates to a true* value (see section see section Booleans). When a <test> evaluates to a true value, *then the remaining <expression>s in its <clause> are evaluated in order*, and the result(s) of the last <expression> in the <clause> is(are) returned as the result(s) of the entire 'cond' expression.
       means same as ["Conditional expressions are evaluated as follows. ..."](https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book-Z-H-10.html#call_footnote_Temp_24)
+  - 2024 wiki
+    - diff
+      ```bash
+      $ diff sicp-ex-1.6.html sicp-ex-1.6_new.html | grep -v /web | grep -v /\? | less_n
+          # only the last comment is added with other misc links updated
+      ```
+    - what poxxa says about "a sequence of expressions" doesn't influence this exercise's result.
 - [x] 1.7
   - wiki
     - TODO
@@ -96,6 +114,11 @@ I have read repo solution 1.1~20,25,28 (This line is kept to avoid forgetting to
     - Maggyero
       QUESTION is same as the problem
       kw: scale, relative error, scaled to the radicand/guess
+  - new wiki
+    - KoiCrystal
+      here C++ is to tune the precision (I didn't dig into the code because the basic idea is probably  same)
+    - > so I think the best way is mentioned above by Maggyero: iterating until guess and the next guess are equal
+      Maggyero is still based on relative ratio `(* tolerance guess)`.
 - [ ] 1.8
   I didn't notice the special case of $x=-2$
   - if we solve $y=x^3\Rightarrow f(y)=y-x^3$
@@ -126,6 +149,10 @@ I have read repo solution 1.1~20,25,28 (This line is kept to avoid forgetting to
   - similarly [$2\uparrow\uparrow n$](https://en.wikipedia.org/wiki/Knuth%27s_up-arrow_notation) i.e. `F(4,n)` in Buck's definition.
   - Based on the above, they are similar to [Buck's definition](https://en.wikipedia.org/wiki/Ackermann_function#History) where the recursive definition is similar to [Hyperoperation](https://en.wikipedia.org/wiki/Hyperoperation) but with ending at y=1 instead of y=2 here.
   - See wiki the above lacks considering $n=0$
+  - new wiki
+    I don't check the detailed values of $A(3,3)$ since that is a bit useless.
+    - > Alternatively, (h n): 0 for n=0, g^{n-1}(2) for n>0
+      i.e. $2^{2(n-1)}$ which is wrong.
 - [x] 1.11
   - wiki
     - TODO
@@ -140,6 +167,19 @@ I have read repo solution 1.1~20,25,28 (This line is kept to avoid forgetting to
         since it can be proved more formally.
       - > Heres another iterative solution, counting up
         (with no relation with the adjacent `(f-iter n a b c)`) is similar to `(f-iter 2 1 0 3)`.
+  - new wiki
+    - > Note that this solution's use of cond and else is optional. Since there are only two alternatives, you could use if instead of cond, without any else clause.
+      trivial
+    - the last comment
+      - > treat the input variable and the counter as separate variables;
+        This seems to be unnecessary since the solution locationed top doesn't mix them
+      - > keep the input variables in the same order they appear in the specification.
+        already done in "the solution locationed top"
+      - > Neither version does any unnecessary calculations
+        i.e. exit when one of `a b c` is the result expected.
+      - Solution 2 is ~~same as~~ similar to my trivial modification for `(f_iter n)`.
+      - > the result of this called on a floating-point input might differ by a small amount from the result of the recursive version called on the same input.
+        Their calling orders are [converse](https://en.wikipedia.org/wiki/Converse_(logic)) to each other.
 - [x] 1.12 trivial by the footnote definition.
   - wiki
     - the 2nd ~~manipulates with the wrong input cases~~
@@ -156,6 +196,11 @@ I have read repo solution 1.1~20,25,28 (This line is kept to avoid forgetting to
     - "Wikipedia formula" just index from 0 due to $\binom{0}{0}$ and the rest is same as the 2nd.
       - > Here's one with binomial coefficient and tail recursion:
         This is based on the binomial equation with the index starting from 1.
+  - new wiki
+    - > Linear recursion. Row and diagonal (column) starting from 1.
+      then n row k diagonal -> $\binom{n-1}{k-1}$ as wikipedia says.
+      Then `else` is based on $\binom{n-1}{k-1}=\binom{n-1}{k-2}\cdot \frac{n-k+1}{k-1}$
+    - I skip checking the syntax of `raise "bad input"`.
 - [x] 1.13
   - trivial using linear recurrence or as the hint says using induction.
   - ~~"the closest integer" doesn't hold for `Fib(1)`.~~
@@ -171,6 +216,10 @@ I have read repo solution 1.1~20,25,28 (This line is kept to avoid forgetting to
     1. uses the property of "the golden ratio".
     2. cares about "base case" (in [evernote_proof_1_13] but not in sicp-solutions).
     3. ...
+  - new wiki
+    - It only changes by `num=13;diff sicp-ex-1.${num}.html sicp-ex-1.${num}-new.html | grep -v /web | grep -v /\? | less_n`
+      > Fib(k) + Fib(k+1) = (φᵏ⁺²-ψᵏ⁺²)/√5.
+      which is already noticed in the old wiki.
 - [ ] 1.14
   - wiki
     - https://web.archive.org/web/20220330050258/https://www.ysagade.nl/2015/04/12/sicp-change-growth/
@@ -188,6 +237,10 @@ I have read repo solution 1.1~20,25,28 (This line is kept to avoid forgetting to
         - > $\lfloor {\frac {n} {5} } \rfloor \left( 2n + 2 \right) + 2 = \Theta\left(n^2\right)$
           $O(n^2)$ is got by lifting all terms to $n^2$ and floor to $\frac{n}{5}$
           $\Omega(n^2)$ is got by keeping only the $n^2$ term ~~(if there are negative terms then when $n\to\infin$ we can let it be )~~ $\lfloor {\frac {n} {5} } \rfloor\cdot 2n>(\frac {n} {5}-1)\cdot 2n>\frac {n} {10}\cdot 2n,\text{when }n>10$.
+        - > Excluding the root and and the last level in this tree which contains the red-green terminal node, there will be exactly $\lfloor \frac{n}{5}\rfloor$ levels.
+          See sicp-solutions
+          This doesn't hold when $n=5k,k\in\mathbb{N}^+$
+          We should say *"at most"*.
       - > grows *exponentially* with *the number of allowed denominations* of coins, and *polynomially* with the *amount to be changed* when the number of denominations is fixed
     - TODO 
       - 3|1 meaning
@@ -208,6 +261,43 @@ I have read repo solution 1.1~20,25,28 (This line is kept to avoid forgetting to
     - > At any point in the computation we only need to keep track of the nodes above the current node.
       This seems to said in one wiki link.
     - It is very similar to ysagade although not that rigorous.
+  - new wiki
+    - Maggyero
+      - `a − k × d(n) > 0` is to ensure it can branch
+      - Here we have $k-1<\frac{a}{d}-1<=k$
+        Then since $\lceil m \rceil -1<m<=\lceil m \rceil$
+        We have $k=\lceil \frac{a}{d}-1 \rceil=\lceil \frac{a}{d} \rceil-1$
+      - > The space required by the process is the height of the tree and grows as Θ(a) with a and n:
+        See https://sicp-solutions.net/post/sicp-solution-exercise-1-14/#orders-of-growth-of-space
+        > It is easy to see that the longest series of calls will happen when making the change of the amount n *using only pennies (1 cent)*.
+        i.e. `a,n->a,n-1->...->a,1->a-1,1->...->1,1->0,1`
+        So $\overbrace{n}^{\ldots a,1}+\overbrace{a}^{0\sim a-1}$
+      - `R(a, 0) = 1`
+        here we have no sum, so we can also say `R(a, 0) = 0`
+      - $R(a, n) = \overbrace{1 + ⌈a/d(n)⌉}^{\text{The longest right branch from the root}} + Σ_{i = 0}^{⌈a/d(n)⌉ − 1} R(a − i × d(n), n − 1) = Θ(a^n).$
+        eventually the main part is $Σ_{i = 0}^{⌈a/d(n)⌉ − 1} R(a − i × d(n), n − 1)=Θ(a^n)$.
+    - https://sicp-solutions.net/post/sicp-solution-exercise-1-14/#orders-of-growth-of-space
+      - "dark gray node" -> solution
+      - > ignoring the floor that won’t impact
+        since $\lfloor n\rfloor=\Theta(n)$.
+      - > By simplifying a little, and ignoring the floor that won’t impact, the result when the number grows larger, it is possible to estimate the number of calls to cc as ... which are composed of two parts
+        should be
+        > By simplifying a little, and ignoring the floor that won’t *impact the result* when the number grows larger, it is possible to estimate the number of calls to cc as
+      - > There is $\frac{n}{5}+1$ green nodes
+        ~~See ysagade, it should be $\frac{n}{5}+2$ when $n\neq 5k$.~~
+        Here `(cc -3 2)=0`, so it is dropped.
+      - Here $T(n,2)=(\lfloor n/5\rfloor+1)\cdot (T(_,1)+1)$ which droppes the "red-green terminal node" in ysagade and uses the correct $T(_,1)$.
+        when calculating complexity $T(n,1)$ is also ok since we only cares about *the leading part*.
+      - https://github.com/sarabander/p2pu-sicp/blob/master/1.2/Ex1.14.scm
+        - TODO `(= kinds-of-coins 3)` simplification
+          ```python
+          from sympy import symbols
+          x, y = symbols('x y')
+          from sympy import floor
+          from sympy import simplify
+          simplify(simplify((floor(x/5)+1+(x-10*floor(x/10))/5+1)*(floor(x/10)+1))) # not work
+          ```
+        - [mutually recursive procedures](https://www.geeksforgeeks.org/mutual-recursion-example-hofstadter-female-male-sequences/#:~:text=Mutual%20recursion%20is%20a%20variation,turn%2C%20calls%20the%20first%20one.) for `lecrec`
 - [x] 1.15
   - [derivation of the formula](https://qr.ae/psq8oy)
   - `12.15/3**5=0.05`
@@ -228,6 +318,12 @@ I have read repo solution 1.1~20,25,28 (This line is kept to avoid forgetting to
       Here `n` is not tracked.
     - the 1st method is trivially not iterative since `(* ...` is not at the top level of the recursive call.
   - repo trivial
+  - new wiki
+    - anon
+      > the procedure would throw an error for b=0
+      right since it will go into the infinite loop.
+      > Easily solved by adding in another condition though.
+      Or just as the original code, use `0` as the base.
 - [x] 1.18 (See 1.17 code)
   - wiki 
     one `(- b 1)` the other `(- (halve c) 0.5)`
@@ -286,7 +382,7 @@ I have read repo solution 1.1~20,25,28 (This line is kept to avoid forgetting to
         Args: 2
               0]
     ```
-  - normal-order (wrong)
+  - normal-order (*wrong*)
     each time it will calculate in `if` and then again in `a` of `gcd(a,b)` except for the last time `b=0`.
     So `2*4-1=7`.
   - wiki
@@ -358,7 +454,7 @@ I have read repo solution 1.1~20,25,28 (This line is kept to avoid forgetting to
       2     1
             2
       ```
-      - The above index is wrong. [See](https://math.stackexchange.com/q/4934605/1059606)
+      - The above index is wrong. [See][Fibonacci_variant]
     - > R(n) = SUM(i from 1 to n, num_b(i)) + num_a(n)
       ~~still wrong. Here `4+7+1` in `num_b(n)` doesn't count enough for `a` in `gcd(a,b)`.~~
       True based on [repo_reference_1_20]
@@ -370,11 +466,60 @@ I have read repo solution 1.1~20,25,28 (This line is kept to avoid forgetting to
       from sympy import *;init_printing(); from sympy import Function, rsolve; from sympy.abc import n; y = Function('y'); f = y(n+2)-y(n + 1)-y(n)-1;print(latex(rsolve(f, y(n), {y(0):0, y(1):1})))
       from sympy import *;init_printing(); from sympy import Function, rsolve; from sympy.abc import n; y = Function('y'); f = y(n+2)-y(n + 1)-y(n);print(latex(rsolve(f, y(n), {y(0):0, y(1):1})))
       ```
+  - new wiki
+    - > (It isn't obvious to me either until I looked through the results for k = 1..10. The conjecture is then easily proven by induction.)
+      It is also shown in [Fibonacci_variant]
+    - 
+- [x] 1.21 trivial
+- [x] 1.22 See code
+- [ ] 1.23
+  I don't know the reason.
+  > how do you explain the fact that it is different from 2
+  - As wiki says
+    > This is mainly due to the NEXT procedure's IF test. The input did halve indeed, but we need to do an extra IF test.
+    `1_23_no_extra_if.scm` will almost have ratio 2 (See `diff` of them).
+    - This is also implied in csapp.
+    - Also see this repo which has one more elegant modification.
+- [x] 1.24
+  - comment
+    ```scheme
+    ;;; wiki
+    ;;; 1. > This exercise requires a Scheme implementations which provides a runtime primitive, such as MIT/GNU Scheme or lang sicp for DrRacket.
+    ;;; Or see this repo use `current-inexact-milliseconds` which is same as
+    ;;; > Another implementation also easy to understand:
+    ;;; 2. > the inner procedure can be rewritten without repeating the if test:
+    ;;; the original uses cond which allows multiple statements in one condition
+    ```
+  - double, not, *can't*. (See code)
+  - > This is probably because performing primitive operations on sufficiently large numbers is not constant time, but grows with the size of the number.
+    This is true. But this depends on the CPU performance.
+  - > To avoid this in DrRacket add: (#%require (lib "27.ss" "srfi")) to gain access to the random-integer procedure.
+    [See](https://planet.racket-lang.org/package-source/williams/science.plt/4/2/planet-docs/science/random-numbers.html#(def._((planet._random-source..rkt._(williams._science..plt._4._2))._random-integer)))
+    > most likely because operations on large integers (above the normal 32/64-bit limit) are not constant in time
+    But in machine code, AVX, etc., will increase the speed.
+  - > it's possible that the number we use when testing 1,000,000 is not 1000 times larger than the number we use when testing 1000. Hence the difference in runtime.
+    On average, it is still "1000 times larger".
 - [ ] 1.25
   - correct
   - yes.
-  - see wiki for time consideration although it is intuitive. So not "fast prime tester".
-- [ ] 1.28
+  - see wiki for time consideration although it is intuitive. So *not "fast prime tester"*.
+- [ ] 1.26
+  - Let $D(n)$ be the multiplication number of `(expmod base exp n)`
+    Then 
+    $$
+    D(n)=
+    \begin{cases}
+      2D(n/2)+1,n\text{ is even}\\
+      D(n-1)+1,\text{otherwise}
+    \end{cases}
+    $$
+    - intuitively the above is just inserting Parentheses which doesn't decrease the multiplication count. So $D(n)=n$.
+  - > grows exponentially with the depth of the tree, which is the logarithm of N.
+    See footnote 37, the depth is at most $\lfloor \log_2 n\rfloor+\lceil \log_2 n\rceil$ (See ).
+    So it has at most $2^{\lfloor \log_2 n\rfloor+\lceil \log_2 n\rceil}< 2^{2\lceil \log_2 n\rceil}<2^{2(\log_2 n+1)}=4n^2$ nodes.
+    similarly we have $2^{\lfloor \log_2 n\rfloor+\lceil \log_2 n\rceil}>1/4\cdot n^2$
+  - 
+- [ ] 1.28 See code
   - See mcs where it uses one newer and better AKS test.
   - > have discovered a ``nontrivial square root of 1 modulo n,'' that is, a number not equal to 1 or n - 1 whose square is equal to 1 modulo n. It is possible to prove that if such a nontrivial square root of 1 exists, then n is not prime.
     See [this](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test#Strong_probable_primes)
@@ -407,3 +552,5 @@ I have read repo solution 1.1~20,25,28 (This line is kept to avoid forgetting to
         > Whenever a Scheme expression is evaluated there is a continuation wanting the result of the expression. The continuation represents *an entire (default) future for the computation*.
 
 [repo_reference_1_20]:https://mngu2382.github.io/sicp/chapter1/01-exercise06.html
+
+[Fibonacci_variant]:https://math.stackexchange.com/q/4934605/1059606

@@ -76,7 +76,7 @@ Currently only I forked this repo.
 better read it [with the adequate maths background](https://tekkie.wordpress.com/2018/04/03/a-word-of-advice-before-you-get-into-sicp/)
 
 why I still learn sicp in 2024. See [this](https://github.com/sci-42ver/Discrete_Mathematics_and_Algorithm/tree/master/CRLS#why-it-is-still-useful-also-see-why-it-is-discontinued) especially cemerick.
-I will use [official wiki](https://web.archive.org/web/20240228152042/http://community.schemewiki.org/?sicp-solutions) as the main part. Notice [Racket](https://gitlab.com/utkarsh181/sicp)/[PLTScheme](https://tekkie.wordpress.com/2011/07/26/just-a-quick-note-about-sicp-mutable-pairs-and-pltscheme/) doesn't have *mutable pairs*.
+I will use [official wiki](https://web.archive.org/web/20240228152042/http://community.schemewiki.org/?sicp-solutions) (http://community.schemewiki.org/?sicp-ex-1.27 resumed at least when 2024-6-21) as the main part. Notice [Racket](https://gitlab.com/utkarsh181/sicp)/[PLTScheme](https://tekkie.wordpress.com/2011/07/26/just-a-quick-note-about-sicp-mutable-pairs-and-pltscheme/) doesn't have *mutable pairs*.
 > The dev. team made this decision, because in their view it made Scheme more of a pure functional language
 
 I choose R5RS as Racket is based on it and 6.5151 (6.905) Red Tape Memo recommends it.
@@ -153,6 +153,8 @@ I choose R5RS as Racket is based on it and 6.5151 (6.905) Red Tape Memo recommen
   - https://web.archive.org/web/20160312023725/https://kendyck.com/solutions-to-sicp/ from the 1st in https://web.archive.org/web/20181015000000*/https://kendyck.com/solutions-to-sicp/
 - chapter 1,2,3
   - [1](https://quirksand.nfshost.com/topics/sicp.html)
+  - from wiki
+    https://codeberg.org/ChristopherChmielewski/sicp
 - chapter 1,2,3,4
   - [1](https://github.com/qiao/sicp-solutions/tree/master/chapter4)
   - [2](https://wizardbook.wordpress.com/solutions-index/)
