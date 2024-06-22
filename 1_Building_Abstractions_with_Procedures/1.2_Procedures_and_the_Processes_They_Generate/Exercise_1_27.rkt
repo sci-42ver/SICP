@@ -14,7 +14,7 @@
       m)]))
 
 (define (fermat-test n a)
-  (cond [(= a 1) #t]
+  (cond [(= a 1) #t] ; skips the trivial test for 1^n mod n
     [(= (expmod a n n) a) (fermat-test n (sub1 a))]
     [else #f]))
 

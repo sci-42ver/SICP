@@ -1,7 +1,15 @@
 I mainly follow the wiki.
 Then I read this repo codes.
 
-I have read repo solution 1.1~25,28 (This line is kept to avoid forgetting to check this repo solution). repo solution may be better like 1.7.
+I have read repo solution 1.1~28 (This line is kept to avoid forgetting to check this repo solution). repo solution may be better like 1.7.
+
+@Semiclassical Thanks for your useful reference. 1. How do we relate $D(n)$ with "Numbers n whose binary expansion starts 10." with one useful meaning? 2. As you says "This suggests that it's better to view n in base 2", SICP https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book-Z-H-11.html#footnote_Temp_62 uses this idea for the question's companion code where $D(n)=D(n/2)+1,n\text{ is even}$. But here factor $2$ has the different growth rate from the odd number case when recursion. Then how to solve it elegantly?
+
+1. Very elegant and ingenious operation of adding 1. This connects with "companion code" where both manipulate with binary bits.
+
+2. "Since I don't know how to prove the following results": Here I give one summary of your thought process to help future readers. Here it is appropriate to write some terms of $B(n)$ and then *guess* its form of "Numbers n whose binary expansion starts 10". Then you find one form $n+2^{\lfloor \log_2 n\rfloor}$ satisfying this property although IMHO it is *not easy from scratch*.
+
+Then you show it satisfies the recurrence so it is the unique solution where the unique property is ensured by recurrence. This process is not easily generalized to other problems especially finding $n+2^{\lfloor \log_2 n\rfloor}$.
 
 # notice
 - I didn't prove those theorems which are not proved before when learning DMIA and mcs since I am not reading SICP to learn maths. (SkipMath)
@@ -289,7 +297,7 @@ To compare them, I only give one *brief* comparison after inspecting they are mo
       - Here $T(n,2)=(\lfloor n/5\rfloor+1)\cdot (T(_,1)+1)$ which droppes the "red-green terminal node" in ysagade and uses the correct $T(_,1)$.
         when calculating complexity $T(n,1)$ is also ok since we only cares about *the leading part*.
       - https://github.com/sarabander/p2pu-sicp/blob/master/1.2/Ex1.14.scm
-        - TODO `(= kinds-of-coins 3)` simplification
+        - ~~TODO~~ `(= kinds-of-coins 3)` simplification
           ```python
           from sympy import symbols
           x, y = symbols('x y')
@@ -297,6 +305,7 @@ To compare them, I only give one *brief* comparison after inspecting they are mo
           from sympy import simplify
           simplify(simplify((floor(x/5)+1+(x-10*floor(x/10))/5+1)*(floor(x/10)+1))) # not work
           ```
+          See [this](https://math.stackexchange.com/q/4936005/1059606)
         - [mutually recursive procedures](https://www.geeksforgeeks.org/mutual-recursion-example-hofstadter-female-male-sequences/#:~:text=Mutual%20recursion%20is%20a%20variation,turn%2C%20calls%20the%20first%20one.) for `lecrec`
 - [x] 1.15
   - [derivation of the formula](https://qr.ae/psq8oy)
@@ -514,11 +523,35 @@ To compare them, I only give one *brief* comparison after inspecting they are mo
     \end{cases}
     $$
     - intuitively the above is just inserting Parentheses which doesn't decrease the multiplication count. So $D(n)=n$.
+    - TODO I don't know how to solve it, so I [ask](https://math.stackexchange.com/q/4936035/1059606)
   - > grows exponentially with the depth of the tree, which is the logarithm of N.
     See footnote 37, the depth is at most $\lfloor \log_2 n\rfloor+\lceil \log_2 n\rceil$ (See ).
     So it has at most $2^{\lfloor \log_2 n\rfloor+\lceil \log_2 n\rceil}< 2^{2\lceil \log_2 n\rceil}<2^{2(\log_2 n+1)}=4n^2$ nodes.
     similarly we have $2^{\lfloor \log_2 n\rfloor+\lceil \log_2 n\rceil}>1/4\cdot n^2$
-  - 
+    > Therefore, the execution time is linear with N.
+    let depth start from 0
+    then we have node number (i.e. multiplication count here) $2^0+\ldots+2^{\Theta(\log n)}=2^{\Theta(\log n)+1}-1=2^{\Theta(\log n)}=\Theta(n)$
+  - tiendo1011
+    - relation between them
+      See https://sicp-solutions.net/post/sicp-solution-exercise-1-26/ last sentence.
+  - google
+    - https://billthelizard.blogspot.com/2010/02/sicp-exercise-126-explicit.html
+      - > A *cursory* inspection of the code makes it seem like the explicit multiplication will cause *twice as many calls* to expmod because each input argument to * will be evaluated separately, instead of only once when expmod is passed as the single argument to square. This *isn't enough to account for the reported slow down*.
+      - TODO
+        > I should point out that this is a *worst case* scenario.
+        > This causes the number of recursive calls to expmod to grow *exponentially instead of simply doubling*.
+      - > This is a pretty straightforward linear recursive process
+        not exactly since here is $\Theta(\log n)$ instead of $\Theta(n)$
+        See book p44
+  - repo
+    - `3n - 1` only considers
+  - [exact formula](https://math.stackexchange.com/a/4936047/1059606)
+- [ ] 1.27
+  - > because of the way the algorithm was implemented it is also necessary to test whether n is equal to 0 in order to *avoid division by zero*
+    IMHO here when $n=0$ we will also loop infinitely.
+    - `(remainder a n)` is unnecessary since we will go up from 1 until n.
+    - `((not (= (expmod a n n) (remainder a n))) false)` holds when `n=0`
+      so `(= n 0)) false` is unnecessary.
 - [ ] 1.28 See code
   - See mcs where it uses one newer and better AKS test.
   - > have discovered a ``nontrivial square root of 1 modulo n,'' that is, a number not equal to 1 or n - 1 whose square is equal to 1 modulo n. It is possible to prove that if such a nontrivial square root of 1 exists, then n is not prime.
