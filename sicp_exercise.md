@@ -11,6 +11,19 @@ I have read repo solution 1.1~28 (This line is kept to avoid forgetting to check
 
 Then you show it satisfies the recurrence so it is the unique solution where the unique property is ensured by recurrence. This process is not easily generalized to other problems especially finding $n+2^{\lfloor \log_2 n\rfloor}$.
 
+Thanks for your help. 1. I can understand "using the repeated substitution method", but how to get the *exact* formula *without knowing it in advance*? This is why I don't mark Semiclassical's answer as solving my problem. 2. I don't know your notation $\delta_{n\equiv_2 1}$. How is it different from the corresponding part in (3)? IMHO "generating functions" needs *all consecutive* terms but here you only consider the odd indexed ones.
+
+
+Thanks. With more info, I understood your method. More detailedly, following "the substitution method",  when $n\ge 2$
+$$
+\begin{align*}
+  D(n)&=2(2(\ldots(2D(1)+1+\delta_{(n>>\lfloor\log n-1\rfloor)\equiv_2 1})+\ldots)\\
+      &=2^{\lfloor\log n\rfloor}D(1)+\overbrace{2^{\lfloor\log n\rfloor}-1}^{\text{accumulate 1 in }D(n)}+\overbrace{n-2^{\lfloor\log n\rfloor}}^{\text{accumulate }\delta}\\
+      &=2^{\lfloor\log n\rfloor}-1+n
+\end{align*}
+$$
+Then $D(0),D(1)$ are checked separately.
+
 # notice
 - I didn't prove those theorems which are not proved before when learning DMIA and mcs since I am not reading SICP to learn maths. (SkipMath)
 # racket notes

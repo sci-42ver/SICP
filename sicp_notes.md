@@ -1,4 +1,8 @@
-@lan I learnt convolution last time when learning signal processing which doesn't use the term "forcing". Following https://web.uvic.ca/~tbazett/diffyqs/convolution_section.html, do you mean we get the solution for arbitrary $c$?
+Here "So the algorithm has to add that many 1's" and "The value of C(n,k) and the number of calls of C(n,k), that return the value 1, are the same" can be both proved using induction. Also see function call number  description in https://stackoverflow.com/a/22025390/21294350 and the proof of the *exact* formula in https://stackoverflow.com/a/22026052/21294350.
+
+When n is odd, following https://en.wikipedia.org/wiki/Binomial_coefficient#Both_n_and_k_large, we can track $g(n,k)={\sqrt {n \over 2\pi k(n-k)}}\cdot {n^{n} \over k^{k}(n-k)^{n-k}}$. Then $ \lim_{n\to\infty}g(2n+1,n)/g(2n,n)=\lim_{n\to\infty}[(2n+1)^{2n+1}*n^n]/[(n+1)^{n+1}*2n^{2n}]=\lim_{n\to\infty}2n+1/(n+1)=2$. Then since we only care about the main part in complexity, we have $\Theta(2^n)$. This is what CS61A 2011 note https://web.archive.org/web/20240318210752/https://people.eecs.berkeley.edu/~bh/61a-pages/Volume2/notes.pdf says in p17.
+
+One small question: What does "too many variables" mean? Does it mean here it is *inappropriate* to consider the complexity for the whole calculation process of *many* rows and we need to care about the complexity of one *primitive* function?
 # Notice
 - I am using Ryzen 4800H which is related the test result in this repo.
 # em tracking when reading the book
@@ -257,6 +261,12 @@ recommended since the course general information shows (more detailed see 1.md)
 [lab solutions](https://people.eecs.berkeley.edu/~bh/61a-pages/)
 - Also [see](https://github.com/nirvanarsc/CS-61A/blob/master/mt1/mt1.scm) (TODO mt -> meeting?)
 ### update [Course Reader vol 1](https://people.eecs.berkeley.edu/~bh/61a-pages/)
+### what to learn
+- [lecture and lab](https://www.reddit.com/r/learnprogramming/comments/1daa41z/comment/l7nwqbp/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button)
+  since we drop the others
+  1. > all book exercises which cover the homework
+  2. > I prefer doing the project assignments from MIT 6.5151
+  3. > it is a bit overkill to do all these sample exams
 ## cs61as
 The latest should be CS "61AS" spring 2016 since 'CS "61AS" fall 2016' has nothing.
 I only check labs without checking Homework, Quizzes and Retakes
@@ -673,6 +683,7 @@ IMHO 6.037 is the condensed (as its main page says) of 6.001 lectures by removin
   > better structuring a procedure, not for efficiency
   - Also see [this with one ASCII figure](https://veliugurguney.com/blog/post/sicp_7_-_sections_1.1.6_1.1.7_1.1.8)
 ### 1.2 (Here I read it first to check why CS 61A Week 2 chooses Section 1.3)
+IMHO it is fine to read 1.2 without reading 1.3 first.
 - footnote 30 is trivial if having learnt computer architecture.
 - tail-recursive
   - [naming source](https://stackoverflow.com/a/33930/21294350)
@@ -796,6 +807,80 @@ IMHO 6.037 is the condensed (as its main page says) of 6.001 lectures by removin
     i.e. `(random 10)` will output different values each time.
   - > But later in the semester we’ll see that sometimes normal order is more efficient.
     TODO
+### 1.2
+- Here as CS61AS says, we assume `sort` can sort the sequence from low to high correctly.
+  ```scheme
+  (insert (first sent)
+    (sort (bf sent)) )))
+  ```
+  Then `(insert num sent)` -> `(insert num (bf sent))` just inserts the number at the correct position.
+- > Well, if there are K numbers in the argument to insert, how many comparisons does it do? K of them.
+How many times do we call insert? N times. But it’s a little tricky because each call to insert has a
+different length sentence. The range is from 0 to N − 1.
+
+  Here it means `sent` in `(insert num sent)` has K numbers.
+  Based on the context of "The range is from 0 to N − 1.", here it means `sort` is called N times.
+  And each `sort` calls `insert` which in turn calls smaller `insert`.
+- kw
+  This is not said explicitly in the book
+  > That constant factor of 12 isn’t really very important, since we don’t really know what we’re halving—that is, we don’t know exactly how long it takes to do one comparison. ... but for an overall sense of the nature of the algorithm, what counts is the N 2 part.
+- > ∃k, N | ∀x > N, |f (x)| ≤ k · |g(x)|
+  This is wrong when
+  > ${\displaystyle g(x)}$ be strictly positive for all large enough values of ${\displaystyle x}$.
+  since it denotes $\mathcal{O}$
+- Θ(1) time to search
+  See [CLRS](https://stackoverflow.com/q/73218786/21294350)
+- > Many other problems that are not explicitly about sorting turn out to require similar approaches
+  IMHO as DMIA says, first sort then search.
+- >  if the speed of your computer doubles, that just adds 1 to the largest problem size you can handle
+  This is for $2^n$, $n!$ is much worse.
+- > This program is very simple, but it takes Θ(2n) time! [Try some examples. Row 18 is already getting slow.]
+  ~~becuase `else` part has the binary tree form.~~
+  - See [this](https://stackoverflow.com/a/22026052/21294350)
+    if we consider addition number instead of call,
+    then `F(0, m) = F(n, 0) = 0`.
+    Then `F(n, m) = f(n, m) - 1` which is guessed first and then verified.
+    - "finite difference equation" -> `F(n, m) = 1 + F(n - 1, m) + F(n, m - 1)`
+    - I didn't dig into the simplification using *Stirling approximation* which is a bit tedious but the steps hew to the line.
+  - Also see [link2](https://stackoverflow.com/a/26229383/21294350)
+    - > until k reaches 1 or n reaches n/2 in any recursive call
+      it should be "k reaches 0"
+      and these 2 cases mean the same when n is even.
+    - > The value of C(n,k) and the number of calls of C(n,k), that return the value 1, are the same,
+      This can be proved using induction where the hypothesis is just the above statement.
+    - The above $C(n,k)\neq T(n,k)$.
+  - Also see [this](https://stackoverflow.com/q/43232800/21294350) which calculates complexity *row by row*.
+    - > This means that all the coëfficients in the Pascal triangle are formed by adding 1 as many times as the value of that coëfficient.
+      same as link2.
+    - [answer](https://stackoverflow.com/a/43239200/21294350)
+      - > Big problem
+        I think it is solved in question which gets the correct result 2^n as the comments indicated.
+        > This results in a geometric series, which computes the sum of all 2^r for r going from 0 to n-1.
+- ~~TODO here `(empty? (bf in))` may not work since `(bf '())` is invalid.~~
+- `(se 1 (iter old-row ’(1)))` and `(se (+ (first in) (first (bf in))) out)`
+  will put the 2nd to left at the the 2nd to right position since `out` are the rightmost elements.
+  Due to symmetry, it works.
+  - `(empty? (bf in))` will break when `in='(1)`
+  - More readable one [see](http://community.schemewiki.org/?sicp-ex-1.12)
+    > Off on a tangent having misread the question & skipping ahead a few chapters:
+    1. `(null? (cdr prev)) (list 1)` -> ending 1
+    2. `(= 1 (car prev)) (cons 1` starts with 1
+    3. `else` the middle part
+  - Assume `(nth col (pascal-row row))` is $\Theta(1)$ complexity as ["Θ(1) time to search" says](https://stackoverflow.com/a/37350500/21294350).
+    - > This was harder to write, and seems to work harder, but it’s incredibly faster because it’s Θ(N 2 ).
+      for each row $n$ indexed from 0, we calculate the middle part ($n-1$ additions)
+      So we have $1+\ldots+n-1=\Theta(n^2)$ (Here we ignore the call expense since as csapp says the compiler may combine calls to avoid that expense) (Here trivially we only consider *large* $n$ by complexity)
+      similar to [this](https://stackoverflow.com/a/32498795/21294350)
+      ```java
+      tempList.add(1);
+      for(int j = 1; j < i; j++){
+          tempList.add(pyramidVal.get(i - 1).get(j) + pyramidVal.get(i - 1).get(j -1));
+      }
+      if(i > 0) tempList.add(1);
+      pyramidVal.add(tempList);
+      ```
+- > computes a few unnecessary ones
+  i.e. at least the *other* terms at the target row.
 # TODO about the earlier chapters after reading later chapters
 - > by incorporating a limited form of normal-order evaluation
 # TODO after lambda calculus
