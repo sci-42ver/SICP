@@ -23,7 +23,7 @@
 
 (define (prime-square-sum a b)
   (define (square x) (* x x))
-  (filtered-accumulate + 0 square 2 add1 b prime?))
+  (filtered-accumulate + 0 square 2 add1 b prime?)) ; implicitly ignores non-prime 1.
 
 (define (relative-prime-product n)
   (define (self x) x)

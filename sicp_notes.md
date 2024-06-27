@@ -1,22 +1,29 @@
-Here "So the algorithm has to add that many 1's" and "The value of C(n,k) and the number of calls of C(n,k), that return the value 1, are the same" can be both proved using induction. Also see function call number  description in https://stackoverflow.com/a/22025390/21294350 and the proof of the *exact* formula in https://stackoverflow.com/a/22026052/21294350.
+1. I referred to the wrong link carelessly. I originally wanted to refer to https://math.libretexts.org/Bookshelves/Analysis/Real_Analysis_(Boman_and_Rogers)/05%3A_Convergence_of_the_Taylor_Series-_A_Tayl_of_Three_Remainders/5.02%3A_Lagrange%E2%80%99s_Form_of_the_Remainder Theorem  5.2.1. 2. Sorry for not understanding what you conveyed. When learning calculus, I thought that Lagrange’s Form of the Remainder should be *precise*. Where is "interpolation error" from? What is $p(x)$ in your notation where RHS has $(x-x_i)(x-x_{i+1})$ instead of $(x-c_i)^2$ in the answer?
 
-When n is odd, following https://en.wikipedia.org/wiki/Binomial_coefficient#Both_n_and_k_large, we can track $g(n,k)={\sqrt {n \over 2\pi k(n-k)}}\cdot {n^{n} \over k^{k}(n-k)^{n-k}}$. Then $ \lim_{n\to\infty}g(2n+1,n)/g(2n,n)=\lim_{n\to\infty}[(2n+1)^{2n+1}*n^n]/[(n+1)^{n+1}*2n^{2n}]=\lim_{n\to\infty}2n+1/(n+1)=2$. Then since we only care about the main part in complexity, we have $\Theta(2^n)$. This is what CS61A 2011 note https://web.archive.org/web/20240318210752/https://people.eecs.berkeley.edu/~bh/61a-pages/Volume2/notes.pdf says in p17.
+Here all steps are $\Leftrightarrow$, so the above method will find the fixed point *iff* it exists when Banach's fixed point theorem *can apply*. The $\Leftrightarrow$ also implies we can't avoid $l=f(l)$ as the answer says. This method is used in SICP 1.3.3. It gives one example non-Cauchy sequence $y = x/y$ where the above method fails.
 
-One small question: What does "too many variables" mean? Does it mean here it is *inappropriate* to consider the complexity for the whole calculation process of *many* rows and we need to care about the complexity of one *primitive* function?
+@woky `x=0` although if we start from one non-zero number we can never get to that *exactly* but only arbitrarily closer.
+
+IMHO the key possible doubt of Julián Aguirre's answer is why we need $g_\alpha'(\bar x)$ "*as small as possible*" when I read Julián Aguirre's answer first. This is same as what Guillermo BCN says mainly. To see more intuitively you will find $f'(\bar x)=-A/x^2=-1$ which corresponds to the oscillating situation with step 2 as the question and SICP https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book-Z-H-12.html#footnote_Temp_90 $y_3=y_1$ shows.
 # Notice
 - I am using Ryzen 4800H which is related the test result in this repo.
-# em tracking when reading the book
-- 1.2.6  Example: Testing for Primality
+- I won't dig into all *complexity computation* in this book since this is *not the target* of learning this book although I will do that sometimes.
+# em tracking when reading the book (Read before doing the related exercises)
+- up to exercise 1.35 finished
 # to reread after reading later chapters
-tracked up to Exercise 1.20.
+tracked up to section 1.2.
 ## 1.2
-- > You may wonder why anyone would care about raising numbers to the 1000th power. See Section 1.2.6.
+- ~~> You may wonder why anyone would care about raising numbers to the 1000th power. See Section 1.2.6.~~
 ## 1.3
-- chapter 1 footnote 12, footnote 21.
-- > In Section 1.3.4 we will see how to implement Newton’s method in general
+- chapter 1 footnote 12
+  > to create procedures without naming them, and to give names to procedures that have already been created. We will see how to do this in Section 1.3.2.
+  footnote 21
+  > In Section 1.3.4 we will see how to implement Newton’s method in general
+- > We will see how to get rid of them altogether in Section 1.3.2.
 ## 2
 - > In Chapter 2, when we investigate how to implement rational-number arithmetic, we will need to be able to compute s in order to reduce rational numbers to lowest terms.
 - chapter 1 footnote 23.
+- > We will return to these ideas in Section 2.2.3 when we show how to use sequences as interfaces
 ## 3
 - chapter 1 footnote 9, 16(also with *Chapter 4*), 27, 31
 - > As we shall see in Chapter 3, the general notion of the environment
@@ -24,8 +31,10 @@ tracked up to Exercise 1.20.
   > We will discuss this more fully in Chapter 3 and *Chapter 4* when we examine the implementation of an interpreter in detail.
   > we will investigate some of its implications in Chapter 3 and *Chapter 4*
 - > In particular, when we address in Chapter 3 the use of procedures with “mutable data,”
+- > We’ll see how to use this as the basis for some fancy numerical tricks in Section 3.5.3.
 ## 4
 - chapter 1 footnote 20
+- > We will return to this issue in section 4.1.6, after we learn more about evaluation.
 ## 5
 - > culminat-ing with a complete implementation of an interpreter and com-piler in Chapter 5
 - > When we discuss the implementation of procedures on register machines in Chap-ter 5
@@ -682,6 +691,8 @@ IMHO 6.037 is the condensed (as its main page says) of 6.001 lectures by removin
   i.e. to [package the function](https://stackoverflow.com/a/20520767/21294350).
   > better structuring a procedure, not for efficiency
   - Also see [this with one ASCII figure](https://veliugurguney.com/blog/post/sicp_7_-_sections_1.1.6_1.1.7_1.1.8)
+#### 1.1.4
+- "Compound Procedures" is compared with *primitive* procedures.
 ### 1.2 (Here I read it first to check why CS 61A Week 2 chooses Section 1.3)
 IMHO it is fine to read 1.2 without reading 1.3 first.
 - footnote 30 is trivial if having learnt computer architecture.
@@ -785,6 +796,72 @@ IMHO it is fine to read 1.2 without reading 1.3 first.
 - "information retrieval" is mainly about private information.
 - > ``probabilistic'' algorithm with order of growth $\Theta(\log n)$
   It only counts `expmod` and if for `fast-prime?` we use `n-1` times then the "order of growth" is worse $\Theta(n\log n)$.
+### 1.3
+- [footnote 49](https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book-Z-H-12.html#footnote_Temp_90)
+  [proof](https://math.stackexchange.com/a/14817/1059606) using [Taylor series](https://en.wikipedia.org/wiki/Taylor_series#Trigonometric_functions) which is the most trivial.
+  Also see [wikipedia](https://en.wikipedia.org/wiki/Leibniz_formula_for_%CF%80#Proof_2) where I skipped studying about "Stolz angle".
+- > e variables’ values are computed outside the let
+  See [R5RS](https://groups.csail.mit.edu/mac/ftpdir/scheme-reports/r5rs-html/r5rs_6.html#IDX89)
+  > The <init>s are evaluated *in the current environment* (in some unspecified order), the <variable>s are bound to *fresh locations* holding the results
+  "fresh locations" implies the above
+  - This is also implied its equivalence with `lambda` where `exp` trivially should *not influence with each other*.
+#### 1.3.3
+- > the number of steps required grows as Θ(log(L/T ))
+  trivial by counting how many times we divide by 2.
+- > f (x), f (f (x)), f (f (f (x))), ...,
+  This can also find the "fixed point" if it exists.
+  [See](https://math.stackexchange.com/a/9181/1059606)
+  - [proof][Banach_fixed_point_proof]
+    - Here T is continuous is due to https://en.wikipedia.org/wiki/Contraction_mapping -> https://en.wikipedia.org/wiki/Uniform_continuity#Definition_of_uniform_continuity
+      notice "uniformly continuous" is for $(x,y)$ while (ordinary) continuity is for $x$
+      - compared with [normal function](https://en.wikipedia.org/wiki/Continuous_function)
+        > Continuity of real functions is usually defined *in terms of limits*. A function f with variable x is continuous at the real number c, if the *limit* of ${\displaystyle f(x),}$ as x tends to c, is equal to ${\displaystyle f(c).}$
+        https://en.wikipedia.org/wiki/Limit_(mathematics)#In_functions is same as the above "Definition of (ordinary) continuity" where $d$ becomes absolute function $d(x,y)=|x-y|$.
+    - The above is similar to the QA answer.
+    - In summary it first
+      > This proves that the sequence ${\displaystyle (x_{n})_{n\in \mathbb {N} }}$ is *Cauchy*
+      then "completeness" (with Cauchy, we get the limit) -> "Furthermore" (existence) -> "Lastly" (unique)
+      So we *only* need to prove "Cauchy sequence" and the rest all *follows*.
+  - This question has one good wikipedia reference ([link at that time](https://en.wikipedia.org/w/index.php?title=Banach_fixed-point_theorem&oldid=363078964) proof is almost similar to the current one) but it asks how to calculate limit which is easy as the [top answer](https://math.stackexchange.com/a/9158/1059606) says.
+- TODO
+  - > not as far from y as x/y
+    Here "average" should be "as far".
+    - So interestingly and subtly, This intuitive average *still* holds one *reasonable* "fixed point" definition
+    $\frac{1}{2}(y+x/y)=y\Rightarrow y=x/y$
+      Then I read
+      > (Note that y = 12 (y + x/y) is a simple transformation of the equation y = x/y; to derive it, add y to both sides of the equation and divide by 2.)
+- > With this modification, the square-root procedure works.
+  Here $y_0=1>0$ then $y_n>\sqrt{x},n\ge 1$
+  Then 
+  $$
+  \begin{align*}
+    y_{n+2}-y_{n+1}&=\frac{1}{2}[(y_{n+1}-y_{n})+\frac{x}{y_{n+1}}-\frac{x}{y_{n}}]\\
+                   &=\frac{1}{2}(y_{n+1}-y_{n})(1+x\cdot(-\frac{1}{y_{n}y_{n+1}}))\\
+                   &<\frac{1}{2}(y_{n+1}-y_{n})
+  \end{align*}
+  $$
+  So it is one Cauchy sequence as [Banach_fixed_point_proof] shows (Here $||$ meets the 1st inequality $d(x_{m},x_{n})\leq d(x_{m},x_{m-1})+d(x_{m-1},x_{m-2})+\cdots +d(x_{n+1},x_{n})$).
+  - Here the inequity is inappropriate to catch with python since no program knows where to stop scaling (even for human, we only at the last step know how to scale).
+    ```python
+    from sympy import symbols
+    x, y = symbols('x y')
+    from sympy import simplify
+    next_y=lambda x,y: 1/2*(x/y+y)
+    y_n=next_y(x,y)
+    y_nn=next_y(x,y_n)
+    for i in range(10):
+      print(simplify((y_nn-y_n)/(y_n-y)))
+      y=y_n
+      y_n=y_nn
+      y_nn=next_y(x,y_nn)
+    ```
+- > a technique we that we call average damping
+  [See](https://stackoverflow.com/a/3863467/21294350) with one interesting analogy.
+  > a brake to a pendulum
+  - > But not every function has this property.
+    since one is oscillating while the other is strictly decreasing.
+  - Also see [this](https://math.stackexchange.com/a/3518585/1059606) for why choose average function.
+- 
 ### TODO
 - > should note the remarks on “tail recursion” in Section 1.2.1.
 ## cs61a (read the *related reading* before reading the lecture as the above advises)
@@ -905,3 +982,5 @@ TODO read Lecture 5,6 & 6.001 in perspective & The Magic Lecture in 6.037 which 
 [Fib_complexity]:https://stackoverflow.com/a/360773/21294350
 
 [evernote_proof_1_13]:https://www.evernote.com/shard/s100/client/snv?noteGuid=6a4b59d5-e99f-417c-9ef3-bcf03a4efecd&noteKey=7e030d4602a0bef5df0d6dd4c2ad47bf&sn=https%3A%2F%2Fwww.evernote.com%2Fshard%2Fs100%2Fsh%2F6a4b59d5-e99f-417c-9ef3-bcf03a4efecd%2F7e030d4602a0bef5df0d6dd4c2ad47bf&title=Exercise%2B1.13
+
+[Banach_fixed_point_proof]:https://en.wikipedia.org/wiki/Banach_fixed-point_theorem#Proof

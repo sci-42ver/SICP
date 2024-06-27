@@ -1,31 +1,31 @@
-I mainly follow the wiki.
-Then I read this repo codes.
+You can read Süli, Endre; Mayers, David (2003). An Introduction to Numerical Analysis. Cambridge University Press which is referred to by wikipedia https://en.wikipedia.org/wiki/Simpson%27s_rule#CITEREFS%C3%BCliMayers2003. In p211 (7.18) it just changes $h=(x_2-x_0)/2$ ($(x_2-x_0)/2$ is explicitly shown in that QA but it is implied in QA question formula) in the above QA link by Mittens to $\frac{(b-a)}{2n}$ in your notation. Then when summing up all $n$ terms it needs to multiply $n$. Then we get the formula.
 
-I have read repo solution 1.1~28 (This line is kept to avoid forgetting to check this repo solution). repo solution may be better like 1.7.
+1. IMHO here $\frac{f''(\xi_i(x))}{2}$ is one constant for one specific interval, so we don't need "does not change sign" to factor it out. Is it that case? 2. If someone don't know $C^2$ due to only having learnt basic calculus, here $C^2$ means "continuous second derivatives" https://math.stackexchange.com/questions/4386938/what-is-the-meaning-of-c2-function-convention-in-pde#comment9171578_4386938, so we can use "intermediate value theorem". 3. Carl Christian may say about $x-c_i$.
 
-@Semiclassical Thanks for your useful reference. 1. How do we relate $D(n)$ with "Numbers n whose binary expansion starts 10." with one useful meaning? 2. As you says "This suggests that it's better to view n in base 2", SICP https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book-Z-H-11.html#footnote_Temp_62 uses this idea for the question's companion code where $D(n)=D(n/2)+1,n\text{ is even}$. But here factor $2$ has the different growth rate from the odd number case when recursion. Then how to solve it elegantly?
+Sorry for ambiguity. I mean $f''(\xi_i(x))$ in the Lagrange form remainder only depends on the integration range $[x_{i},x_{i+1}]$. It should be one constant for that range although for range $[x_{i+1},x_{i+2}]$, etc., it will change.
 
-1. Very elegant and ingenious operation of adding 1. This connects with "companion code" where both manipulate with binary bits.
+I recapped by reading https://math.libretexts.org/Bookshelves/Analysis/Real_Analysis_(Boman_and_Rogers)/03%3A_Questions_Concerning_Power_Series/3.01%3A_Taylor%E2%80%99s_Formula "there must exist *a number*" which is proved based on Theorem 3.1.2 in that online book. In a summary, $f''(\xi_i(x))$ is a constant for *one* interval when integrating that interval. Hope my understanding of calculus is not wrong.
 
-2. "Since I don't know how to prove the following results": Here I give one summary of your thought process to help future readers. Here it is appropriate to write some terms of $B(n)$ and then *guess* its form of "Numbers n whose binary expansion starts 10". Then you find one form $n+2^{\lfloor \log_2 n\rfloor}$ satisfying this property although IMHO it is *not easy from scratch*.
+IMHO the key possible doubt of Julián Aguirre's answer is why we need $g_\alpha'(\bar x)$ "*as small as possible*" when I read Julián Aguirre's answer first. This is same as what Guillermo BCN says mainly. To see more intuitively you will find $f'(\bar x)=-A/x^2=-1$ which *coincidentally* corresponds to the oscillating situation with step 2 as the question and SICP https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book-Z-H-12.html#footnote_Temp_90 $y_3=y_1$ shows.
 
-Then you show it satisfies the recurrence so it is the unique solution where the unique property is ensured by recurrence. This process is not easily generalized to other problems especially finding $n+2^{\lfloor \log_2 n\rfloor}$.
+I say "*coincidentally*" because we probably choose $x_0\neq\sqrt{A}$ so $f'(x_0)\neq -1$. Maybe there is some reasons behind this coincidence. Anyone can improve this comment. Thanks in advance.
 
-Thanks for your help. 1. I can understand "using the repeated substitution method", but how to get the *exact* formula *without knowing it in advance*? This is why I don't mark Semiclassical's answer as solving my problem. 2. I don't know your notation $\delta_{n\equiv_2 1}$. How is it different from the corresponding part in (3)? IMHO "generating functions" needs *all consecutive* terms but here you only consider the odd indexed ones.
+Thanks for your answer and I understood it. Could you give one reference of your notation $\lvert 1$ and $1\rvert$?
 
+@jjagmath Thanks. I am learning SICP now where section 1.3.3 Exercise 1.38 refers to the above 2nd formula. I will return to this question if I read one book about continued fractions possibly.
 
-Thanks. With more info, I understood your method. More detailedly, following "the substitution method",  when $n\ge 2$
-$$
-\begin{align*}
-  D(n)&=2(2(\ldots(2D(1)+1+\delta_{(n>>\lfloor\log n-1\rfloor)\equiv_2 1})+\ldots)\\
-      &=2^{\lfloor\log n\rfloor}D(1)+\overbrace{2^{\lfloor\log n\rfloor}-1}^{\text{accumulate 1 in }D(n)}+\overbrace{n-2^{\lfloor\log n\rfloor}}^{\text{accumulate }\delta}\\
-      &=2^{\lfloor\log n\rfloor}-1+n
-\end{align*}
-$$
-Then $D(0),D(1)$ are checked separately.
+1. Here we assume $(2k+2)(2k+4)\dots(2k+2j)=1$ which is the multiplicative identity when $j=0$.
+
+2. Could you say more detailedly about the notation $\left(\frac1x\frac{\mathrm{d}}{\mathrm{d}x}\right)^n$ although we can understand your proof without knowing that (Thanks in advance)? I tried to compute $$\begin{align*}\frac1x\frac{\mathrm{d}\frac{\sin(x)}{x}}{\mathrm{d}x}&=\sum\limits_{k=0}^\infty  k\cdot (-x^2)^{k-1}\cdot(\frac{-2x}x)\cdot\dfrac1{(2k+1)!}\\&=\sum\limits_{k=0}^\infty(-2k)\cdot(-x^2)^{k-1}\dfrac1{(2k+1)!}\\
+P_1(x)&=\sum_{k=0}^\infty(-x^2)^k\dfrac{2^1(k+1)!/k!}{(2k+2+1)!}\\&=\sum_{k=0}^\infty\frac{-x^2}{2k+3}\cdot(-x^2)^{k-1}\dfrac{1}{(2k+1)!}\end{align*}.$$
 
 # notice
 - I didn't prove those theorems which are not proved before when learning DMIA and mcs since I am not reading SICP to learn maths. (SkipMath)
+- I mainly follow the wiki.
+  Then I read this repo codes.
+  - repo read up to
+    I have read repo solution 1.1~38 (This line is kept to avoid forgetting to check this repo solution). repo solution may be better like 1.7.
+- Comment style I follow [this](http://community.schemewiki.org/?comment-style)
 # racket notes
 - [cond](https://docs.racket-lang.org/reference/if.html#%28form._%28%28lib._racket%2Fprivate%2Fletstx-scheme..rkt%29._cond%29%29) uses `[]`
 # exercises
@@ -570,33 +570,221 @@ To compare them, I only give one *brief* comparison after inspecting they are mo
   - > have discovered a ``nontrivial square root of 1 modulo n,'' that is, a number not equal to 1 or n - 1 whose square is equal to 1 modulo n. It is possible to prove that if such a nontrivial square root of 1 exists, then n is not prime.
     See [this](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test#Strong_probable_primes)
     > the only *square roots* of 1 modulo n are 1 and −1.
+    ```scheme
+    ((even? exp)
+      (remainder (square (expmod base (/ exp 2) m))
+                m))
+    ; change to
+    ((even? exp)
+      (if (= (remainder (square (expmod base (/ exp 2) m))
+                m) 1)
+          #f))
+    ```
+    - Ignore the above codes
+  - wiki
+    - https://web.archive.org/web/20191231030706/http://wiki.drewhess.com/wiki/SICP_exercise_1.28 from wiki
+      - kw
+        > Note that the text states that one of the proofs *only applies to odd* numbers, so the prime test checks for even numbers (excepting 2, which is prime) before employing the Miller-Rabin test.
+        *non-trival* square root
+      - > Similar to ...
+        means it also uses "nested functions".
+    - Another solution in GNU Guile:
+      - This is same as "Another solution that avoids nested functions" iterating all numbers in $[1,n-1]$ but with guile implementation.
+      - tiendo1011 means the *book* is wrong instead of the code.
+        [See (I only read up to "Correct claim")](https://stackoverflow.com/a/59834347/21294350)
+        which means "at least half" $a<n$, we have n is not [a strong probable prime](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test#Strong_probable_primes) to base a.
+    - tiendo1011
+      - [`values`](https://groups.csail.mit.edu/mac/ftpdir/scheme-reports/r5rs-html/r5rs_8.html#IDX369)
+        - > A common use of `call-with-current-continuation' is for structured, *non-local exits* from loops or procedure bodies
+          > Whenever a Scheme expression is evaluated there is a continuation wanting the result of the expression. The continuation represents *an entire (default) future for the computation*.
+  - new wiki
+    - Maggyero's answer considers the `n=1` case by `(> n 1)`.
+    - I use MIT-Scheme so `(import (scheme small))` doesn't work.
+- [x] 1.29
+  - [Simpson’s Rule](https://en.wikipedia.org/wiki/Simpson%27s_rule#Quadratic_interpolation)
+    - Lagrange polynomial interpolation is trivial by finding several *shared points*
+    - How to use integration by substitution here -> [See](https://personal.math.ubc.ca/~CLP/CLP2/clp_2_ic/sec_Simpson.html). Then we do $\int_{-k}^k P(t+m)dt,k=m-a,t=x-m$
+      Then $y_{-1}=P(-k+m)=P(a)=f(a)$, the rest is similar.
+    - The book uses [Composite Simpson's 1/3 rule][Composite_Simpson_rule]
+    - notice "Simpson's 1/3 rule" [corresponds to $n=2$](https://en.wikipedia.org/wiki/Simpson%27s_rule#Simpson's_1/3_rule) instead of $n=1$
+  - wiki
+    - > the error of that method is proportional to the fourth derivative of the function to integrate, so for cube the error is zero.
+      See [Composite_Simpson_rule].
+      proof [see p218,222](https://newdoc.nccu.edu.tw/teasyllabus/111648701013/Numerical_Analysis.pdf)
+      - (7.10)
+        - $H'(0)=0$
+          since $G'(t)=F(t)+F(-t)-\frac{1}{3}[F(t)+4F(0)+F(-t)]-\frac{t}{3}\ldots$
+          Then $G'(0)=0$
+        - $H''(t)=G''(t)-5\cdot 4t^3G(1)$
+          Let $K(t)=F(t)+4F(0)+F(-t)$
+          Then $G''(t)=F'(t)-F'(-t)-\frac{1}{3}[F'(t)-F'(-t)]-\frac{1}{3}[F'(t)-F'(-t)]-\frac{t}{3}\cdot K''(t)=\frac{1}{3}[F'(t)-F'(-t)]-\frac{t}{3}\cdot K''(t)$
+          Then $G''(0)=0$
+        - $G'''(t)=\frac{1}{3}[F''(t)+F''(-t)]-\frac{1}{3}[K''(t)=F''(t)+F''(-t)]-\frac{t}{3}\cdot K'''(t)=-\frac{t}{3}\cdot (F'''(t)-F'''(-t))$
+        - > this means that ...
+          due to $\frac{dF}{dt}=\frac{dF}{dx}\cdot \frac{dx}{dt}\Rightarrow F'=f'\cdot \frac{b-a}{2}$
+      - (7.18)
+        - Here for each interval in m intervals, (7.8) only changes $b-a\mapsto (b-a)/m$. Then we follow [this](https://math.stackexchange.com/questions/4558680/proof-for-the-error-formula-for-composite-simpsons-rule#comment10551791_4558680)
+    - > using the composite midpoint rule is not exact because the error of that method is proportional to the *second derivate* of the function to integrate
+      [See](https://math.stackexchange.com/a/4327333/1059606)
+      - I skipped proving "trapezoidal error".
+    - `(* (/ h 3) (sum simpson-term 0 inc fixed-n)))`
+      1. solve with odd $n$ case.
+      2. it directly solves with composite instead of summing over all $n/2$ small intervals.
+    - > This is a similar solution
+      - This manipulates with factors instead of the whole term.
+        ```scheme
+        (* (cond ((or (= k 0) (= k n)) 1) 
+              ((odd? k) 4) 
+              (else 2)) 
+        (yk k))
+        ```
+    - > There is a third way which approaches the solution by breaking the problem *into four parts*: (f y0), (f yn) and two sums,one over even k and another over odd k.
+      just as it says (JAIS).
+      - > Here's a version that sums over pairs of terms (2 y_k + 4 y_k+1).
+        similar to the above. It just splits the sequence differently
+    - `(* (/ h 3) (+ (y 0) (y n) part-value))` similar to "There is a third way" but manipulates with factor same as "This is a similar solution".
+    - "GNU Guile:" just uses `let*` to replace multiple `define` which is similar to "This is a similar solution".
+    - > So I tried a iterative version
+      JAIS
+      but as CS 61A notes say, we don't need to explicitly use "iterative version" since it is easily implemented in some language with `for`, etc.
+      - `intersimp` same as the 2nd `simpson-term`.
+- [x] 1.30
   ```scheme
-  ((even? exp)
-    (remainder (square (expmod base (/ exp 2) m))
-              m))
-  ; change to
-  ((even? exp)
-    (if (= (remainder (square (expmod base (/ exp 2) m))
-              m) 1)
-        #f))
+  (define (sum term a next b)
+    (define (iter a result)
+      (if (> a b)
+          result
+          (iter (next a) (+ (term a) result))))
+    (iter a 0))
   ```
-  - Ignore the above codes
-  - https://web.archive.org/web/20191231030706/http://wiki.drewhess.com/wiki/SICP_exercise_1.28 from wiki
-    - kw
-      > Note that the text states that one of the proofs *only applies to odd* numbers, so the prime test checks for even numbers (excepting 2, which is prime) before employing the Miller-Rabin test.
-      *non-trival* square root
-    - > Similar to ...
-      means it also uses "nested functions".
-  - Another solution in GNU Guile:
-    - This is same as "Another solution that avoids nested functions" iterating all numbers in $[1,n-1]$ but with guile implementation.
-    - tiendo1011 means the *book* is wrong instead of the code.
-      [See (I only read up to "Correct claim")](https://stackoverflow.com/a/59834347/21294350)
-      which means "at least half" $a<n$, we have n is not [a strong probable prime](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test#Strong_probable_primes) to base a.
-  - tiendo1011
-    - [`values`](https://groups.csail.mit.edu/mac/ftpdir/scheme-reports/r5rs-html/r5rs_8.html#IDX369)
-      - > A common use of `call-with-current-continuation' is for structured, *non-local exits* from loops or procedure bodies
-        > Whenever a Scheme expression is evaluated there is a continuation wanting the result of the expression. The continuation represents *an entire (default) future for the computation*.
+  - repo uses one specific implementation for one problem.
+- [ ] 1.31 See codes for where I was "wrong".
+  - [Wallis product](https://en.wikipedia.org/wiki/Wallis_product#Proof_using_integration)
+    I learnt the formulae for [$I(2n),I(2n+1)$](https://bitbucket.org/anom_mony/graduate_entrance_exam_simplified/src/4c6a0d7d21c9f78af8f037fde20b271f90dfe88a/textbooks/review/reinforcement/zheng_ti/README.md?at=master#README.md-689) when learning calculus.
+  - wiki
+    - > Another approach would be to recognize the series as 4*4*6*6*.../3*3*5*5*... The leading factor of 2 in the numerator must be dealt with.
+      See wikipedia the correct derivation should start from $2/1$ where LHS is $\pi/2$.
+      > as 2 numbers are skipped
+      TODO IMHO only the denominator $2$ is skipped
+      > which is 1 more than the upper term 
+      1 less than
+      > we have to divide that back out of the result 
+      i.e. `(+ limit 2)`
+      - > then there is no need to take into account the "stray" 2 at the start of the numerator sequence.
+        - Then simplify more
+          > My method is the same as the above. A clarification though, this method works by splitting the formula into:
+    - > using integer arithmetic instead of the even? predicate:
+      It uses the step of $\lceil (n+k)/2\rceil$ is 2.
+      Then since it increases 2 at each increasing step, so we have $2\lceil (n+k)/2\rceil$
+      Then we use $2\lceil (n+k_1)/2\rceil+k_2$ to solve $k_{1,2}$.
+    - `pi-prod`
+      1. Here `n` must be *even* to ensure ending with $1/(n+1)$ for the ~~denominator~~ 1st sequence.
+      2. Its `n` is for one *new sequence* like `2 * (1/3) *4 * (1/5) ...`.
+    - > Another way is to recognise that the formula for pi is composed of two separate products:
+      This is same as the 1st method but with different indices.
+    - > The method I used for the Wallis Product recognizes the pairs as following:
+      it has map: $a/b\mapsto (a+b)/2$
+- [ ] 1.32 See codes for where I was "wrong".
+- [x] 1.33
+  - wiki
+    - the comments are almost all incorporated into the main part except that that is done selectively, i.e. "And the iterative version:" and ctz's is not incorporated directly.
+    - > @poly: I don't see the point of defining accumulate in terms of filtered-accumulate.
+      i.e. we should define complex from primitive instead of the other way around.
+  - repo
+    it uses racket library although it can be implemented using what the book has introduced.
+    notice `gcd` is already implemented in MIT/GNU Scheme.
+- [ ] 1.34
+  - if applicative order, then
+    1. apply but `f` is *a function*, so we do nothing.
+    2. substitute -> `(f 2)`
+    3. again do nothing but due to that `2` is one *number*.
+    4. `(2 2)` syntax error.
+  - wiki
+    > Note that both substitution models, applicative-order evaluation and normal-order evaluation, will lead to the same expansion.
+    since we do *no expansion*.
+- [x] 1.35
+  - trivial by dividing by $x$
+- [x] 1.36
+  - wiki
+    > this takes 33 iterations to converge, printing out the final answer on the 34th line.
+    same for MIT/GNU Scheme.
+    > This converges in 10 iterations, printing the result on the 11th line.
+    not same.
+- [x] 1.37
+  - See [this](https://math.stackexchange.com/a/907268/1059606) for proof of the relation with "the golden ratio". Also [see](https://en.wikipedia.org/wiki/Golden_ratio#Continued_fraction_and_square_root)
+    - > The convergents of these continued fractions ... are ratios of successive Fibonacci numbers.
+      - convergent [see](https://en.wikipedia.org/wiki/Continued_fraction#Infinite_continued_fractions_and_convergents) ([$a_i$](https://en.wikipedia.org/wiki/Continued_fraction))
+      proved by induction
+      if $n$th convergent 
+      $G_n$ is 
+      [$\frac{F_{n+1}}{F_n}$](https://en.wikipedia.org/wiki/Fibonacci_sequence#Definition)
+      then $n+1$th is 
+      $G_{n+1}=1+\frac{1}{G_{n}}=1+\frac{F_n}{F_{n+1}}=\frac{F_{n+2}}{F_{n+1}}$
+  - [answer_2](https://math.stackexchange.com/a/986002/1059606)
+    - > Note that the negative root is nicely approached from above by the even numbered terms and from below by the odd numbered terms.
+      We first prove $d_n<0$ using induction.
+      By induction where the negative root $k$ is the split term which satisfies $k=\frac{1}{-1+k}$.
+  - wiki
+    - > It takes on the order of ten terms to be accurate within 0.0001.
+      I didn't check it because it is ~~no use~~ not easy to know the *exact* iteration number for one specific error bound.
+    - > Making the solution recursive:
+      `(/ (n k) (+ (d k) (cont-frac n d (- k 1))))` is due to $N_k=N_1$ which also holds for $D_k$.
+    - > descend into each layer of denominators
+      should be numerator
+    - > This Is incorrect. It needs to do the last division. Like This:
+      This boy is wrong and the top answer is correct.
+      > If you see the text, the definition uses i=1 to i=k.
+    - > The recursive solution above is incorrect also. It calculate the finite continued fraction from 1 to k-1
+      TODO I don't see any above functions using `k-1` as the init condition.
+      And `frac-rec` is right.
+    - `(frac-iter 1 0.0)` uses the wrong direction from outer to inner.
+      > you neek to work backwards, starting with (n k) and (d k) and working your way down with (n (- k 1)) and (d (- k 1)) etc.
+      > For the recursive process, the fraction is built, in a way, from the outside to the inside.
+      - > Note that because you start counting at 0, you need to stop the counter at k (not k + 1).
+        also implied by `(- k i)` should be positive.
+    - > Perhaps the discussion around this exercise is carried to too great a length.
+      Yes. Many useless comments.
+      > Actually, I think that the recursive version of the first comment and the iterative version of the second comment is already correct.
+      For the wiki "2021-11-04 15:43:26", it should be "the recursive version of the *second* comment and the iterative version of the *first* comment" where index starts from the top answer which is seen as one comment.
+- [x] 1.38
+  - proof
+    - [mathworld](https://mathworld.wolfram.com/eContinuedFraction.html)
+      - [Olds, C. D. Continued Fractions. New York: Random House, 1963.](https://www.ms.uky.edu/~sohum/ma330/files/Continued%20Fractions.pdf) p71 doesn't prove it.
+      - [(Wall 1948, p. 348).](https://archive.org/details/dli.ernet.16804/page/347/mode/2up) 
+        TODO (91.3) has 1-,1+ instead of all +.
+    - [paper](https://www-fourier.ujf-grenoble.fr/~marin/une_autre_crypto/articles_et_extraits_livres/Cohn_H_A_Short_proof_of_the_simple_convergent_of_e.pdf)
+      - > To prove (2) (i.e., An + Bn_i + Cn_i = 0) integrate both
+        This is due to RHS $F'$ has $F(1)=F(0)=0\Rightarrow F(1)-F(0)=\int_{0}^1 F'(x)dx=0$
+      - > e need only verify the initial conditions A0 = e ? 1, B0 = 1, and C0 = 2 - e 
+        TODO 
+        - I skipped calculating this integral.
+        - I also skipped "convergent" calculation.
+      - (2)~(4) is probably due to $p_{3n}$ recurrence formulae, etc.
+    - [This](https://www.oswego.edu/mathematics/sites/www.oswego.edu.mathematics/files/eulerdivseriescfproceedings.pdf) is skipped due to only one reference to [E953](https://math.stackexchange.com/a/3385/1059606) -> [15].
+    - [This](https://arxiv.org/html/2308.02567v2) is too general
+    - [QA](https://math.stackexchange.com/a/3385/1059606)
+      - https://people.math.osu.edu/sinnott.1/ReadingClassics/continuedfractions.pdf
+        - 40~42
+          I don't know 40, $\frac{1}{e}$ expansion in 41, "that if" in 42
+      - https://math.stackexchange.com/a/3387/1059606
+        - implicitly use https://en.wikipedia.org/wiki/Continued_fraction#Infinite_continued_fractions_and_convergents
+      - OEIS gives one proof https://arxiv.org/pdf/math/0601660 (i.e. the above paper) ~~doesn't give one proof~~ like https://oeis.org/A254077
+        - https://sci-hub.se/10.2307/27641838 is almost similar to the above paper.
+  - repo -> `diff ~/SICP/1_Building_Abstractions_with_Procedures/1.3_Formulating_Abstractions_with_Higher-Order_Procedures/Exercise_1_37.rkt ~/SICP/1_Building_Abstractions_with_Procedures/1.3_Formulating_Abstractions_with_Higher-Order_Procedures/Exercise_1_38.rkt`
+- [x] 1.39
+  - [proof](https://math.stackexchange.com/a/433857/1059606)
+  - I didn't check [this](https://paramanands.blogspot.com/2011/04/continued-fraction-expansion-of-tanx.html) which is more complex.
+  - See wiki for some possible optimization
+    - > Another version calculating the square *only once* using let.
+      > Dividing once by -x outside the call to cont-frac *obviates the need for the if* statement
+    - > Here's yet another version, not defined in terms of cont-frac.
+      It splits $N_1$ out and pairs $(D_i,N_{i+1})$ and then at last $D_n$.
+  - repo see `diff ~/SICP/1_Building_Abstractions_with_Procedures/1.3_Formulating_Abstractions_with_Higher-Order_Procedures/Exercise_1_37.rkt ~/SICP/1_Building_Abstractions_with_Procedures/1.3_Formulating_Abstractions_with_Higher-Order_Procedures/Exercise_1_39.rkt`
+
+
 
 [repo_reference_1_20]:https://mngu2382.github.io/sicp/chapter1/01-exercise06.html
 
 [Fibonacci_variant]:https://math.stackexchange.com/q/4934605/1059606
+
+[Composite_Simpson_rule]:https://en.wikipedia.org/wiki/Simpson%27s_rule#Composite_Simpson's_1/3_rule
