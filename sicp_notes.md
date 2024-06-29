@@ -5,9 +5,29 @@ Here all steps are $\Leftrightarrow$, so the above method will find the fixed po
 @woky `x=0` although if we start from one non-zero number we can never get to that *exactly* but only arbitrarily closer.
 
 IMHO the key possible doubt of Julián Aguirre's answer is why we need $g_\alpha'(\bar x)$ "*as small as possible*" when I read Julián Aguirre's answer first. This is same as what Guillermo BCN says mainly. To see more intuitively you will find $f'(\bar x)=-A/x^2=-1$ which corresponds to the oscillating situation with step 2 as the question and SICP https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book-Z-H-12.html#footnote_Temp_90 $y_3=y_1$ shows.
+# My edits to schemewiki
+from http://community.schemewiki.org/?c=r
+sicp-ex-1.37	09:54:24	(1 day ago)	fix one typo
+sicp-ex-1.37	09:50:32	(1 day ago)	fix some small errors of history comments.
+sicp-ex-1.43	06:04:33	(4 minutes ago)	Review the history comments.
+sicp-ex-1.45	13:21:24	(22 seconds ago)	say more about Newton's method
+sicp-ex-1.45	12:53:59	(27 minutes ago)	show the maths proof.
+sicp-ex-1.45	13:38:52	(32 seconds ago)	Show what will happen if choosing negative guess although it is not practical in engineering but possible for maths.
+sicp-ex-1.45	12:01:06	(1 minute ago)	analyse Kaihao's comment and give one possible implementation to find the needed average-damp nested level by experiments
+sicp-ex-1.45	07:28:42	(4 hours ago)	fix one phrasing syntax error.
+sicp-ex-1.45	07:21:15	(4 hours ago)	add some description about the relation with Newton's method.
+sicp-ex-1.45	07:12:40	(4 hours ago)	clarify the comment style
+sicp-ex-1.45	07:07:44	(4 hours ago)	clarify the change from "ceiling better" to "floor better" due to changing `init_exp` when recursion.
+sicp-ex-1.45	07:02:12	(5 hours ago)	add the analysis comparing floor and ceil for $log_2 n$ here.
+sicp-ex-1.45	04:45:25	(7 hours ago)	change the code to be run directly when copying into one scm file.
+# blogspot comments left
+- https://billthelizard.blogspot.com/2010/02/sicp-exercise-126-explicit.html?showComment=1719034722891#c6043924970819337247
 # Notice
 - I am using Ryzen 4800H which is related the test result in this repo.
 - I won't dig into all *complexity computation* in this book since this is *not the target* of learning this book although I will do that sometimes.
+- The reading order:
+  book with footnotes -> em -> check "to reread after reading later chapters" -> exercise
+- I posted some comments in some blogspot websites and check their replies in Gmail with `blogspot -python`.
 # em tracking when reading the book (Read before doing the related exercises)
 - up to exercise 1.35 finished
 # to reread after reading later chapters
@@ -861,6 +881,11 @@ IMHO it is fine to read 1.2 without reading 1.3 first.
   - > But not every function has this property.
     since one is oscillating while the other is strictly decreasing.
   - Also see [this](https://math.stackexchange.com/a/3518585/1059606) for why choose average function.
+- 
+#### 1.3.4
+- `fixed-point` similar to `good-enough?` where the former cares about `(- y (/ x y))` and the latter is about `abs (- (square guess) x)`
+  `average-damp` -> `average`
+  `(/ x y)` -> `(/ x guess)`
 - 
 ### TODO
 - > should note the remarks on “tail recursion” in Section 1.2.1.

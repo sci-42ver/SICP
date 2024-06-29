@@ -85,3 +85,15 @@
 ; to find the fixed point.
 
 ; damp-times > log2(n)
+
+(define (nth-root-me x n num-repetitions)
+  (fixed-point (repeat (average-damping (lambda (y)
+                                           (/ x (expt y (- n 1)))))
+                       num-repetitions)
+               1.0))
+
+(define (nth-root-web-solution x n num-repetitions)
+      (fixed-point
+         ((repeat average-damping num-repetition)
+          (lambda (y) (/ x (expt y (- n 1)))))
+         1.0))

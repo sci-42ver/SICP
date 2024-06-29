@@ -1,30 +1,43 @@
-You can read Süli, Endre; Mayers, David (2003). An Introduction to Numerical Analysis. Cambridge University Press which is referred to by wikipedia https://en.wikipedia.org/wiki/Simpson%27s_rule#CITEREFS%C3%BCliMayers2003. In p211 (7.18) it just changes $h=(x_2-x_0)/2$ ($(x_2-x_0)/2$ is explicitly shown in that QA but it is implied in QA question formula) in the above QA link by Mittens to $\frac{(b-a)}{2n}$ in your notation. Then when summing up all $n$ terms it needs to multiply $n$. Then we get the formula.
+1. Here readers are assumed to know $(2k+2)(2k+4)\dots(2k+2j)=1,j=0$, i.e. equal to multiplicative identity when $j=0$ (This comment has been edited).
 
-1. IMHO here $\frac{f''(\xi_i(x))}{2}$ is one constant for one specific interval, so we don't need "does not change sign" to factor it out. Is it that case? 2. If someone don't know $C^2$ due to only having learnt basic calculus, here $C^2$ means "continuous second derivatives" https://math.stackexchange.com/questions/4386938/what-is-the-meaning-of-c2-function-convention-in-pde#comment9171578_4386938, so we can use "intermediate value theorem". 3. Carl Christian may say about $x-c_i$.
+2. Could you say more detailedly about the notation $\left(\frac1x\frac{\mathrm{d}}{\mathrm{d}x}\right)^n$ although we can understand your proof without knowing that (Thanks in advance)? I tried to compute $$\begin{align*}P_1(x)&=\sum_{k=0}^\infty(-x^2)^k\dfrac{2^1(k+1)!/k!}{(2k+2+1)!}\\&=\sum_{k=0}^\infty\frac{-x^2}{2k+3}\cdot(-x^2)^{k-1}\dfrac{1}{(2k+1)!}\\ \frac1x\frac{\mathrm{d}\frac{\sin(x)}{x}}{\mathrm{d}x}&=\sum\limits_{k=0}^\infty  k\cdot (-x^2)^{k-1}\cdot(\frac{-2x}x)\cdot\dfrac1{(2k+1)!}\\&=\sum\limits_{k=0}^\infty(-2k)\cdot(-x^2)^{k-1}\dfrac1{(2k+1)!}\\&\neq P_1(x).\end{align*}$$
 
-Sorry for ambiguity. I mean $f''(\xi_i(x))$ in the Lagrange form remainder only depends on the integration range $[x_{i},x_{i+1}]$. It should be one constant for that range although for range $[x_{i+1},x_{i+2}]$, etc., it will change.
+In a summary, the 2nd will define the *whole nested* function first and then apply to one parameter with *one* numerical calculation which is similar to `G=h(h(....h))` then we call `G(x)`. The 1st will call `k1=h(x)` first and then `h(k1)` ... They may do same like for the identity function.
 
-I recapped by reading https://math.libretexts.org/Bookshelves/Analysis/Real_Analysis_(Boman_and_Rogers)/03%3A_Questions_Concerning_Power_Series/3.01%3A_Taylor%E2%80%99s_Formula "there must exist *a number*" which is proved based on Theorem 3.1.2 in that online book. In a summary, $f''(\xi_i(x))$ is a constant for *one* interval when integrating that interval. Hope my understanding of calculus is not wrong.
+--------------------------------------------------------------
 
-IMHO the key possible doubt of Julián Aguirre's answer is why we need $g_\alpha'(\bar x)$ "*as small as possible*" when I read Julián Aguirre's answer first. This is same as what Guillermo BCN says mainly. To see more intuitively you will find $f'(\bar x)=-A/x^2=-1$ which *coincidentally* corresponds to the oscillating situation with step 2 as the question and SICP https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book-Z-H-12.html#footnote_Temp_90 $y_3=y_1$ shows.
+(知乎不可以编辑评论，所以我删了部分渲染有问题的评论)
+---
+不知道为啥写评论的时候可以渲染公式，发表后不显示了...
 
-I say "*coincidentally*" because we probably choose $x_0\neq\sqrt{A}$ so $f'(x_0)\neq -1$. Maybe there is some reasons behind this coincidence. Anyone can improve this comment. Thanks in advance.
+以下是原稿 (可以复制到stackedit里面看或其他编辑器)：
 
-Thanks for your answer and I understood it. Could you give one reference of your notation $\lvert 1$ and $1\rvert$?
+大多数参考解答里是通过 实验 方法 (即题目所说的 "Do some experiments") 算出 $\lceil\log n\rceil$ 的，如 https://sicp.readthedocs.io/en/latest/chp1/45.html (中文) https://billthelizard.blogspot.com/2010/08/sicp-145-computing-nth-roots.html (英文)。如果按照书中的初始点 1.0 (不要使用 1，此时如果没有其他地方用 floating， MIT/GNU Scheme会默认使用exact模式，计算会慢很多。floating精度至少在题目里够用了)，让 $t=5$，计算 $\sqrt[4]{3^t}$，会发现 $m=\lfloor\log t\rfloor=2$ 调用 `fixed-point`次数比 $m=\lceil\log t\rceil=3$更多。
 
-@jjagmath Thanks. I am learning SICP now where section 1.3.3 Exercise 1.38 refers to the above 2nd formula. I will return to this question if I read one book about continued fractions possibly.
+参考上图，这是由于 $y_0-x=1-3^5<0$，所以$y_1$可能会很大，从而导致$2^my_1^{n-1}$很大可以收敛，正如 "事实上，必须保证直线的零点永远在曲线零点的同一侧" 所说。
 
-1. Here we assume $(2k+2)(2k+4)\dots(2k+2j)=1$ which is the multiplicative identity when $j=0$.
+由于 `tolerance` 等参数影响，不好说$\lceil\log t\rceil$和$\lfloor\log t\rfloor$哪个好。
 
-2. Could you say more detailedly about the notation $\left(\frac1x\frac{\mathrm{d}}{\mathrm{d}x}\right)^n$ although we can understand your proof without knowing that (Thanks in advance)? I tried to compute $$\begin{align*}\frac1x\frac{\mathrm{d}\frac{\sin(x)}{x}}{\mathrm{d}x}&=\sum\limits_{k=0}^\infty  k\cdot (-x^2)^{k-1}\cdot(\frac{-2x}x)\cdot\dfrac1{(2k+1)!}\\&=\sum\limits_{k=0}^\infty(-2k)\cdot(-x^2)^{k-1}\dfrac1{(2k+1)!}\\
-P_1(x)&=\sum_{k=0}^\infty(-x^2)^k\dfrac{2^1(k+1)!/k!}{(2k+2+1)!}\\&=\sum_{k=0}^\infty\frac{-x^2}{2k+3}\cdot(-x^2)^{k-1}\dfrac{1}{(2k+1)!}\end{align*}.$$
+---
+因为 我参考https://github.com/xxyzz/SICP-> https://deltam.blogspot.com/2015/08/sicp145ex145.html -> 此链接。而大多数参考解答给的是$\lfloor\log n\rfloor$。故对这两种答案差异有点困惑并做了上述分析，希望对您有帮助。后续会贴到schemewiki (其有 SICP 所有解答，故我一般参考它来检查自己实现的正确)。
 
+这个解答很好，由于一般看的是英文书，一般都在 Stack Exchange 上问问题，我已经很久不看知乎了 [捂脸] 。
+
+--------------------------------------------------------------
+
+找个例子 应该就明白了（可以参考上面 wiki 里的代码分析）。
+
+比如取上图$y_0=0.2<z$(z为f(x)零点)，那么按照示意图$y_1>z$，然后由于斜率关系$y_2<z$，以此为循环。
+---
+注意这里所有的点默认在$z$右侧。正如 wiki 里分析，如果是左侧，那么可能会有$y_0<z<y_n<y_{n-1}<\ldots<y_1$的序列。
+
+--------------------------------------------------------------
 # notice
 - I didn't prove those theorems which are not proved before when learning DMIA and mcs since I am not reading SICP to learn maths. (SkipMath)
 - I mainly follow the wiki.
   Then I read this repo codes.
   - repo read up to
-    I have read repo solution 1.1~38 (This line is kept to avoid forgetting to check this repo solution). repo solution may be better like 1.7.
+    I have read repo solution 1.1~39,42,43 (This line is kept to avoid forgetting to check this repo solution). repo solution may be better like 1.7.
 - Comment style I follow [this](http://community.schemewiki.org/?comment-style)
 # racket notes
 - [cond](https://docs.racket-lang.org/reference/if.html#%28form._%28%28lib._racket%2Fprivate%2Fletstx-scheme..rkt%29._cond%29%29) uses `[]`
@@ -780,7 +793,38 @@ To compare them, I only give one *brief* comparison after inspecting they are mo
     - > Here's yet another version, not defined in terms of cont-frac.
       It splits $N_1$ out and pairs $(D_i,N_{i+1})$ and then at last $D_n$.
   - repo see `diff ~/SICP/1_Building_Abstractions_with_Procedures/1.3_Formulating_Abstractions_with_Higher-Order_Procedures/Exercise_1_37.rkt ~/SICP/1_Building_Abstractions_with_Procedures/1.3_Formulating_Abstractions_with_Higher-Order_Procedures/Exercise_1_39.rkt`
-
+- [x] 1.42 trivial
+- [x] 1.43
+  - wiki
+    - `(lambda (x) x)` manipulates unusual inputs
+    - kw
+      > An extremely succinct solution uses the *accumulate* procedure defined in 1.32:
+      The following related comments can be skipped
+      > I think the following solution is more elegant.
+    - > An solution with O(log n) complexity using compose:
+      similar to `fast-expt`.
+      Also see
+      > A logarithmic *iterative* solution.
+      which is similar to exercise 1.16
+- [ ] 1.45
+  - wiki
+    - `(pow b p)` just Exercise 1.16 `fast-expt-iter`.
+    - the 2nd comment shares the same basic idea as the 1st.
+    - 
+  - repo
+    - https://deltam.blogspot.com/2015/08/sicp145ex145.html
+      - (JP) https://web.archive.org/web/20161018022729/https://sicp.g.hatena.ne.jp/n-oohira/20090207/1233979052 similar to Kaihao says in wiki
+      - based on experiments
+        - (JP) https://www.serendip.ws/archives/491
+          "Rounding" is based on that we *at least* needs $\lfloor\log(n)\rfloor$ TODO
+        - https://ivanovivan.wordpress.com/2010/08/22/sicp-exercises-section-1-3-4/ 
+        - (JP) https://tetsu-miyagawa.hatenablog.jp/entry/20130320/1363781534 which is based on $\lceil \log(n+1)\rceil-1=\lfloor\log(n)\rfloor$ (This can be proved by 3 cases $\log(n)\in\mathbb{N}$ or $\log(n+1)\in\mathbb{N}$ or neither)
+        - (JP) https://snufkon.hatenablog.com/entry/2013/06/21/112209
+        - http://science.kinokoru.jp/sicp-1-3-4-exercise-1-40-1-46-memo/
+      - In a summary it concludes "lowest point <= fixed point" by inspecting some mapping figures although *without one strict proof*.
+        Then here $1-2^k<0$, so we have "Rounding up: ...".
+        - It visualizes "fixed points" as $f(x)=x$ where $f$ is the mapping compound with many average-damp's.
+  - TODO it seems we can't use neither too large nor too small number of `average-damp`.
 
 
 [repo_reference_1_20]:https://mngu2382.github.io/sicp/chapter1/01-exercise06.html
