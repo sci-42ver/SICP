@@ -1,4 +1,4 @@
-Currently only I forked this repo. Please see this main repo based on this, schemewiki and SDF, etc.
+Currently only I forked this repo. Please see [this main repo](https://github.com/sci-42ver/SICP_SDF.git) based on this, schemewiki and SDF, etc.
 
 ---
 
