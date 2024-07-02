@@ -1,5 +1,0 @@
-(lambda (x) x)
-((lambda (x) x) 17)
-((lambda (x y) x) 42 17)
-((lambda (x y) y) (/ 1 0) 3)
-((lambda (x y) (x y 3)) (lambda (a b) (+ a b)) 14)
