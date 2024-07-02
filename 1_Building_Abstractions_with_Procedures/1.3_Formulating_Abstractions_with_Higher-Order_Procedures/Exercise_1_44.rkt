@@ -1,7 +1,7 @@
 #lang racket/base
 (require racket/function) ; identity
 
-(define dx 1)
+(define dx 1) ; maybe too large compared with 1e-4, etc.
 
 (define (compose f g)
   (lambda (x) (f (g x))))
