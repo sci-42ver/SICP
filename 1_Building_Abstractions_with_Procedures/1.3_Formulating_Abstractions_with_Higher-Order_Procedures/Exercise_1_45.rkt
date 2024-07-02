@@ -64,6 +64,7 @@
 
 (test 8 6561 1)
 ; 2.999993884879518
+; (displayln "may be stuck.")
 (test 8 6561 2) ; runs like a sloth
 (test 8 6561 3)
 ; 3.0000000000173292
@@ -72,7 +73,7 @@
 ; https://deltam.blogspot.com/2015/08/sicp145ex145.html
 
 ; try plot y = 2/x, y = x, y = 1/2(x + 1/2(x+2/x))
-; y=2/x is symmetric to y=x, that will form a loop.
+; y=2/x is *symmetric* to y=x, that will form a loop.
 ; damp to y = 1/2(x + 1/2(x+2/x)), it's asymmetric now.
 
 ; 1/2^k * ((2^k - 1)x + m/x^(n-1)) - m/x^(n-1)
@@ -87,13 +88,14 @@
 ; damp-times > log2(n)
 
 (define (nth-root-me x n num-repetitions)
-  (fixed-point (repeat (average-damping (lambda (y)
+;; See https://stackoverflow.com/a/53933846/21294350. This is wrong.
+  (fixed-point (repeated (average-damp (lambda (y)
                                            (/ x (expt y (- n 1)))))
                        num-repetitions)
                1.0))
 
 (define (nth-root-web-solution x n num-repetitions)
       (fixed-point
-         ((repeat average-damping num-repetition)
+         ((repeated average-damp num-repetitions)
           (lambda (y) (/ x (expt y (- n 1)))))
          1.0))

@@ -1,50 +1,80 @@
-1. I referred to the wrong link carelessly. I originally wanted to refer to https://math.libretexts.org/Bookshelves/Analysis/Real_Analysis_(Boman_and_Rogers)/05%3A_Convergence_of_the_Taylor_Series-_A_Tayl_of_Three_Remainders/5.02%3A_Lagrange%E2%80%99s_Form_of_the_Remainder Theorem  5.2.1. 2. Sorry for not understanding what you conveyed. When learning calculus, I thought that Lagrange’s Form of the Remainder should be *precise*. Where is "interpolation error" from? What is $p(x)$ in your notation where RHS has $(x-x_i)(x-x_{i+1})$ instead of $(x-c_i)^2$ in the answer?
+---
 
-Here all steps are $\Leftrightarrow$, so the above method will find the fixed point *iff* it exists when Banach's fixed point theorem *can apply*. The $\Leftrightarrow$ also implies we can't avoid $l=f(l)$ as the answer says. This method is used in SICP 1.3.3. It gives one example non-Cauchy sequence $y = x/y$ where the above method fails.
+I tried to use one different phone to log in. It works.
 
-@woky `x=0` although if we start from one non-zero number we can never get to that *exactly* but only arbitrarily closer.
+It fails for me to use one different proxy address of VPN which doesn't solve the above problem.
 
-IMHO the key possible doubt of Julián Aguirre's answer is why we need $g_\alpha'(\bar x)$ "*as small as possible*" when I read Julián Aguirre's answer first. This is same as what Guillermo BCN says mainly. To see more intuitively you will find $f'(\bar x)=-A/x^2=-1$ which corresponds to the oscillating situation with step 2 as the question and SICP https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book-Z-H-12.html#footnote_Temp_90 $y_3=y_1$ shows.
-# My edits to schemewiki
-from http://community.schemewiki.org/?c=r
-sicp-ex-1.37	09:54:24	(1 day ago)	fix one typo
-sicp-ex-1.37	09:50:32	(1 day ago)	fix some small errors of history comments.
-sicp-ex-1.43	06:04:33	(4 minutes ago)	Review the history comments.
-sicp-ex-1.45	13:21:24	(22 seconds ago)	say more about Newton's method
-sicp-ex-1.45	12:53:59	(27 minutes ago)	show the maths proof.
-sicp-ex-1.45	13:38:52	(32 seconds ago)	Show what will happen if choosing negative guess although it is not practical in engineering but possible for maths.
-sicp-ex-1.45	12:01:06	(1 minute ago)	analyse Kaihao's comment and give one possible implementation to find the needed average-damp nested level by experiments
-sicp-ex-1.45	07:28:42	(4 hours ago)	fix one phrasing syntax error.
-sicp-ex-1.45	07:21:15	(4 hours ago)	add some description about the relation with Newton's method.
-sicp-ex-1.45	07:12:40	(4 hours ago)	clarify the comment style
-sicp-ex-1.45	07:07:44	(4 hours ago)	clarify the change from "ceiling better" to "floor better" due to changing `init_exp` when recursion.
-sicp-ex-1.45	07:02:12	(5 hours ago)	add the analysis comparing floor and ceil for $log_2 n$ here.
-sicp-ex-1.45	04:45:25	(7 hours ago)	change the code to be run directly when copying into one scm file.
-# blogspot comments left
-- https://billthelizard.blogspot.com/2010/02/sicp-exercise-126-explicit.html?showComment=1719034722891#c6043924970819337247
+---
+
+As reference, the formula is derived in https://math.libretexts.org/Bookshelves/Calculus/CLP-1_Differential_Calculus_(Feldman_Rechnitzer_and_Yeager)/06%3A_Appendix/6.03%3A_C-_Root_Finding/6.3.02%3A_C.2_The_Error_Behaviour_of_Newton's_Method (almost same as https://personal.math.ubc.ca/~feldman/m120/newtConv.pdf) by "Subtracting (E2) from (E1)". Here the question may assume both derivatives are positive ($f''(\epsilon_n)\neq 0$ to ensure we will continue iteration and $f'(x_n)\neq 0$ since it is the denominator).
+
+IMHO Here if $b_n$ is too negative, then "the estimate of the number of digits doubles each time" doesn't hold. We need to take $b_n$ into consideration as the libretexts link https://math.libretexts.org/Bookshelves/Calculus/CLP-1_Differential_Calculus_(Feldman_Rechnitzer_and_Yeager)/06%3A_Appendix/6.03%3A_C-_Root_Finding/6.3.02%3A_C.2_The_Error_Behaviour_of_Newton's_Method says "You can see why from (E5). Since ..." although the main idea is still same.
+
+---s
+Thanks. As indicated in your answer, my wrong calculation for $\frac1x\frac{\mathrm{d}\frac{\sin(x)}{x}}{\mathrm{d}x}$ should have the sum index starting from $1$ instead of $0$.
+
+Correct calculation:
+$$\begin{align*}
+\frac1x\frac{\mathrm{d}\frac{\sin(x)}{x}}{\mathrm{d}x}&=\frac1x\sum\limits_{k=1}^\infty\frac{(-1)^k\cdot2k}{(2k+1)!}x^{2k-1}\\
+&=\sum\limits_{k=1}^\infty\frac{(-1)^k\cdot2k}{(2k+1)!}x^{2k-2}\\
+&=\sum\limits_{k=1}^\infty\frac{(-x^2)^{k-1}\cdot(-2k)}{(2k+1)!}\\
+&=\sum\limits_{k=0}^\infty\frac{(-x^2)^k\cdot(-1)\cdot(2k+2)}{(2k+3)!}\\
+&=\frac{-1}{2k+3}\sum\limits_{k=0}^\infty\frac{(-x^2)^k}{(2k+1)!}.\end{align*}
+$$
+The original post
+$$
+\begin{align*}
+&=\sum\limits_{k=0}^\infty k\cdot (-x^2)^{k-1}\cdot(\frac{-2x}x)\cdot\dfrac1{(2k+1)!}\\&=\sum\limits_{k=0}^\infty(-2k)\cdot(-x^2)^{k-1}\dfrac1{(2k+1)  
+!}\\&\neq P_1(x)\end{align*}
+$$
+should be 
+$$
+\begin{align*}
+\sum\limits_{k=1}^\infty(-2k)\cdot(-x^2)^{k-1}\dfrac1{(2k+1)!}&=\sum\limits_{k=0}^\infty(-1)\cdot(2k+2)\cdot(-x^2)^{k}\dfrac1{(2k+3)!}\\
+&=\sum\limits_{k=0}^\infty\frac{-1}{2k+3}\cdot(-x^2)^{k}\dfrac1{(2k+1)!}
+\end{align*}
+$$
+---
+
+Could I ask one small question? Here it is fine by omitting $\left(-\frac1x\frac{\mathrm{d}}{\mathrm{d}x}\right)^n\frac{\sin(x)}{x}$ for proof when saying about $P_n(x)$. Then why do you explicitly say that (are there some tricky ideas behind that and the relation between derivatives and the continued fraction)?
 # Notice
 - I am using Ryzen 4800H which is related the test result in this repo.
 - I won't dig into all *complexity computation* in this book since this is *not the target* of learning this book although I will do that sometimes.
+- My edits to *schemewiki* is shown with nickname LisScheSic
+  See http://community.schemewiki.org/?c=r (I won't update the history list since it will be [archived](https://web.archive.org/web/20160809060947/http://community.schemewiki.org/?p=sicp-ex-2.70&c=h))
+sicp-ex-1.45	03:25:51	(1 minute ago)	clarify some comments
+sicp-ex-1.45	03:20:30	(6 minutes ago)	fix one analysis typo error.
+sicp-ex-1.45	03:16:43	(10 minutes ago)	remove redundant codes
+sicp-ex-1.37	07:23:29	(1 minute ago)	connect comments to the author whose info page shows what Scheme interpreter is used for the comments.
+sicp-ex-1.43	07:22:50	(2 minutes ago)	connect comments to the author whose info page shows what Scheme interpreter is used for the comments.
+LisScheSic	07:20:13	(4 minutes ago)	show information of software used by myself.
+sicp-ex-1.45	07:16:36	(8 minutes ago)	fix one analysis error.
+# reading order recommendation with other books
+- better read *pure* "Computer Architecture" (So not csapp) before SICP if having learnt other programming languages like C.
+  Also read maths before SICP although not needed to be as deep as mcs.pdf.
+  - maths will help understand something like 
+    1. Figure 1.5
+# book reading order
 - The reading order:
   book with footnotes -> em -> check "to reread after reading later chapters" -> exercise
-- I posted some comments in some blogspot websites and check their replies in Gmail with `blogspot -python`.
-# em tracking when reading the book (Read before doing the related exercises)
+## em tracking when reading the book (Read before doing the related exercises)
 - up to exercise 1.35 finished
-# to reread after reading later chapters
-tracked up to section 1.2.
-## 1.2
+## to reread after reading later chapters (strikethrough to mark already read)
+tracked up to section 1.2 (included) by searching "chapter" and "section".
+### 1.2
 - ~~> You may wonder why anyone would care about raising numbers to the 1000th power. See Section 1.2.6.~~
-## 1.3
-- chapter 1 footnote 12
+### 1.3
+- ~~chapter 1 footnote 12~~
   > to create procedures without naming them, and to give names to procedures that have already been created. We will see how to do this in Section 1.3.2.
-  footnote 21
+  ~~footnote 21~~
   > In Section 1.3.4 we will see how to implement Newton’s method in general
-- > We will see how to get rid of them altogether in Section 1.3.2.
-## 2
+- ~~> Notice that we have used *block structure (Section 1.1.8) to embed* the definitions of pi-next and pi-term within pi-sum, since these procedures are unlikely to be useful for any other purpose. We will see how to *get rid of them altogether* in Section 1.3.2.~~
+### 2
 - > In Chapter 2, when we investigate how to implement rational-number arithmetic, we will need to be able to compute s in order to reduce rational numbers to lowest terms.
 - chapter 1 footnote 23.
 - > We will return to these ideas in Section 2.2.3 when we show how to use sequences as interfaces
-## 3
+- > We’ll see examples of this aer we introduce data structures in Chapter 2.
+### 3
 - chapter 1 footnote 9, 16(also with *Chapter 4*), 27, 31
 - > As we shall see in Chapter 3, the general notion of the environment
 - 
@@ -52,18 +82,17 @@ tracked up to section 1.2.
   > we will investigate some of its implications in Chapter 3 and *Chapter 4*
 - > In particular, when we address in Chapter 3 the use of procedures with “mutable data,”
 - > We’ll see how to use this as the basis for some fancy numerical tricks in Section 3.5.3.
-## 4
+### 4
 - chapter 1 footnote 20
 - > We will return to this issue in section 4.1.6, after we learn more about evaluation.
-## 5
+- > *requires reserving storage for a procedure’s free variables* even while the procedure is *not executing*. In the Scheme implementation we will study in Section 4.1, these variables are stored in the procedure’s environment.
+### 5
 - > culminat-ing with a complete implementation of an interpreter and com-piler in Chapter 5
 - > When we discuss the implementation of procedures on register machines in Chap-ter 5
 - > e imple- mentation of Scheme we shall consider in Chapter 5 does not share this defect.
-# reading order recommendation with other books
-- better read *pure* "Computer Architecture" (So not csapp) before SICP if having learnt other programming languages like C.
-  Also read maths before SICP although not needed to be as deep as mcs.pdf.
-  - maths will help understand something like 
-    1. Figure 1.5
+# miscs
+## blogspot comments left
+- https://billthelizard.blogspot.com/2010/02/sicp-exercise-126-explicit.html?showComment=1719034722891#c6043924970819337247
 # projects recommended by [course_note] to be done.
 > Examples include an event-driven object-oriented simulation game, a conversational program that uses rules and pattern matching, symbolic algebra of polynomials and rational functions, interpreters for various languages, and a compiler with register optimization.
 I skipped [Problem Sets](https://github.com/abrantesasf/sicp-abrantes-study-guide?tab=readme-ov-file), Exam, homework and Quizzes because IMHO those numerous exercises in the book is enough and most of courses pay more attention for projects when grading. Also 
@@ -881,12 +910,31 @@ IMHO it is fine to read 1.2 without reading 1.3 first.
   - > But not every function has this property.
     since one is oscillating while the other is strictly decreasing.
   - Also see [this](https://math.stackexchange.com/a/3518585/1059606) for why choose average function.
-- 
 #### 1.3.4
 - `fixed-point` similar to `good-enough?` where the former cares about `(- y (/ x y))` and the latter is about `abs (- (square guess) x)`
   `average-damp` -> `average`
   `(/ x y)` -> `(/ x guess)`
-- 
+- footnote 62
+  - See [1](https://math.stackexchange.com/q/247567/1059606) and the [answer](https://math.stackexchange.com/a/247575/1059606) (similar to [this](https://math.stackexchange.com/questions/4268181/total-bits-of-accuracy-gained-per-iteration-with-newtons-method#comment8879730_4268181))
+    - Notice libretexts only shows *the upper bound* have "double" relation. But $f'',f'$ are  dynamic, so the *exact* mapping process may not hold that property.
+- > Now we’ve seen how higher-order procedures permit us to *manipulate these general methods* to create further abstractions.
+  See
+  1. > Procedures that *manipulate procedures* are called higher-order procedures.
+  2. > We have here a compound procedure, which has been given the name square
+     i.e. "compound procedure" -> `(define (⟨name⟩ ⟨formal parameters⟩) ⟨ body⟩)` in Scheme.
+  3. 1.3.3 preface.
+- > ey may be included in data structures.
+  ~~This is not included in [wikipedia](https://en.wikipedia.org/wiki/First-class_citizen)~~
+  ~~maybe it [means](https://en.wikipedia.org/wiki/First-class_citizen#History)~~
+  - > There are *no other expressions involving procedures* or whose results are procedures
+    [i.e.][First_class_citizen]
+    > they always have to appear in person and can never be represented by *a variable or expression*
+    - Notice this is a bit different from Robin Popplestone's definition.
+  - The definition is shown in [this wikipedia entry with SICP as the reference](https://en.wikipedia.org/wiki/First-class_function)
+    - TODO
+      > type theory also uses first-class functions to model associative arrays and similar data structures.
+    - notice there is [no strict definition][First_class_citizen]
+      > He did not actually define the term strictly
 ### TODO
 - > should note the remarks on “tail recursion” in Section 1.2.1.
 ## cs61a (read the *related reading* before reading the lecture as the above advises)
@@ -987,6 +1035,11 @@ different length sentence. The range is from 0 to N − 1.
 - > by incorporating a limited form of normal-order evaluation
 # TODO after lambda calculus
 - [consistent_renaming] An5Drama's question 3.
+# TODO after numerical analysis (Most of applications in SICP are about numerical analysis)
+- Why Newton’s method [only get to the local root](https://math.stackexchange.com/a/961171/1059606) but not global although intuitively it is that case.
+  - Also see [one interesting problem](https://qr.ae/psBzi8)
+## See TODO in exercise
+- 1.45
 
 TODO read Lecture 5,6 & 6.001 in perspective & The Magic Lecture in 6.037 which don't have corresponding chapters in the book. Also read [~~Lectures without corresponding sections~~](https://ocw.mit.edu/courses/6-001-structure-and-interpretation-of-computer-programs-spring-2005/pages/readings/) ([6.001 2007](https://web.archive.org/web/20161201165314/http://sicp.csail.mit.edu/Spring-2007/calendar.html) is almost same as 2005 and they are both taught by [Prof. Eric Grimson](https://orgchart.mit.edu/leadership/vice-president-open-learning-interim-and-chancellor-academic-advancement/biography)).
 
@@ -1009,3 +1062,4 @@ TODO read Lecture 5,6 & 6.001 in perspective & The Magic Lecture in 6.037 which 
 [evernote_proof_1_13]:https://www.evernote.com/shard/s100/client/snv?noteGuid=6a4b59d5-e99f-417c-9ef3-bcf03a4efecd&noteKey=7e030d4602a0bef5df0d6dd4c2ad47bf&sn=https%3A%2F%2Fwww.evernote.com%2Fshard%2Fs100%2Fsh%2F6a4b59d5-e99f-417c-9ef3-bcf03a4efecd%2F7e030d4602a0bef5df0d6dd4c2ad47bf&title=Exercise%2B1.13
 
 [Banach_fixed_point_proof]:https://en.wikipedia.org/wiki/Banach_fixed-point_theorem#Proof
+[First_class_citizen]:https://en.wikipedia.org/wiki/First-class_citizen#History

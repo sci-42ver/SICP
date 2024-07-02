@@ -169,3 +169,13 @@
 ; 3.000004202219401
 ; floor better
 ;;
+
+;;; check negative init
+(root 2 2.0 1 small_bound 1.0 #f #t #f)
+;Value: 1.4142135623746899
+(root 2 2.0 1 small_bound -1.0 #f #t #f)
+;Value: -1.4142135623746899
+(root 3 2.0 1 small_bound 1.0 #f #t #f)
+;Value: 1.259923236422975
+(root 3 2.0 1 small_bound -1.0 #f #t #f)
+;Value: 1.2599233631602056

@@ -1,43 +1,14 @@
-1. Here readers are assumed to know $(2k+2)(2k+4)\dots(2k+2j)=1,j=0$, i.e. equal to multiplicative identity when $j=0$ (This comment has been edited).
+In a summary, the 2nd will define the *whole nested* function first and then apply to one *function* parameter which is similar to `G=a(a(....a()))` then we call `G_f=G(f)` and then call `G_f(x)` (Here I see the function `f` as one type of data). The 1st will call `a_f=a(f)` first and finally we do`a_f(a_f(a_f...(a_f(x))))` (This also implies why the above `(h (h x))` does 2 `succ`s). The 2nd will take `x` into calculation at the final step while the 1st will do that much earlier when do the most inner `a_f(x)`. Notice they may do same sometimes like for the identity function.
 
-2. Could you say more detailedly about the notation $\left(\frac1x\frac{\mathrm{d}}{\mathrm{d}x}\right)^n$ although we can understand your proof without knowing that (Thanks in advance)? I tried to compute $$\begin{align*}P_1(x)&=\sum_{k=0}^\infty(-x^2)^k\dfrac{2^1(k+1)!/k!}{(2k+2+1)!}\\&=\sum_{k=0}^\infty\frac{-x^2}{2k+3}\cdot(-x^2)^{k-1}\dfrac{1}{(2k+1)!}\\ \frac1x\frac{\mathrm{d}\frac{\sin(x)}{x}}{\mathrm{d}x}&=\sum\limits_{k=0}^\infty  k\cdot (-x^2)^{k-1}\cdot(\frac{-2x}x)\cdot\dfrac1{(2k+1)!}\\&=\sum\limits_{k=0}^\infty(-2k)\cdot(-x^2)^{k-1}\dfrac1{(2k+1)!}\\&\neq P_1(x).\end{align*}$$
+In a summary, the 2nd will define the *whole nested* function first and then apply to one *function* parameter which is similar to `G=a(a(....a()))` (`a` is average-damping) and then we call `G_f=G(f)` (`f` is the function parameter) and `G_f(x)` (Here I see the function `f` as one type of data). The 1st will call `a_f=a(f)` first and finally we do`a_f(a_f(a_f...(a_f(x))))` (This also implies why the above `(h (h x))` does 2 `succ`s).
 
-In a summary, the 2nd will define the *whole nested* function first and then apply to one parameter with *one* numerical calculation which is similar to `G=h(h(....h))` then we call `G(x)`. The 1st will call `k1=h(x)` first and then `h(k1)` ... They may do same like for the identity function.
-
---------------------------------------------------------------
-
-(知乎不可以编辑评论，所以我删了部分渲染有问题的评论)
----
-不知道为啥写评论的时候可以渲染公式，发表后不显示了...
-
-以下是原稿 (可以复制到stackedit里面看或其他编辑器)：
-
-大多数参考解答里是通过 实验 方法 (即题目所说的 "Do some experiments") 算出 $\lceil\log n\rceil$ 的，如 https://sicp.readthedocs.io/en/latest/chp1/45.html (中文) https://billthelizard.blogspot.com/2010/08/sicp-145-computing-nth-roots.html (英文)。如果按照书中的初始点 1.0 (不要使用 1，此时如果没有其他地方用 floating， MIT/GNU Scheme会默认使用exact模式，计算会慢很多。floating精度至少在题目里够用了)，让 $t=5$，计算 $\sqrt[4]{3^t}$，会发现 $m=\lfloor\log t\rfloor=2$ 调用 `fixed-point`次数比 $m=\lceil\log t\rceil=3$更多。
-
-参考上图，这是由于 $y_0-x=1-3^5<0$，所以$y_1$可能会很大，从而导致$2^my_1^{n-1}$很大可以收敛，正如 "事实上，必须保证直线的零点永远在曲线零点的同一侧" 所说。
-
-由于 `tolerance` 等参数影响，不好说$\lceil\log t\rceil$和$\lfloor\log t\rfloor$哪个好。
-
----
-因为 我参考https://github.com/xxyzz/SICP-> https://deltam.blogspot.com/2015/08/sicp145ex145.html -> 此链接。而大多数参考解答给的是$\lfloor\log n\rfloor$。故对这两种答案差异有点困惑并做了上述分析，希望对您有帮助。后续会贴到schemewiki (其有 SICP 所有解答，故我一般参考它来检查自己实现的正确)。
-
-这个解答很好，由于一般看的是英文书，一般都在 Stack Exchange 上问问题，我已经很久不看知乎了 [捂脸] 。
-
---------------------------------------------------------------
-
-找个例子 应该就明白了（可以参考上面 wiki 里的代码分析）。
-
-比如取上图$y_0=0.2<z$(z为f(x)零点)，那么按照示意图$y_1>z$，然后由于斜率关系$y_2<z$，以此为循环。
----
-注意这里所有的点默认在$z$右侧。正如 wiki 里分析，如果是左侧，那么可能会有$y_0<z<y_n<y_{n-1}<\ldots<y_1$的序列。
-
---------------------------------------------------------------
+The 2nd will actually call `f` once while the 1st will call that *much more times*. Notice they may do the same sometimes, e.g. when `f` is the identity function.
 # notice
 - I didn't prove those theorems which are not proved before when learning DMIA and mcs since I am not reading SICP to learn maths. (SkipMath)
 - I mainly follow the wiki.
   Then I read this repo codes.
   - repo read up to
-    I have read repo solution 1.1~39,42,43 (This line is kept to avoid forgetting to check this repo solution). repo solution may be better like 1.7.
+    I have read repo solution 1.1~40,42,43,45 (This line is kept to avoid forgetting to check this repo solution). repo solution may be better like 1.7.
 - Comment style I follow [this](http://community.schemewiki.org/?comment-style)
 # racket notes
 - [cond](https://docs.racket-lang.org/reference/if.html#%28form._%28%28lib._racket%2Fprivate%2Fletstx-scheme..rkt%29._cond%29%29) uses `[]`
@@ -158,7 +129,9 @@ To compare them, I only give one *brief* comparison after inspecting they are mo
   - if we solve $y=x^3\Rightarrow f(y)=y-x^3$
     then $y-\frac{y-x^3}{1}=x^3$ ~~says nothing useful.~~ implies directly calculating $x^3$.
   - Newton's method [may not work](https://scholarworks.utep.edu/cgi/viewcontent.cgi?article=2421&context=cs_techrep#:~:text=Interestingly%2C%20the%20simplest%20example%20on,the%20Newton's%20method%20works%20perfectly.&text=desired%20extension.,%E2%88%92F(%E2%88%92x).) at least when $x_2=x_0$ and ad infinitum.
+    > when we have x0, x1 6= x0, and then again x2 = x0, etc.
     This also relates with the init guess. See the code 1_8.scm from wiki.
+    - Also see footnote 62 in 1.3.4.
   - wiki
     - See the 2nd solution
       >  ;; Fix: take absolute cuberoot and return with sign 
@@ -793,6 +766,7 @@ To compare them, I only give one *brief* comparison after inspecting they are mo
     - > Here's yet another version, not defined in terms of cont-frac.
       It splits $N_1$ out and pairs $(D_i,N_{i+1})$ and then at last $D_n$.
   - repo see `diff ~/SICP/1_Building_Abstractions_with_Procedures/1.3_Formulating_Abstractions_with_Higher-Order_Procedures/Exercise_1_37.rkt ~/SICP/1_Building_Abstractions_with_Procedures/1.3_Formulating_Abstractions_with_Higher-Order_Procedures/Exercise_1_39.rkt`
+- [x] 1.40 trivial
 - [x] 1.42 trivial
 - [x] 1.43
   - wiki
@@ -810,13 +784,17 @@ To compare them, I only give one *brief* comparison after inspecting they are mo
   - wiki
     - `(pow b p)` just Exercise 1.16 `fast-expt-iter`.
     - the 2nd comment shares the same basic idea as the 1st.
-    - 
+  - my implementation
+    - See https://stackoverflow.com/a/53933846/21294350
+      - the key is as [the comment](https://stackoverflow.com/questions/53925944/sicp-1-45-why-are-these-two-higher-order-functions-not-equivalent#comment138739132_53933846) says
+        - > my key takeaway/ah-ha moment was when you named and simplified the lambda function and *then defined h*
   - repo
     - https://deltam.blogspot.com/2015/08/sicp145ex145.html
+      - TODO how it is strictly proved as [zhihu reference](https://www.zhihu.com/question/28838814/answer/42283723) does.
       - (JP) https://web.archive.org/web/20161018022729/https://sicp.g.hatena.ne.jp/n-oohira/20090207/1233979052 similar to Kaihao says in wiki
       - based on experiments
         - (JP) https://www.serendip.ws/archives/491
-          "Rounding" is based on that we *at least* needs $\lfloor\log(n)\rfloor$ TODO
+          "Rounding" is based on that we *at least* needs $\lfloor\log(n)\rfloor$ ~~TODO~~
         - https://ivanovivan.wordpress.com/2010/08/22/sicp-exercises-section-1-3-4/ 
         - (JP) https://tetsu-miyagawa.hatenablog.jp/entry/20130320/1363781534 which is based on $\lceil \log(n+1)\rceil-1=\lfloor\log(n)\rfloor$ (This can be proved by 3 cases $\log(n)\in\mathbb{N}$ or $\log(n+1)\in\mathbb{N}$ or neither)
         - (JP) https://snufkon.hatenablog.com/entry/2013/06/21/112209
@@ -824,7 +802,35 @@ To compare them, I only give one *brief* comparison after inspecting they are mo
       - In a summary it concludes "lowest point <= fixed point" by inspecting some mapping figures although *without one strict proof*.
         Then here $1-2^k<0$, so we have "Rounding up: ...".
         - It visualizes "fixed points" as $f(x)=x$ where $f$ is the mapping compound with many average-damp's.
-  - TODO it seems we can't use neither too large nor too small number of `average-damp`.
+    - plot
+      https://matplotlib.org/stable/gallery/lines_bars_and_markers/simple_plot.html#sphx-glr-gallery-lines-bars-and-markers-simple-plot-py
+      ```python
+      import matplotlib.pyplot as plt
+      import numpy as np
+
+      # Data for plotting
+      ending=2.0
+      t = np.arange(0.0, ending, 0.01)
+      s = 1/2*(t+1/2*(t+2/t))
+
+      fig, ax = plt.subplots() # https://matplotlib.org/stable/gallery/lines_bars_and_markers/stairs_demo.html#sphx-glr-gallery-lines-bars-and-markers-stairs-demo-py
+      ax.plot(t, s, label="level 2 average damp to solve $y=\sqrt[2]{2}$") # https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html
+      ax.plot(t, 2/t, label="no average damp to solve $y=\sqrt[2]{2}$")
+      ax.plot([0,ending],[0,ending], label="y=x") #https://stackoverflow.com/a/31993651/21294350
+      ax.set(xlabel='x', ylabel='y')
+      ax.set_xlim(0, ending)
+      ax.set_ylim(0, ending)
+      ax.legend()
+      ax.grid()
+      
+      # axs[1].plot(t, 2/t)
+      # axs[1].set(xlabel='x', ylabel='y',
+      #       title='no average damp to solve $y=sqrt[2]{2}$')
+      # axs[1].grid()
+
+      plt.show()
+      ```
+  - ~~TODO it seems we can't use neither too large nor too small number of `average-damp`.~~
 
 
 [repo_reference_1_20]:https://mngu2382.github.io/sicp/chapter1/01-exercise06.html
