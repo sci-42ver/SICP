@@ -11,6 +11,7 @@
       (exact-ceiling (log x base)))))
 
 (define (mycar x)
+  ;; See wiki. This is same as jsdalton.
   (iter-devide x 2 3))
 ; remove all the 3, then log with 2 get a
 

@@ -42,15 +42,15 @@
 (define (rect-area rect)
   (* (rect-width rect) (rect-width rect)))
 
-; second implemention
-(define (make-rect bottom-left-point top-right-point)
-  (cons bottom-left-point top-right-point))
+;; second implemention
+; (define (make-rect bottom-left-point top-right-point)
+;   (cons bottom-left-point top-right-point))
 
-(define (rect-width rect)
-  (abs (- (x-point (car rect)) (x-point (cdr rect)))))
+; (define (rect-width rect)
+;   (abs (- (x-point (car rect)) (x-point (cdr rect)))))
 
-(define (rect-height rect)
-  (abs (- (y-point (car rect)) (y-point (cdr rect)))))
+; (define (rect-height rect)
+;   (abs (- (y-point (car rect)) (y-point (cdr rect)))))
 
 (define point-a (make-point 0 0))
 (define point-b (make-point 0 1))

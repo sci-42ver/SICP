@@ -6,9 +6,12 @@
 (define (car z)
   (z (lambda (p q) p)))
 
+(define x 1)
+(define y 2)
 (car (cons x y))
 (car (lambda (m) (m x y)))
-(lambda (lambda (p q) p) ((lambda (p q) p) x y))
+;; lambda should not be substituted in this way. See wiki
+; (lambda (lambda (p q) p) ((lambda (p q) p) x y))
 (lambda (x y) x)
 ; x
 

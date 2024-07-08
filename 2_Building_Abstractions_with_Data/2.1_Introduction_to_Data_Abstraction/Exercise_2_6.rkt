@@ -20,6 +20,8 @@
       ((a f) ((b f) x)))))
 ; apply f on x b times then a times
 
+;; here return `x` to propogate.
+;; Due to applicative order, the last one is the returned value of the most outer procedure.
 (((myadd one two) (lambda (x) (println x) x)) "wow ")
 ; "wow " ; printed
 ; "wow " ; printed
