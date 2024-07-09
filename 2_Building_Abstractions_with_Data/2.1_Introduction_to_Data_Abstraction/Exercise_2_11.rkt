@@ -8,16 +8,16 @@
 (define (lower-bound interval)
   (min (car interval) (cdr interval)))
 
-(define (add-interval x y)
-  (make-interval  (+ (lower-bound x) (lower-bound y))
-                  (+ (upper-bound x) (upper-bound y))))
+; (define (add-interval x y)
+;   (make-interval  (+ (lower-bound x) (lower-bound y))
+;                   (+ (upper-bound x) (upper-bound y))))
 
-(define (sub-interval a b)
-  (add-interval
-   a
-   (make-interval
-    (- (lower-bound b))
-    (- (upper-bound b)))))
+; (define (sub-interval a b)
+;   (add-interval
+;    a
+;    (make-interval
+;     (- (lower-bound b))
+;     (- (upper-bound b)))))
 
 (define (mul-interval x y)
   (let ([lx (lower-bound x)]

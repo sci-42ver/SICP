@@ -56,6 +56,7 @@
 (mul-interval a b)
 ; '(3 . 8)
 (interval-width (mul-interval a b))
+;; TODO what do you mean?
 ; 2 1/2
 
 (div-interval a b)
