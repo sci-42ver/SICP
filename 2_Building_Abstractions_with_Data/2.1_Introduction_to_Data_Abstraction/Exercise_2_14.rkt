@@ -28,6 +28,7 @@
                    (max p1 p2 p3 p4))))
 
 (define (div-interval x y)
+  ;; here should be intervals spanning zero. Since zero-width interval is just one number which is fine.
   (when (= (interval-width y) 0)
     (error "can't divide a zero length interval"))
   (mul-interval

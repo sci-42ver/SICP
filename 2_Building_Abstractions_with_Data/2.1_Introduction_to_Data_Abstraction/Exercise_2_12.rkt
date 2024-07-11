@@ -9,6 +9,7 @@
   (min (car interval) (cdr interval)))
 
 (define (make-center-percent c p)
+  ;; As naming convention in the preface of Exercise 2.12, here tolerance is not "percentage tolerance".
   (let ([tolerance (* c (/ p 100))])
     (make-interval (- c tolerance) (+ c tolerance))))
 
