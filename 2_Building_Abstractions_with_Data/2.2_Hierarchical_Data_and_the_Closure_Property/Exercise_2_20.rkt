@@ -9,6 +9,7 @@
                        result-list))))
   (iter-list input-list null))
 
+;; same as wiki mueen's
 (define (same-parity first . rest)
   (define (iter rest-list check-parity result-list)
     (if (null? rest-list)
