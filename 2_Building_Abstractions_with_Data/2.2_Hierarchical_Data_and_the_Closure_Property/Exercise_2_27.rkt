@@ -1,5 +1,6 @@
 #lang racket/base
 
+;; same as jz first 2 implementations.
 (define (deep-reverse input-list)
   (define (iter-list current-list result-list)
     (if (null? current-list)
