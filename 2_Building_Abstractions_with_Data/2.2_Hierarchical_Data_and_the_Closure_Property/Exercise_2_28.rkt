@@ -1,5 +1,6 @@
 #lang racket/base
 
+;; Same as wiki "Second try".
 (define (fringe tree)
   (define (iter current-node result)
     (cond [(null? current-node) result]
