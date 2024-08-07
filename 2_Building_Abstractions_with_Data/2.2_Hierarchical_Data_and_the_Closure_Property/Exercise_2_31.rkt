@@ -1,11 +1,13 @@
 #lang racket/base
 
+;; same as wiki jwc
 (define (tree-map f tree)
   (cond [(null? tree) null]
     [(not (pair? tree)) (f tree)]
     [else (cons (tree-map f (car tree))
                 (tree-map f (cdr tree)))]))
 
+;; same as wiki bishboria
 (define (tree-map f tree)
   (map (lambda (sub-tree)
          (if (pair? sub-tree)

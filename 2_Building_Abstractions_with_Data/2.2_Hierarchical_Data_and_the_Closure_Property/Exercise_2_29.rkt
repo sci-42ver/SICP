@@ -47,9 +47,12 @@
       [else (iter (left-branch node) (+ (iter (right-branch node) result)))]))
   (iter mobile 0))
 
+;; lacks
+;; > each of the submobiles hanging off its branches is bal-anced
 (define (balanced? mobile)
   (= (weight (left-branch mobile)) (weight (right-branch mobile))))
 
+;; better name `torque`.
 (define (weight branch)
   (if (number? (branch-structure branch))
     (* (branch-length branch) (branch-structure branch))

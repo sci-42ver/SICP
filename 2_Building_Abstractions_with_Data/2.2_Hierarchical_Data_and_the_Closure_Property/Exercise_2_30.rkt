@@ -2,12 +2,14 @@
 
 (define (square x) (* x x))
 
+;; same as wiki sq-tree-2
 (define (square-tree tree)
   (cond [(null? tree) null]
     [(not (pair? tree)) (square tree)]
     [else (cons (square-tree (car tree))
                 (square-tree (cdr tree)))]))
 
+;; same as wiki bishboria
 (define (square-tree tree)
   (map (lambda (sub-tree)
          (if (pair? sub-tree)
