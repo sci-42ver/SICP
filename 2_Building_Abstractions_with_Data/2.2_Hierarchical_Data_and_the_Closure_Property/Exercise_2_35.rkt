@@ -7,6 +7,7 @@
         (accumulate op initial (cdr sequence)))))
 
 ; see exercise 2.28, SICP page 159
+;; Same as wiki "This can easily be remedied by using more conditions".
 (define (count-leaves t)
   (accumulate + 0 (map (lambda (node) 
                          (cond [(null? node) 0]

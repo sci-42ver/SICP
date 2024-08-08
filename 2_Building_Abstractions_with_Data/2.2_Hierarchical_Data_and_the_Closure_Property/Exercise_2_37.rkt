@@ -14,6 +14,7 @@
 
 ; 3BLUE1BROWN: Dot products and duality | Essence of linear algebra, chapter 9            
 ; https://www.youtube.com/watch?v=LyGKycYT2v0&list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&index=9
+;; Also see https://www.3blue1brown.com/lessons/dot-products
 (define (dot-product v w)
   (accumulate + 0 (map * v w)))
 
