@@ -32,6 +32,8 @@
 
 (define empty-board null)
 
+;; same as atomik's understanding of the exercise description.
+;; here we can just `(append rest-queens (list new-row))` since starts with nil
 (define (adjoin-position new-row nth-row rest-queens)
   (if (= 1 nth-row)
     (list new-row) ;; first row
@@ -41,9 +43,10 @@
   (if (= nth-row 1)
     #t
     (let ([new-queen (last positions)]
+          ;; https://docs.racket-lang.org/reference/pairs.html#%28def._%28%28lib._racket%2Flist..rkt%29._drop-right%29%29
           [rest-queens (drop-right positions 1)])
       (for/and ([another-queen (in-list rest-queens)]
-                [i (in-naturals)])
+                [i (in-naturals)]) ; https://docs.racket-lang.org/reference/sequences.html#%28def._%28%28lib._racket%2Fprivate%2Fbase..rkt%29._in-naturals%29%29
         (and (not (= new-queen another-queen)) ;; not in same column
              (not (= (abs (- new-queen another-queen)) ;; not in same diagonal
                      (abs (- nth-row (add1 i))))))))))

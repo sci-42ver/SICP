@@ -14,6 +14,7 @@
 (define (flatmap proc seq)
   (accumulate append null (map proc seq)))
 
+;; same as ordered-triples-sum in wiki
 (define (unique-triples n)
   (flatmap (lambda (i)
              (flatmap (lambda (j)
