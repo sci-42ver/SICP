@@ -1,9 +1,11 @@
 #lang racket/base
 
+;; This is more general as the footnote says.
 (define (equal? a b)
   (cond [(and (symbol? a) (symbol? b)) (eq? a b)]
     [(and (number? a) (number? b)) (= a b)]
-    [(and (null? a) (null? b)) #t]
+    [(and (null? a) (null? b)) #t] ; (symbol? '()) -> #f
+    ;; IMHO this is already contained in else.
     [(or (and (not (null? a)) (null? b))
          (and (null? a) (not (null? b))))
      #f]
