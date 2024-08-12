@@ -28,6 +28,7 @@
 (define (addend s)
   (cadr s))
 
+;; only change this for sum
 (define (augend s)
   (if (null? (cdddr s))
     (caddr s)

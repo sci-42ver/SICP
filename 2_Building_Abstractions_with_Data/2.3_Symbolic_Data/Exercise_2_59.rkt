@@ -1,5 +1,6 @@
 #lang racket/base
 
+;; See footnote 36
 (equal? (list 1) (list 1))
 ; #t
 
@@ -11,6 +12,7 @@
     [(equal? x (car set)) #t]
     [else (element-of-set? x (cdr set))]))
 
+;; almost same as sci-42ver/SICP_SDF but swapping the roles of set1 and set2.
 (define (union-set set1 set2)
   (cond [(null? set1) set2]
     [(null? set2) set1]

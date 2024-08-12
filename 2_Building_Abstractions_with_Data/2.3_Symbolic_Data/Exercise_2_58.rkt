@@ -32,6 +32,8 @@
 (define (augend s)
   (caddr s))
 
+;; The above is same as wiki AA's.
+
 (define (product? x)
   (and (pair? x) (eq? (cadr x) '*)))
 
@@ -59,6 +61,7 @@
 ; 4
 
 ; b:
+;; Almost same as sci-42ver/SICP_SDF
 (define (memq item x)
   (cond [(null? x) #f]
     [(eq? item (car x)) x]

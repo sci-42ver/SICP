@@ -1,5 +1,6 @@
 #lang racket/base
 
+;; same as sci-42ver/SICP_SDF
 ; n
 (define (element-of-set? x set)
   (cond [(null? set) #f]
