@@ -70,6 +70,7 @@
     [(equal? x (car set)) #t]
     [else (element-of-set? x (cdr set))]))
 
+;; almost same as sci-42ver/SICP_SDF
 (define (encode-symbol x tree)
   (define (encode-symbol-1 result current-branch)
     (cond [(not (element-of-set? x (symbols current-branch))) (error "no such letter" x)]

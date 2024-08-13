@@ -47,6 +47,7 @@
 (define (generate-huffman-tree pairs)
   (successive-merge (make-leaf-set pairs)))
 
+;; so elegant naming and same as sci-42ver/SICP_SDF
 (define (successive-merge ordered-set)
   (if (= 1 (length ordered-set))
     (car ordered-set)
