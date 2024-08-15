@@ -16,7 +16,7 @@ Implement the constructor `make-from-mag-ang` in message-passing style. This pro
 
 As a large system with generic operations evolves, new types of data objects or new operations may be needed. For each of the three strategies—generic operations with explicit dispatch, data-directed style, and message-passing-style describe the changes that must be made to a system in order to add new types or new operations. Which organization would be most appropriate for a system in which new types must often be added? Which would be most appropriate for a system in which new operations must often be added?
 
-explicit dispatch: add new type needs to modify all operations and have to make sure all produces name are distinct, add new operation needs to implement new operation produces for each type.
+explicit dispatch: add new type needs to modify all operations and have to make sure all produced name are distinct, add new operation needs to implement new operation produces for each type.
 
 data-directed: add new type needs to put new operations of the type to the table, add new operation is same.
 

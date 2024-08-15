@@ -22,6 +22,7 @@
 (define (operator exp) (car exp))
 (define (operands exp) (cdr exp))
 
+;; almost same as BE's.
 (define (install-deriv-package)
   ; internal procedures
   (define (make-sum a1 a2)
