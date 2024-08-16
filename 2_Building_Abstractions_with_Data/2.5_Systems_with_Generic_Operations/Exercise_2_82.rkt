@@ -40,20 +40,21 @@
   (let ([type-tags (map type-tag args)])
     (define (iter-types type-list)
       (if (null? type-list)
-        (no-method-error op type-tags) ; all types are tired
+        (no-method-error op type-tags) ; all types are tried
         (let* ([try-type (car type-list)]
                [proc-list (map (lambda (arg)
                                  (if (eq? (type-tag arg) try-type)
                                    identity
                                    (get-coercion (type-tag arg) try-type)))
                                args)])
-          (if (null? (filter null? proc-list))
+          (if (null? (filter null? proc-list)) ; filter null? due to the above `get-coercion` implementation.
             (let* ([converted-args (map (lambda (proc arg) (proc arg))
                                         proc-list args)]
                    [types (map type-tag converted-args)]
                    [proc (get op types)])
               (if (not (null? proc))
                 (apply proc (map contents converted-args))
+                ;; no available procedure for coerced args
                 (iter-types (cdr type-list)))) ; no suitable coercion procedure
             (iter-types (cdr type-list))))))     ; can't convert to the same type
     (let ([proc (get op type-tags)])

@@ -7,6 +7,7 @@
   (hash-ref! table (list op type) null))
 
 (define coercion-table (make-hash))
+;; better use naming `type1 type2`
 (define (put-coercion op type item)
   (hash-set! coercion-table (list op type) item))
 (define (get-coercion op type)

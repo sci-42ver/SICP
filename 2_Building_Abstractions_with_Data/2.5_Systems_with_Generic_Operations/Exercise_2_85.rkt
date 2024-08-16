@@ -195,12 +195,16 @@
                 'real
                 complex->real)
 
+  ;; IMHO wrong.
   (define (real->rational z)
     (make-rational z 1))
   (put-coercion 'real
                 'rational
                 real->rational)
 
+  ;; no rounding is needed for drop since `(/ (numer z) (denom z))` is either floating or integer.
+  ;; Then `(make-rational z 1)` will be same as original one when integer due to `gcd`.
+  ;; For floating, they are not same due to original numerator must be integer.
   (define (rational->integer z)
     (make-scheme-number (/ (numer z) (denom z))))
   (put-coercion 'rational

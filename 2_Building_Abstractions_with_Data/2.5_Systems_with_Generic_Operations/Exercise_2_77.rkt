@@ -123,6 +123,7 @@
   (put 'make-from-mag-ang 'complex
        (lambda (r a) (tag (make-from-mag-ang r a))))
 
+  ;; apply-generic related all needs type in one list.
   (put 'real-part '(complex) real-part)
   (put 'imag-part '(complex) imag-part)
   (put 'magnitude '(complex) magnitude)
