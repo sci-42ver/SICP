@@ -80,6 +80,8 @@
     (and (variable? v1) (variable? v2) (eq? v1 v2)))
 
   ; representation of terms and term lists
+  ;; same as meteorgan's.
+  ;; By `icdiff Exercise_2_88.rkt Exercise_2_89.rkt | less_n` only meteorgan's changes are done.
   (define (adjoin-term term term-list)
     (if (=zero? (coeff term))
       term-list
@@ -87,6 +89,7 @@
         (cons (coeff term) term-list)
         (adjoin-term term (cons 0 term-list)))))
   (define (the-empty-termlist) '())
+  ;; same as meteorgan's.
   (define (first-term term-list)
     (make-term (sub1 (length term-list)) (car term-list)))
   (define (rest-terms term-list) (cdr term-list))

@@ -220,6 +220,7 @@
           (let* ([new-c (div (coeff t1) (coeff t2))]
                  [new-o (- t1-order t2-order)]
                  [first-term (make-term new-o new-c)]
+                 ;; basic ideas are same as wiki top.
                  [rest-of-result
                   (div-terms
                    (add-terms L1

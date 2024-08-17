@@ -135,6 +135,7 @@
 
   (define (=zero?-poly x)
     (define (check-terms terms)
+      ;; wrong see wiki.
       (or (empty-termlist? terms) ; never happens, add-terms and mul-term-by-all-terms already checked
           (and (=zero? (coeff (first-term terms)))
                (check-terms (rest-terms terms)))))

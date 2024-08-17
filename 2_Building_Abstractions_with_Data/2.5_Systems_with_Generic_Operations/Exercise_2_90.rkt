@@ -1,3 +1,4 @@
+;; By icdiff Exercise_2_89.rkt Exercise_2_90.rkt | less_n, it should only have 4 funcs abstracted outside in `(install-polynomial-package)`.
 #lang racket/base
 
 (define table (make-hash))
@@ -258,3 +259,5 @@ poly-e
 (add poly-d poly-e)
 ; '(polynomial x sparse-term-list (100 1) (4 1) (2 3) (0 3))
 ; x^100 + x^4 + 3x^2 + 3
+
+(mul poly-d poly-e)

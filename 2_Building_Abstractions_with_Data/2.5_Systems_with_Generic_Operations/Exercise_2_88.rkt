@@ -123,6 +123,7 @@
       (if (empty-termlist? terms)
         terms
         (let ([current-term (first-term terms)])
+          ;; here coeff may be rat, but invert doesn't consider this.
           (adjoin-term (make-term (order current-term) (invert (coeff current-term)))
                        (invert-terms (rest-terms terms))))))
     (make-poly (variable p) (invert-terms (term-list p))))
