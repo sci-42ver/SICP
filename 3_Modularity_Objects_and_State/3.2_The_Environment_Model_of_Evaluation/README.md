@@ -46,7 +46,7 @@ env        -->|                                                                 
 (factorial 3) /|\                /|\                   /|\                 /|\               /|\
             ___|___        _______|_____         _______|______      _______|_____       _____|_____
            |       |      | product:  1 |       | product:  1 |     | product:  2 |     |product:6  |
-       E1->| n: 3  |  E2->| counter:  1 |   E3->| counter:  2 | E4->| counter:  3 | E5->|counter:5  |
+       E1->| n: 3  |  E2->| counter:  1 |   E3->| counter:  2 | E4->| counter:  3 | E5->|counter:4  |
            |       |      | max-count:3 |       | max-count:3 |     | max-count:3 |     |max-count:3|
            |_______|      |_____________|       |_____________|     |_____________|     |___________|
    (fact-iter 1 1 n) (fact-iter (* counter product)   ...                 ...             product
