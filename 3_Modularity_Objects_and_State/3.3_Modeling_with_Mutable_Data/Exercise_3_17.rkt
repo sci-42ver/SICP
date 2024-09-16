@@ -8,7 +8,7 @@
 (define (count-pairs x)
   (define (iter pair counted-list count)
     (cond [(null? pair) count]
-      [(find-in-list (mcar pair) counted-list) count]
+      [(find-in-list (mcar pair) counted-list) count] ; wrong if (mcar pair) is mpair. Why do we stop here and return?
       [(not (mpair? pair)) 0]
       [else (iter (mcdr pair) (mcons (mcar pair) counted-list) (add1 count))]))
   (iter x null 0))
@@ -35,3 +35,6 @@
   (set-mcdr! last last))
 (count-pairs infinite-list)
 ; 3
+
+;; wrong
+(count-pairs (mcons (mcons 1 null) (mcons 'b (mcons 'c null))))

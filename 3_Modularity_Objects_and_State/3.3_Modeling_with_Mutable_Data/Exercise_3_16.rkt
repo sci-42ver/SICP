@@ -28,6 +28,7 @@
 (define count-7-list (mcons 'a (mcons 'b (mcons 'c null))))
 (set-mcar! count-7-list (mcdr count-7-list))
 (set-mcar! (mcdr count-7-list) (last-pair count-7-list))
+;; same as wiki Anon's
 (count-pairs count-7-list)
 ; 7
 ; 1 + (1 + 1 + 1) + (1 + 1 + 1)

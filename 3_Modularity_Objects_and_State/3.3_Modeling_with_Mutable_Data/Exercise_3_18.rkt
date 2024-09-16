@@ -12,6 +12,8 @@
     [(eq? item (mcar l)) #t]
     [else (find-in-list item (mcdr l))]))
 
+;; This doesn't consider nested list where sublist is cycle.
+;; similar to wiki gws's but based on car instead of cdr.
 (define (contain-cycle x)
   (define (iter pair counted-list)
     (cond [(null? pair) #f]
@@ -26,3 +28,6 @@
 ; #f
 (contain-cycle z)
 ; #t
+
+(define w (mcons z (mcons 'c null)))
+(contain-cycle w) ; wrong

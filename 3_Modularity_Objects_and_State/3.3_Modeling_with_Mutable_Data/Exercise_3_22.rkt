@@ -1,5 +1,7 @@
 #lang racket/base
 
+;; The structure is still same as the book original one
+;; almost same as wiki meteorgan's.
 (define (make-queue)
   (let ([front-ptr null]
         [rear-ptr null])
@@ -10,6 +12,7 @@
     (define (empty-queue?)
       (null? front-ptr))
 
+    ;; to help view data.
     (define (queue)
       (mcons front-ptr rear-ptr))
 
@@ -47,6 +50,7 @@
       (display ")\n"))
 
     (define (dispatch m)
+      ;; export some more APIs outside.
       (cond [(eq? m 'set-front-ptr!) set-front-ptr!]
         [(eq? m 'set-rear-ptr!) set-rear-ptr!]
         [(eq? m 'empty-queue?) (empty-queue?)]

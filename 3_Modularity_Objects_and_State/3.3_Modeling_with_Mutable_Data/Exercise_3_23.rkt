@@ -14,6 +14,7 @@
 
 (define (make-deque) (mcons '() '()))
 
+;; similar to wtative but with (val (prev next)) structure.
 (define (set-prev-ptr! pair new-pair)
   (when (and (not (null? pair)) (not (null? (mcdr pair))))
     (set-mcar! (mcdr pair) new-pair)))
@@ -35,10 +36,12 @@
 (define (rear-insert-deque! deque item)
   (let ([new-pair (mcons item (mcons '() '()))])
     (cond [(empty-deque? deque)
+          ;; same as set-first-deque!.
            (set-front-ptr! deque new-pair)
            (set-rear-ptr! deque new-pair)
            deque]
       [else
+        ;; same as connect-decell!
        (set-next-ptr! (rear-ptr deque) new-pair)
        (set-prev-ptr! new-pair (rear-ptr deque))
        (set-rear-ptr! deque new-pair)
@@ -60,12 +63,14 @@
   (cond [(empty-deque? deque)
          (error "DELETE! called with an empty deque" deque)]
     [else (set-front-ptr! deque (mcdr (mcdr (front-ptr deque))))
+          ;; differently. Always avoid to point to the wrong ptr.
           (set-prev-ptr! (front-ptr deque) null)
           deque]))
 
 (define (rear-delete-deque! deque)
   (cond [(empty-deque? deque)
          (error "DELETE! called with an empty deque" deque)]
+    ;; to be compatible with empty-deque?.
     [(eq? (front-ptr deque) (rear-ptr deque))
      (set-front-ptr! deque null)
      (set-rear-ptr! deque null)
@@ -87,6 +92,7 @@
   (set-next-ptr! (last-pair (front-ptr deque)) (front-ptr deque))
   deque)
 
+;; skipped to check since probably same as 3.19
 (define (contain-cycle deque)
   (let* ([tortoise (front-ptr deque)]
          [hare (next-pair (next-pair tortoise))])
@@ -106,6 +112,7 @@
         (display " "))
       (display (mcar item))
       (iter (next-pair item))))
+  ;; same as wiki master
   (if (contain-cycle deque)
     (display "This deque contains cycle\n")
     (begin 

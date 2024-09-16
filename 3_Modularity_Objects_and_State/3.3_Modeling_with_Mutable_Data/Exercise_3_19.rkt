@@ -14,10 +14,13 @@
     null
     (mcdr x)))
 
+;; similar to wiki top solution
 (define (contain-cycle x)
+  ;; IMHO f(x0) should be (next-pair x)
   (let ([tortoise x]
         [hare (next-pair (next-pair x))])
     (define (iter tortoise hare)
+      ;; IMHO (null? hare) is enough.
       (cond [(and (null? tortoise) (null? hare)) #f]
         [(eq? tortoise hare) #t]
         [else
