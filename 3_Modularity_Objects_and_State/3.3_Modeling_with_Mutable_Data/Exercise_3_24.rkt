@@ -2,8 +2,13 @@
 
 (define (make-table same-key?)
   (let ([local-table (mcons '*table* null)])
+    ;; same as wiki top.
     (define (assoc key records)
-      (cond [(null? records) null]
+      ;; better to be compatible https://docs.racket-lang.org/reference/pairs.html#%28def._%28%28lib._racket%2Fprivate%2Flist..rkt%29._assoc%29%29
+      ;; So also change how its caller uses the result.
+      (cond 
+        [(null? records) null]
+        ; [(null? records) #f]
         [(same-key? key (mcar (mcar records))) (mcar records)]
         [else (assoc key (mcdr records))]))
     (define (lookup key-1 key-2)

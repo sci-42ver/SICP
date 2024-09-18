@@ -1,6 +1,6 @@
 #lang racket/base
 
-(define (make-table same-key?)
+(define (base-make-table same-key?)
   (let ([local-table (mcons '*table* null)])
     (define (assoc key records)
       (cond [(null? records) null]
@@ -48,7 +48,7 @@
 
 (define (same-key? key-1 key-2)
   (= (round key-1) (round key-2)))
-(define operation-table (make-table same-key?))
+(define operation-table (base-make-table same-key?))
 (define get (operation-table 'lookup-proc))
 (define put (operation-table 'insert-proc!))
 
@@ -66,3 +66,21 @@
 ; "4-1"
 (get (list 2 2))
 ; '()
+
+(define (make-table)
+  (base-make-table equal?))
+(define (insert! table keys value)
+  ((table 'insert-proc!) keys value))
+
+(define (lookup table keys)
+  ((table 'lookup-proc) keys))
+
+; https://stackoverflow.com/a/57190748/21294350
+(current-directory "/home/czg_arch/SICP_SDF/exercise_codes/SICP/3/")
+; https://docs.racket-lang.org/guide/load.html
+(define-namespace-anchor a)
+(parameterize ([current-namespace (namespace-anchor->namespace a)])
+  ; (load "3_25_test_step.scm")
+  ;Error: Mismatch special case '()
+  ;; In drracket, fail for "(insert!  t2  (list  1.4142 7 )  6 )".
+  (load "3_26_tests/3_25_test_step_no_nil_keys.scm"))
