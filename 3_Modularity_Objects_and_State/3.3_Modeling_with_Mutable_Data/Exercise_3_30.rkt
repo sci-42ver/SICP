@@ -19,10 +19,15 @@
 
 (define (ripple-carry-adder A-wire-list B-wire-list S-wire-list C-wire)
   (let ([carry (make-wire)])
-    (full-adder (car A-wire-list) (car B-wire-list) C-wire (car S-wire-list) carry)
+    ;; See LisScheSic's 1st comment in wiki.
+    ; (full-adder (car A-wire-list) (car B-wire-list) C-wire (car S-wire-list) carry)
+    ;; IMHO Here we should let C-wire be c-out.
+    (full-adder (car A-wire-list) (car B-wire-list) carry (car S-wire-list) C-wire)
     (if (null? (cdr A-wire-list))
       (set-signal! carry 0)
       (ripple-carry-adder (cdr A-wire-list) (cdr B-wire-list) (cdr S-wire-list) carry))))
 
 ; delays = n * full-adder delay = n * (2 * falf-adder delay + or gate delay)
+;; This is wrong since we are caring about C_out delay in full-adder here (implied by the above).
+;; Then for half we only needs to care about ->S->C instead of ->S->S here.
 ; = n * (2 * ((max (or-gate, (and-gate + inverter)) + and-gate)) + or gate delay)

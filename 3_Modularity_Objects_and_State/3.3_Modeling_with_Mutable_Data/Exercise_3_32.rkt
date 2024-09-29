@@ -13,16 +13,17 @@
   (if (empty-queue? queue)
     (error "FRONT called with an empty queue" queue)
     (mcar (front-ptr queue))))
-(define (insert-queue! queue item)
-  (let ([new-pair (mcons item '())])
-    (cond [(empty-queue? queue)
-           (set-front-ptr! queue new-pair)
-           (set-rear-ptr! queue new-pair)
-           queue]
-      [else
-       (set-mcdr! (rear-ptr queue) new-pair)
-       (set-rear-ptr! queue new-pair)
-       queue])))
+
+; (define (insert-queue! queue item)
+;   (let ([new-pair (mcons item '())])
+;     (cond [(empty-queue? queue)
+;            (set-front-ptr! queue new-pair)
+;            (set-rear-ptr! queue new-pair)
+;            queue]
+;       [else
+;        (set-mcdr! (rear-ptr queue) new-pair)
+;        (set-rear-ptr! queue new-pair)
+;        queue])))
 
 ; exercise 3.32 ordinary list like queue, last in, first out
 (define (insert-queue! queue item)
@@ -177,11 +178,13 @@
     [else (error "Invalid signal" s)]))
 
 ; exercise 3.21:
-(define a (make-wire))
-(define b (make-wire))
-(inverter a b)
-(propagate)
-(get-signal b)
+;; See the above "; exercise 3.31 uncomment this line and comment next line to not call proc"
+; (define a (make-wire))
+; (define b (make-wire))
+; (inverter a b)
+; (propagate)
+; (get-signal b)
+
 ; get 0, should be 1
 ; if without calling proc right after adding action to wire,
 ; and the signals of both wire don't change,
@@ -189,13 +192,15 @@
 
 (define a1 (make-wire))
 (define a2 (make-wire))
-(set-signal! a2 1)
-(define output (make-wire))
-(and-gate a1 a2 output)
+(set-signal! a2 1) ; no available `action-procedures` to call.
 (set-signal! a1 1)
-(set-signal! a2 0)
+(define output (make-wire))
+(and-gate a1 a2 output) ; here we get 1
+; (set-signal! a1 1)
+(set-signal! a2 0) ; here we get 0
 (propagate)
 (get-signal output)
+
 ; use last in first out queue implication
 ; get 1 should be 0
 
@@ -204,3 +209,7 @@
 ; and a2 action gets 1 1 -> (and 1 0) = 0
 ; propagate runs a2 action first then run a1 action,
 ; thus setting the output value as 1
+
+;; IMHO (a1 a2): (1 0) -> (1 1) -> (1 0) for the original repo. (I don't know what the inconsistency of "the new value 0 1 -> (and 1 1) = 1" means)
+;; The above modification will show the difference expectedly.
+;; So "propagate runs a2 action first then run" `and` part for a1 and a2.

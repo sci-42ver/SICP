@@ -1,5 +1,6 @@
 #lang racket/base
 
+;; same as meteorgan's
 (define (or-gate a1 a2 ouput)
   (let ([c (make-wire)]
         [d (make-wire)]
