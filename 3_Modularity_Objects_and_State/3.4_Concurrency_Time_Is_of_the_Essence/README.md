@@ -170,6 +170,8 @@ account1    account2    account3
 30          10          10      sum: 50
 ```
 
+Notice "10+20" difference from "+20".
+
 Just move the difference won't change the sum of balance.
 
 ## Exercise 3.44:
