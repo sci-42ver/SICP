@@ -141,7 +141,9 @@ Ben Bitdiddle suggests that it’s a waste of time to create a new serialized pr
       dispatch)))
 ```
 
-If serializer can't interleave itself then it's safe. They are same.
+If serializer can't interleave itself then it's safe. They are same. 
+
+See tejomay's comment http://community.schemewiki.org/?sicp-ex-3.42.
 
 ## Exercise 3.43:
 

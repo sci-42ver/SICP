@@ -151,6 +151,7 @@
         (set-value! a
                     (sqrt (get-value b))
                     me))
+      ;; implicitly set else case https://docs.racket-lang.org/reference/when_unless.html
       (when (has-value? a)
         (set-value! b
                     (expt (get-value a) 2)
