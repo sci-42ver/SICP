@@ -4,6 +4,7 @@
 (define (make-semaphore n)
   (let ([mutex (make-mutex)])
     (define (the-semaphore m)
+      ;; same as wiki gws's but decrease.
       (cond [(eq? m 'wait)
              (mutex 'acquire)
              (if (> n 0)
@@ -17,11 +18,12 @@
          (mutex 'release)]))
     the-semaphore))
 
-; b. interms of atomic `test-and-set!` operations.
+; b. in terms of atomic `test-and-set!` operations.
 (define (make-semaphore n)
   (let ([cell (mcons #f null)])
     (define (the-semaphore m)
       (cond [(eq? m 'wait)
+              ;; same as leafac's (difference is same as the above.)
              (if (test-and-set! cell)
                (the-semaphore 'wait)
                (if (> n 0)
