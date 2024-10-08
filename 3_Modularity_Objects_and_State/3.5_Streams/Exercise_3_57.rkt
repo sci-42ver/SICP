@@ -8,6 +8,7 @@
    0
    (stream-cons 1 (add-streams (stream-rest fibs) fibs))))
 
+;; IMHO we need to count the last part +'s cnt since the actual calculation is done there. See wiki.
 ; without cache
 ; f(2) = f(1) + f(0)   1
 ; f(3) = f(2) + f(1) = f(1) + f(0) + f(1)    3

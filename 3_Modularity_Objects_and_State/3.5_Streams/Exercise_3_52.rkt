@@ -26,6 +26,7 @@
 (define z
   (stream-filter (lambda (x) (= (remainder x 5) 0))
                  seq))
+;; All "sum = 0" implies Racket uses "'even' streams".
 ; sum = 0
 ; book: sum = 10
 ; book without cache: sum = 6 + 2 + 3 + 4 = 15
@@ -46,6 +47,7 @@
 ; sum = 210
 
 ; seq: 1 3 6 10 15 21 28 36 45 55 66 78 91 105 120 136 153 171 190 210
+;; sublist of seq filtered by even?
 ; y: 6 10 28 36 66 78 120 136 190 210
 
 ; http://community.schemewiki.org/?sicp-ex-3.52

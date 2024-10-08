@@ -23,6 +23,12 @@
 
 ; See the explanation at here:
 ; https://github.com/sarabander/p2pu-sicp/blob/master/3.5/3.60.scm
+;; IMHO the above explanation doesn't say about the reasons behind. 
+;; Actually, we just need to think about how to get the 1st item.
+;; This is easy by using 2 car's. 
+;; Then to get the 2nd item, we need cdr*car.
+;; Then we can combine (cdr a)*(car b) and (cdr a)*(cdr b) together.
+;; So only 3 items now.
 
 ; test
 (define ones (stream-cons 1 ones))

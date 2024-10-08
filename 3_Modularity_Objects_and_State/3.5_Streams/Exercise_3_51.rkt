@@ -22,6 +22,7 @@
 ; 7 printed
 ; 7 returned
 
+;; same as wiki
 ; results of book's implementation
 (define x
   (stream-map show
