@@ -30,6 +30,7 @@
 
 (define sense-data (smooth (interleave ones minus-ones)))
 
+;; implicitly use smooth, then same as meteorgan's in wiki.
 (define zero-crossings-ator
   (stream-map sign-change-detector
               sense-data

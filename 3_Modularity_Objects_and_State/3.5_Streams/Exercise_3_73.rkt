@@ -30,6 +30,7 @@
 (stream->list (stream-take (integral integers 0 0.5) 5))
 ; '(0 0.5 1.5 3.0 5.0)
 
+;; same as repo meteorgan's.
 (define (RC R C dt)
   (define (RC-circuit currents-stream initial-capacitor-voltage)
     (add-streams (scale-stream currents-stream R)

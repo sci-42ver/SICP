@@ -20,6 +20,7 @@
   (stream-cons
    (list (stream-first s) (stream-first t) (stream-first u))
    (interleave
+    ;; wrong lacking (1,1,2).
     (stream-map (lambda (x) (cons (stream-first s) x))
                 (pairs (stream-rest t) (stream-rest u)))
     (triples (stream-rest s) (stream-rest t) (stream-rest u)))))
