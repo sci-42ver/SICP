@@ -10,15 +10,18 @@
             (cons proc (map stream-rest argstreams))))))
 
 (define (random-stream input-stream)
-  (stream-cons 0
-               (stream-map (lambda (seed request)
-                             (cond [(eq? (car request) 'generate) (random)]
-                               [(eq? (car request) 'reset)
-                                (random-seed seed)
-                                (cadr request)]
-                               [else (error "Unknown request: RANDOM-STREAM" request)]))
-                           (random-stream input-stream)
-                           input-stream)))
+  ;; as http://community.schemewiki.org/?sicp-ex-3.55 LisScheSic's comment says, here "recalculation" occurs.
+  (define res
+    (stream-cons 0
+                (stream-map (lambda (seed request)
+                              (cond [(eq? (car request) 'generate) (random)]
+                                [(eq? (car request) 'reset)
+                                  (random-seed seed)
+                                  (cadr request)]
+                                [else (error "Unknown request: RANDOM-STREAM" request)]))
+                            res
+                            input-stream)))
+  res)
 
 (define input1 (stream-cons '(generate) input1))
 (define input2 (stream-cons '(reset 1) input1))

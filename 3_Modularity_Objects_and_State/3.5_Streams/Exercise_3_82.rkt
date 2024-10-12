@@ -28,6 +28,7 @@
   (define bool-results (stream-map P
                                    (random-position-stream x1 x2)
                                    (random-position-stream y1 y2)))
+  ;; predicate-results ~ probabilities implicitly use monte-carlo.
   (define predicate-results (stream-map (lambda (x) (if x 1.0 0)) bool-results))
   (define results-sum (stream-cons (stream-first predicate-results)
                                    (add-streams (stream-rest predicate-results) results-sum)))
