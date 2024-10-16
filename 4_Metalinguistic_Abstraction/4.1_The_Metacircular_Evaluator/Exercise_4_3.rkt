@@ -37,6 +37,7 @@
 (define (eval exp env)
   (cond [(self-evaluating? exp) exp]
     [(variable? exp) (lookup-variable-value exp env)]
+    ;; why not use `(get 'eval (car exp))`?
     [(quoted? exp) (text-of-quotation exp)]
     [(and (pair? exp) (has 'eval (car exp))) ((get 'eval (car exp)) exp env)]
     [(application? exp)

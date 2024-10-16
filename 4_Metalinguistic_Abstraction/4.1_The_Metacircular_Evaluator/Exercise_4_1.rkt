@@ -11,6 +11,10 @@
 (define (list-of-values exps env)
   (if (no-operands? exps)
     '()
+    ;; https://docs.racket-lang.org/reference/let.html
+    ;; > The first form evaluates the val-exprs left-to-right
+    ;; is different from MIT_Scheme_Reference https://www.gnu.org/software/mit-scheme/documentation/stable/mit-scheme-ref/Lexical-Binding.html#index-let-1
+    ;; > The inits are evaluated in the current environment (in some unspecified order)
     (let ([left (eval (first-operand exps) env)]
           [right (list-of-values (rest-operands exps) env)])
       (cons left right))))

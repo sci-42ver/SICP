@@ -12,6 +12,7 @@
                  clauses))
         (make-if (cond-predicate first)
                  (if (eq? (cadr first) '=>)
+                   ;; see make-lambda where body implies ending with '(). So better to use list.
                    (cons (caddr first) (cond-predicate first))
                    (sequence->exp (cond-actions first)))
                  (expand-clauses rest))))))

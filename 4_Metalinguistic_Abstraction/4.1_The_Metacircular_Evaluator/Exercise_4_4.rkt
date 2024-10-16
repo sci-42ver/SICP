@@ -5,6 +5,7 @@
 (define (last-exp? seq) (null? (cdr seq)))
 (define (first-exp seq) (car seq))
 (define (rest-exps seq) (cdr seq))
+;; same as LisScheSic's modification for woofy's.
 (define (eval-and-exps exps env)
   (if (null? exps)
     #t
@@ -16,6 +17,7 @@
   (eval-and-exps (and-expressions exp) env))
 
 (define (or-expressions exp) (cdr exp))
+;; as LisScheSic "can be combined with" says, `[(last-exp? exps) #f]` can be omitted.
 (define (eval-or-exps exps env)
   (if (null? exps)
     #f
@@ -31,6 +33,7 @@
   (list 'if predicate consequent alternative))
 
 (define (and->if exp) (expand-and-expressions (and-expressions exp)))
+;; same as LisScheSic modification but with recalculation.
 (define (expand-and-expressions exps)
   (if (null? exps)
     #t
