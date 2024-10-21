@@ -1,5 +1,6 @@
 #lang racket/base
 
+;;; same as MIT/GNU Scheme
 ;; (do ([id init-expr step-expr-maybe] ...)
 ;;     (stop?-expr finish-expr ...)
 ;;   expr ...)
@@ -19,23 +20,35 @@
 (define (do->combination exp)
   (let ([var-list (map car (cadr exp))]
         [init-list (map cadr (cadr exp))]
-        [step-list (map caddr (cadr exp))]
+        ;; wrong. we need tomanipulate null step-expr-maybe.
+        [intermediate-step-list (map cddr (cadr exp))]
         [stop?-expr (caaddr exp)]
         [finish-expr (cdaddr exp)]
         [expr (cdddr exp)])
-    (list
-     (make-lambda null
-                  (list
-                   (make-define
-                    (cons 'do-procedure var-list)
-                    (list
-                     (make-if stop?-expr
-                              (make-begin finish-expr)
-                              (make-begin
-                               (append expr
-                                       (list (cons 'do-procedure
-                                                   step-list)))))))
-                   (cons 'do-procedure init-list))))))
+    (let ([step-list 
+            (map 
+              (lambda (var step) 
+                (if (null? step)
+                  var
+                  (car step))) 
+              var-list intermediate-step-list)])
+      ;; same resulting structure as woofy's.
+      ;; i.e. (make-procedure-application ... '())
+      (list
+        (make-lambda null
+                      (list
+                        ;; i.e. woofy's make-procedure-definition 
+                        (make-define
+                          (cons 'do-procedure var-list)
+                          (list
+                            (make-if stop?-expr
+                            ;; better to use sequence->exp.
+                                      (make-begin finish-expr)
+                                      (make-begin
+                                      (append expr
+                                              (list (cons 'do-procedure
+                                                          step-list)))))))
+                        (cons 'do-procedure init-list)))))))
 
 (define (eval-do exp env)
   (eval (do->combination exp) env))
@@ -44,6 +57,14 @@
                     ((> i 5) 'done)
                     (println i)))
 ;; '((lambda () (define (do-procedure i) (if (> i 5) (begin 'done) (begin (println i) (do-procedure (add1 i))))) (do-procedure 0)))
+(do->combination 
+  ;; from 4_9_official.scm
+  '(do ((loop (make-vector 5))
+        (i 0 (+ i 1)))
+      ((begin 
+        (set! test loop)
+        (= i 5)) (list loop test))
+    (vector-set! loop i i)))
 
 ((lambda ()
    (define (do-procedure i)
