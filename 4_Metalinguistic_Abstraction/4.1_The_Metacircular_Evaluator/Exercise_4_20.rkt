@@ -1,5 +1,6 @@
 #lang racket/base
 
+;; same as wiki meteorgan's.
 ;; a
 (define (make-let bindings body)
   (cons 'let (cons bindings body)))
@@ -7,7 +8,7 @@
 (define (letrec->let exp)
   (let ([bindings (cadr exp)]
         [body (cddr exp)])
-    (make-let (map (lambda (binding) (list (car binding) '*unasigned*)) bindings)
+    (make-let (map (lambda (binding) (list (car binding) ''*unasigned*)) bindings)
               (append
                (map (lambda (binding) (list 'set! (car binding) (cadr binding))) bindings)
                body))))

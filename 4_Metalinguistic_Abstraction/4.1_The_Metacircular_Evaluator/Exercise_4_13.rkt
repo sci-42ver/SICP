@@ -29,7 +29,9 @@
                (mcar pairs)
                null)])
         (cond [(null? current-pair)
+               ;; only remove the local binding
                (end-frame-proc env)]
+          ;; pvk do this by removing this pair instead of letting this pair ('(),'()).
           [(eq? var (frame-unit-variable current-pair))
            (find-proc current-pair)]
           [else (scan (mcdr pairs))])))

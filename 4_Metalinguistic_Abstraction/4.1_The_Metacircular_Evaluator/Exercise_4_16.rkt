@@ -1,5 +1,6 @@
 #lang racket/base
 
+;; same as wiki
 ;; a
 (define (lookup-variable-value var env)
   (define (env-loop env)
@@ -27,10 +28,11 @@
     (cond [(null? exps)
            (if (null? vars)
              rest-exps
-             (list (make-let
+             ;; no need to wrap again with list.
+             (make-let
                     (map (lambda (x) (list x ''*unassigned*)) vars)
                     (append (map (lambda (x y) (list 'set! x y)) vars vals)
-                            rest-exps))))]
+                            rest-exps)))]
       [(definition? (car exps))
        (let* ([current-exp (car exps)]
               [var (definition-variable current-exp)]

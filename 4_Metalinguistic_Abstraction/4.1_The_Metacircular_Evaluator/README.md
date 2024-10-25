@@ -148,7 +148,7 @@ Now consider evaluating the expression `(try try)` and show that any possible ou
 
 Assume `try` runs forever then `try` will return `'halted`. If `try` returns `'halted` it will run forever. Thus `halts?` can't exits.
 
-[Halting problem](https://en.wikipedia.org/wiki/Halting_problem#Proof_concept)
+[Halting problem](https://en.wikipedia.org/wiki/Halting_problem#Proof_concept). Better to see https://en.wikipedia.org/wiki/Halting_problem#Sketch_of_rigorous_proof which has almost the same structure as the book one.
 
 ## 4.1.6 Internal Definitions
 

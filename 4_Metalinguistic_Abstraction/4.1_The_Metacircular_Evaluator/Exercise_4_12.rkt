@@ -21,6 +21,7 @@
 (define (frame-unit-variable unit) (mcar unit))
 (define (frame-unit-value unit) (mcdr unit))
 
+;; same as wiki woofy's but based on 4.11 
 (define (travsersing-env end-frame-proc find-proc end-env-proc env var)
   (define (env-loop env)
     (define (scan pairs)
