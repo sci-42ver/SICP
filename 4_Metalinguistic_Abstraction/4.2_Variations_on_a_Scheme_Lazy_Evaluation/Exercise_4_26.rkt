@@ -40,6 +40,12 @@
 ;; 'ok
 (analyze-eval '(factorial 3) the-global-environment)
 ;; 6
+
+;; See 4_26.scm. Here unless is manipulated by underlying Scheme but looked up by evaluator here. So wrong.
+(define (unless condition usual-value exceptional-value)
+  (if condition exceptional-value usual-value))
+
+;; Here we lack related lib for `racket -it Exercise_4_26.rkt`. See 4_26_unless_as_procedure.scm
 (analyze-eval '(map unless '(#t #f #t) '(1 2 3) '(4 5 6)) the-global-environment)
 ;; Unbound variable unless
 ;; `unless` is not a procedure

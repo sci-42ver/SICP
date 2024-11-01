@@ -5,6 +5,9 @@
 ;; from this memorization
 ;; see exercise 3.27 for another memoization approach
 
+;; "uses several times of it's parameters" similar to square.
+;; Here only count will be forced at each iteration
+;; Then at last b will be forced which may have `(+ (* q q) (* p p))` at some iteration. So memorization matters.
 (define (fib n)
   (define (fib-iter a b p q count)
     (cond [(= count 0) b]
@@ -21,6 +24,9 @@
                       (- count 1))]))
   (fib-iter 1 0 0 1 n))
 
+;; at last we will have (+ (+ a b) (+ a (+ a b))) ...
+;; So `(+ a b)` will be helped by memoization.
+;; All in all, memoization will help evaluating arg only once which is implicitly done by applicative order.
 (define (fib2 n)
   (define (iter a b k)
     (if (= k 0)
@@ -28,6 +34,7 @@
       (iter (+ a b) a (- k 1))))
   (iter 1 0 n))
 
+;; here * as the tail call will force applicative order...
 (define (factorial n)
   (if (= n 0)
     1
@@ -61,6 +68,7 @@
 ;; all the way back to the beginning environment
 ;; it turns a linear factorial code into quadratic growth
 ;; and turn linear fib2 back to tree recursion
+;;; IMHO "way back" is necessary for the 1st evaluation of one thunk but the tree is due to duplicating the same search for one leaf.
 
 (fib 10)
 ;; ms: 0.555908203125

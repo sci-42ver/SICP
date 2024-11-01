@@ -28,6 +28,10 @@
 ;; newline and display are procedure not thunk
 ;; no need to use actual-value
 
+;;; 1. car and cdr should be car and display.
+;;; 2. items will be first forced by null?.
+;;; 3. Here the only compound procedure is for-each and lambda. So just check whether arguments of them have been forced when necessary.
+
 ;; b:
 (define (p1 x)
   (set! x (cons x '(2)))

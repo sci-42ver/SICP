@@ -328,6 +328,7 @@
              (cons (delay-it first-op env) rest-op)]
         [(eq? type 'lazy-memo)
          (cons (delay-memo-it first-op env) rest-op)]
+        ;; better to throw errors when with the unsupported type.
         [else (cons (eval first-op env) rest-op)]))))
 
 (define input-prompt ";;; M-Eval input:")
