@@ -1,11 +1,15 @@
 #lang racket/base
 
-(define (cons x y) (lazy-pair (m) (m x y))) ;; input
+;; Better to see wiki for how to add tag appropriately.
+;; Here just see display-lazy-pair.
+;; based on car
+; (define (cons x y) (lambda (m) (m x y))) ;; input
 
 (define (lazy-pair? exp) (tagged-list? exp 'lazy-pair))
 (define (make-lazy-pair parameters body env)
   (list 'lazy-pair parameters body env))
 
+;; weird based on (lazy-pair? object) -> compound-procedure? order in user-print
 (define (compound-procedure? p)
   (or (tagged-list? p 'procedure)
       (lazy-pair? p)))
@@ -25,6 +29,7 @@
                     '<procedure-env>))]
     [else (display object)]))
 
+;; almost same as wiki Felix021's but avoids point 4 problem.
 (define (display-lazy-pair object len)
   (display "(")
   (let* ([env (cadddr object)]

@@ -8,6 +8,7 @@
        (not (eq? (= kitty 2) (= marry 4)))
        (not (eq? (= marry 4) (= betty 1)))))
 
+;; similar to 4.41 timothy235's
 (define (retarded-exam-rank)
   (for/list ([ranks (permutations (range 1 6))]
              #:when (apply filter-rank ranks))

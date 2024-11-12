@@ -9,6 +9,7 @@
   (require (<= a b))
   (amb a (an-integer-between (+ a 1) b)))
 
+;; same as wiki meteorgan's
 (define (pythagorean-triple)
   (let* ([k (an-integer-starting-from 1)]
          [j (an-integer-between 1 k)]

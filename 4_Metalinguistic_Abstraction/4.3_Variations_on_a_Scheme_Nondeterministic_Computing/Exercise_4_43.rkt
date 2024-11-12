@@ -8,11 +8,16 @@
     [(member (car items) (cdr items)) false]
     [else (distinct? (cdr items))]))
 
+;; > Gabrielle's father owns the yacht that is named after Dr. Parker's daughter.
 (define (verify daughter-yacht parker)
   (if (eq? (car daughter-yacht) "Gabrielle")
     (require (eq? (cdr daughter-yacht) (car parker)))))
 
+;; 0. similar triple structure as wiki Thomas (04-2020)'s with many implicit manual filtering without using require.
+;; But actually here manipulation doesn't use that triple...
+;; 1. Here requirement 2 in 4_43.scm is done implicitly.
 (define (weirdos)
+  ;; (daughter . yacht) pair
   (let ([moore (cons "Mary Ann" "Lorna")]
         [barnacle (cons "Melissa" "Gabrielle")]
         [parker (cons (amb "Lorna" "Rosalind") "Mary Ann")]
@@ -32,8 +37,10 @@
 ;; (("Mr. Moore" "Mary Ann") ("Colonel Downing" "Lorna") ("Mr. Hall" "Gabrielle") ("Sir Barnacle Hood" "Melissa") ("Dr. Parker" "Rosalind"))
 
 ;; Mr. Moore's daughter is unknown:
+;; Just same structure with one more nesting level.
 (define (weird-dads)
   (let ([barnacle (cons "Melissa" "Gabrielle")]
+        ;; implicitly removes Gabrielle from daughter candidates.
         [parker (cons (amb "Lorna" "Rosalind") "Mary Ann")]
         [moore (cons (amb "Rosalind" "Gabrielle" "Mary Ann") "Lorna")])
     (require (not (eq? (car parker) (car moore))))

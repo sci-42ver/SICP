@@ -6,12 +6,14 @@
 (define verbs '(verb farts studies lectures eats sleeps))
 (define articles '(article the a an))
 (define prepositions '(prep for to in by with))
+;; one simple implementation same as wiki meteorgan's.
 (define adjectives '(adjective drunk))
 (define adverbs '(adverb loudly))
 
 (define (parse-sentence)
   (list 'sentence (parse-noun-phrase) (parse-verb-phrase)))
 
+;; similar to parse-predicative-verb-with-adj but with no recursion.
 (define (parse-simple-verb-phrase)
   (let ([verb (parse-word verbs)])
     (amb verb

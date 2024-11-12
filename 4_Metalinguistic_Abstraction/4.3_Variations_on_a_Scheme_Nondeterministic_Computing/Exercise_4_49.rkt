@@ -33,6 +33,7 @@
                 (parse-prepositional-phrase)))))
   (maybe-extend (parse-simple-noun-phrase)))
 
+;; same as meteorgan
 (define (find-word words)
   (if (null? words)
     (amb)

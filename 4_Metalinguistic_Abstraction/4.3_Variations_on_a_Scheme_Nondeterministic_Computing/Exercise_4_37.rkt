@@ -44,3 +44,5 @@
 ;; 1812 microseconds
 (old-a-pythagorean-triple-between 1 5)
 ;; 700 microseconds hey!
+
+;;; The above is same as wiki uuu

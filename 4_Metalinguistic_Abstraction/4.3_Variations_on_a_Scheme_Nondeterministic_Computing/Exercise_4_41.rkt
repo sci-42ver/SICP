@@ -2,6 +2,8 @@
 (require racket/list) ;; permutations, range
 
 (define (multiple-dwelling)
+  ;; nested for loop https://docs.racket-lang.org/reference/for.html#%28form._%28%28lib._racket%2Fprivate%2Fbase..rkt%29._for%2A%2Flist%29%29
+  ;; like 4.40
   (for*/list ([fletcher '(2 3 4)]
               [cooper '(2 3 4 5)]
               #:when (not (= fletcher cooper))
@@ -33,6 +35,7 @@
        (not (= (abs (- smith fletcher)) 1))
        (not (= (abs (- fletcher cooper)) 1))))
 
+;; same as timothy235's
 (define (another-multiple-dwelling) ;; sweet
   (for/list ([floors (permutations (range 1 6))]
              #:when (apply filter-combination floors))

@@ -3,6 +3,7 @@
 (define (text-of-quotation exp env)
   (define (iter vars)
     (if (null? vars)
+      ;; based on null is not redefined.
       null
       (list 'cons (list 'quote (car vars)) (iter (cdr vars)))))
   (let ([value (cadr exp)])

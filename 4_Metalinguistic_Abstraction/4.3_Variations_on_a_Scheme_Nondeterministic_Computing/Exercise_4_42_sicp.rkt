@@ -8,6 +8,7 @@
     [(member (car items) (cdr items)) false]
     [else (distinct? (cdr items))]))
 
+;; similar to meteorgan's with the different implementations for or.
 (define (bloody-exam-rank)
   (let* ([betty (amb 1 2 3 4 5)]
          [ethel (amb 1 2 3 4 5)]
