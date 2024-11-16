@@ -39,6 +39,7 @@
     (amb)
     (amb (car words) (find-word (cdr words)))))
 
+;; similar to wiki test in 4_49
 (define (parse-word word-list)
   (require (not (null? *unparsed*)))
   ;; (require (memq (car *unparsed*) (cdr word-list)))
@@ -73,3 +74,5 @@
 ;;   (prep-phrase
 ;;    (prep for)
 ;;    (simple-noun-phrase (article the) (noun student)))))
+
+; (amb)
