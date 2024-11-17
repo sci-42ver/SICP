@@ -30,9 +30,12 @@
 ;; See lecs/6.001_fall_2007_recitation/codes/rec20/amb-in-underlying-scheme.scm and lecs/6.001_fall_2007_recitation/codes/rec20/amb-in-underlying-scheme-rec-version.scm
 ;; Here probably fail procedure is global and it is indeed.
 ;; https://github.com/sicp-lang/sicp/blob/5ba7b852855cf107892244b37d6a1ffbef14d595/sicp/main.rkt#L42-L61
-;; is same as the schemewiki one except that it restores (set-amb-fail! +prev-amb-fail) before each fail.
+;; is same as the schemewiki one except that 
+;; 0. it restores (set-amb-fail! +prev-amb-fail) before each fail.
 ;; IMHO that is unnecessary. each `(+fk 'fail)` will run the next cand in ... . Then the actual usage of amb-fail is at +prev-amb-fail.
 ;; So just like schemewiki doing that restoration before (+prev-amb-fail) is enough.
+;; 1. when no alt, it just does (amb-fail) same as schemewiki
+;; 2. when one alt, no shortcut but still does the same thing.
 
 ;; TODO also see https://github.com/tojoqk/tojoqk-amb/blob/master/tojoqk/amb.rkt if interested (I skipped that~~test, contract parts~~).
 (amb)
