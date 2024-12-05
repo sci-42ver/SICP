@@ -13,6 +13,7 @@
 ;; (meeting-time (Hacker Alyssa P) (Wednesday 4pm))
 ;; (meeting-time (Hacker Alyssa P) (Wednesday 3pm))
 
+;; see wiki
 ;; c:
 (meeting-time (Hacker Alyssa P) (Wednesday ?time))
 ;; (meeting-time (Hacker Alyssa P) (Wednesday 4pm))

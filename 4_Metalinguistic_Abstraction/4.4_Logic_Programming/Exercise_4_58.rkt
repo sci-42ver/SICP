@@ -1,5 +1,6 @@
 #lang racket/base
 
+;; same as wiki carpdiem's.
 (rule (big-shot ?person ?division)
       (and (job ?person (?division . ?position))
            (or (not (supervisor ?person ?boss))

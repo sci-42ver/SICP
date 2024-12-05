@@ -7,6 +7,7 @@
                          (conjoin (rest-conjuncts conjuncts) frame-stream))))
 (put 'and 'qeval conjoin)
 
+;; similar to exercise_codes/SICP/4/4_76.scm
 (define (merge-frame-streams s1 s2)
   (stream-flatmap
    (lambda (frame1)

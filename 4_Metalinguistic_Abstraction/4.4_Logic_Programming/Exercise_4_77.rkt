@@ -34,7 +34,7 @@
 
 (define (find-in-query? var query)
   (cond [(not (pair? query)) #f]
-    [(equal? var query)]
+    [(equal? var query) #t]
     [else (or (find-in-query? var (car query))
               (find-in-query? var (cdr query)))]))
 
@@ -54,6 +54,7 @@
     (cond [(null? exp) vars]
       [(var? exp)
        (if (duplicated-var? exp full-query)
+         ;; only add those vars existing in other conjunction/disjunction's.
          (cons exp vars)
          vars)]
       [(pair? exp)
@@ -71,6 +72,7 @@
 (put 'not 'qeval create-negate-promise) ;; ***
 
 (define (create-lisp-value-promise call frame-stream full-query)
+  ;; (> ?x ...) is not allowed, so implicitly force that we must wait for all vars to get vals.
   (if (filter-already-bound? call frame-stream)
     (lisp-value call frame-stream null)
     (stream-cons (make-filter-promise lisp-value call null)
@@ -110,6 +112,8 @@
       extened-frame
       'failed)))
 
+;;; pass frame-stream and full-query
+;; Only ";; ***" part is modified.
 (define (query-driver-loop)
   (prompt-for-input input-prompt)
   (let ([q (query-syntax-process (read))])
@@ -133,7 +137,6 @@
                                        q)))) ;; ***
        (query-driver-loop)])))
 
-;; pass frame-stream and full-query
 (define (qeval query frame-stream full-query)
   (let ([qproc (get (type query) 'qeval)])
     (if qproc
@@ -150,6 +153,8 @@
         (delay (apply-rules query-pattern frame frame-stream))))) ;; ***
    frame-stream))
 
+;;; These are just small modifications to add full-query
+;; similar to amb modification for continuation
 (define (conjoin conjuncts frame-stream full-query)
   (if (empty-conjunction? conjuncts)
     frame-stream
@@ -189,7 +194,10 @@
    frame-stream))
 
 (define (always-true ignore frame-stream full-query) frame-stream)
+;;;
 
+;;; 0. pass frame-stream arg to get promise from that later.
+;;; 1. also pass full-query when necessary.
 (define (find-assertions pattern frame frame-stream)
   (stream-flatmap
    (lambda (datum) (check-an-assertion datum pattern frame frame-stream)) ;; ***
@@ -225,6 +233,7 @@
                     (apply-a-rule rule pattern frame frame-stream)) ;; ***
                   (fetch-rules pattern frame)))
 
+;;; also pass body to check the maximum number of vars to get vals.
 (define (apply-a-rule rule query-pattern query-frame frame-stream)
   (let ([clean-rule (rename-variables-in rule)])
     (let ([unify-result (unify-match query-pattern
@@ -265,6 +274,7 @@
       [(depends-on? val var frame)
        'failed]
       [else (extend var val frame frame-stream)]))) ;; ***
+;;; 
 
 ;; test from 4.4.3
 (and (not (job ?x (computer programmer)))
