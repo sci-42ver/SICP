@@ -79,7 +79,7 @@
   ((table 'lookup-proc) keys))
 
 ; https://stackoverflow.com/a/57190748/21294350
-(current-directory "/home/czg_arch/SICP_SDF/exercise_codes/SICP/3/")
+(current-directory "/home/hervey_arch/SICP_SDF/exercise_codes/SICP/3/")
 ; https://docs.racket-lang.org/guide/load.html
 (define-namespace-anchor a)
 (parameterize ([current-namespace (namespace-anchor->namespace a)])

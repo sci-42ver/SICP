@@ -130,7 +130,7 @@ Scheme allows us to create new bindings for variables by means of `define`, but 
 
 Eva Lu Ator and Louis Reasoner are each experimenting with the metacircular evaluator. Eva types in the definition of `map`, and runs some test programs that use it. They work fine. Louis, in contrast, has installed the system version of `map` as a primitive for the metacircular evaluator. When he tries it, things go terribly wrong. Explain why Louis’s `map` fails even though Eva’s works.
 
-In our implication of Scheme, a procedure is a list which the first element is an object tells what it is. `(map (lambda (x) (+ 1 x)) (list 1 2))` will transform to `(apply map (list (list 'procedure (list 'x) (+ 1 x) env) (list 1 2)))`, the Scheme implication `map` will complain that's not a valid procedure.
+In our implication of Scheme, a procedure is a list which the first element is an object tells what it is. `(map (lambda (x) (+ 1 x)) (list 1 2))` will transform to `(apply map (list (list 'procedure (list 'x) '((+ 1 x)) env) (list 1 2)))`, the Scheme implication `map` will complain that's not a valid procedure.
 
 ## 4.1.5 Data as Programs
 
